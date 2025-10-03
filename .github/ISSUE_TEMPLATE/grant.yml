@@ -2,7 +2,7 @@ name: Grant
 description: File a bug report.
 title: "[Grant]: "
 labels: ["Grant"]
-projects: ["octo-org/1"]
+projects: ["cedadev/139"]
 assignees:
   - wendygarland
 body:
