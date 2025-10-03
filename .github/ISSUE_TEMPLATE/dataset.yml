@@ -1,7 +1,7 @@
 name: Dataset
 description: Dataset tasks
 title: "[Dataset]: "
-labels: ["Dataset", ]
+labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
   - type: markdown
