@@ -1,0 +1,20 @@
+name: Dataset
+description: Dataset tasks
+title: "[Dataset]: "
+labels: ["Dataset", ]
+projects: ["cedadev/139"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        [] ingest data
+        [] send reminder to data contacnt
+      
+  - type: input
+    id: data_contact
+    attributes:
+      label: Contact Details
+      description: Data contact details
+      placeholder: ex. email@example.com
+    validations:
+      required: false
