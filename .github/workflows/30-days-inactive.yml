@@ -1,10 +1,10 @@
-# This is a test action to check the inactive workflow functionality
+# This workflow labels and comments on issues which have had no activity for 30 days
 # For more information, see: https://github.com/actions/stale
-name: test inactive workflow
+name: 30 days inactive
 
 on:
   schedule:
-  - cron: '00 13 * * *'
+  - cron: '*/10 * * * 1-5'
 
 jobs:
   stale:
@@ -17,8 +17,8 @@ jobs:
     - uses: actions/stale@v10
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue has had no activity for 14 days. Update issue to reset timer.'
+        stale-issue-message: 'This issue has had no activity for 30 days. Update issue to remove label (takes ~15 mins) and reset timer.'
         stale-issue-label: '30 days inactive'
-        days-before-stale: 14
+        days-before-stale: 30
         days-before-close: -1
         remove-stale-when-updated: true
