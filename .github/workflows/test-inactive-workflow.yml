@@ -4,7 +4,7 @@ name: test inactive workflow
 
 on:
   schedule:
-  - cron: '50 12 * * *'
+  - cron: '00 13 * * *'
 
 jobs:
   stale:
@@ -18,7 +18,7 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: 'This issue has had no activity for 14 days. Update issue to reset timer.'
-        stale-issue-label: '14-days-inactive'
+        stale-issue-label: '30 days inactive'
         days-before-stale: 14
         days-before-close: -1
         remove-stale-when-updated: true
