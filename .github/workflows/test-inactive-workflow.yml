@@ -17,7 +17,7 @@ jobs:
     - uses: actions/stale@v10
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue has had no activity for 1 day. Update issue to reset timer.'
+        stale-issue-message: 'This issue has had no activity for 14 days. Update issue to reset timer.'
         stale-issue-label: '14-days-inactive'
         days-before-stale: 14
         days-before-close: -1
