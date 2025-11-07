@@ -4,7 +4,7 @@ name: 30 days inactive
 
 on:
   schedule:
-  - cron: '*/10 * * * 1-5'
+  - cron: '*/60 * * * 1-5'
 
 jobs:
   stale:
@@ -17,7 +17,7 @@ jobs:
     - uses: actions/stale@v10
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue has had no activity for 30 days. Update issue to remove label (takes ~15 mins) and reset timer.'
+        stale-issue-message: 'This issue has had no activity for 30 days. Update issue to remove label on next run and reset timer.'
         stale-issue-label: '30 days inactive'
         days-before-stale: 30
         days-before-close: -1
