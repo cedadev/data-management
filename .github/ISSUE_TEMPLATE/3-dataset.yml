@@ -11,7 +11,7 @@ body:
   - type: input
     id: data_contact_name
     attributes:
-      label: Contact name
+      label: Dataset contact name
       description: Dataset contact name
       placeholder: ex. Name Surname
     validations:
