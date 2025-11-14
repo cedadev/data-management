@@ -1,5 +1,5 @@
 name: Dataset
-description: Add a dataset.
+description: Add a dataset. Only add datasets as sub-issues within a top-level project issue.
 title: "Add dataset working title"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
