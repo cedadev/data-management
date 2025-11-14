@@ -25,6 +25,14 @@ body:
     validations:
       required: false
   - type: input
+    id: dataset_format
+    attributes:
+      label: Dataset format
+      description: Expected format of the dataset.
+      placeholder: ex. netCDF, BADC-CSV, GeoTIFF
+    validations:
+      required: false
+  - type: input
     id: dataset_volume
     attributes:
       label: Dataset volume
