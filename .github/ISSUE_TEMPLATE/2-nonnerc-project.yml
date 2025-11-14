@@ -1,9 +1,8 @@
 name: non-NERC project
 description: Add a non-NERC project.
-title: 
+title: ""
 labels: ["Project"]
 projects: ["cedadev/139"]
-assignees: 
 body:
   - type: markdown
     attributes:
@@ -12,7 +11,7 @@ body:
   - type: input
     id: abstract
     attributes:
-#      label: Project abstract
+      label: Project abstract
       description: Short description of the project.
       placeholder: ...
     validations:
@@ -22,7 +21,7 @@ body:
   - type: input
     id: helpscout_link
     attributes:
-#      label: Help Scout link
+      label: Help Scout link
       description: Link to HelpScout conversation.
       placeholder: ex. https://secure.helpscout.net/conversation/xxxx
     validations:
@@ -30,7 +29,7 @@ body:
   - type: input
     id: dsw_link
     attributes:
-#      label: DSW link
+      label: DSW link
       description: Link to DSW project.
       placeholder: ex. https://nerceds.fair-wizard.com/wizard/projects/xxxx
     validations:

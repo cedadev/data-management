@@ -1,18 +1,17 @@
 name: NERC grant
 description: Add a NERC grant.
-title: 
+title: ""
 labels: ["Project"]
 projects: ["cedadev/139"]
-assignees: 
 body:
   - type: markdown
     attributes:
       value: |
         Fill in the details below to add to the issue now, or leave blank to add later.
-  - type: input
+  - type: textarea
     id: abstract
     attributes:
-#      label: Project abstract
+      label: Project abstract
       description: Short description of the project.
       placeholder: Briefly describe the project
     validations:
@@ -20,7 +19,7 @@ body:
   - type: input
     id: datamad_link
     attributes:
-#      label: DataMad link
+      label: DataMad link
       description: Link to DataMad page.
       placeholder: ex. https://datamad.ceda.ac.uk/grant/xxxx
     validations:
@@ -28,7 +27,7 @@ body:
   - type: input
     id: helpscout_link
     attributes:
-#      label: Help Scout link
+      label: Help Scout link
       description: Link to HelpScout conversation.
       placeholder: ex. https://secure.helpscout.net/conversation/xxxx
     validations:
@@ -36,7 +35,7 @@ body:
   - type: input
     id: dsw_link
     attributes:
-#      label: DSW link
+      label: DSW link
       description: Link to DSW project.
       placeholder: ex. https://nerceds.fair-wizard.com/wizard/projects/xxxx
     validations:
