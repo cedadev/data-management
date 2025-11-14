@@ -25,18 +25,18 @@ body:
     validations:
       required: false
   - type: input
-    id: dataset_description
-    attributes:
-      label: Dataset description
-      description: Short description of the datset.
-      placeholder: ...
-    validations:
-      required: false
-  - type: input
     id: dataset_volume
     attributes:
       label: Dataset volume
       description: Expected volume of the dataset.
       placeholder: ex. 10 TB
+    validations:
+      required: false
+  - type: input
+    id: dataset_description
+    attributes:
+      label: Dataset description
+      description: Short description of the datset.
+      placeholder: ...
     validations:
       required: false

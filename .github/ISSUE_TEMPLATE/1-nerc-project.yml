@@ -8,14 +8,6 @@ body:
     attributes:
       value: |
         Fill in the details below to add to the issue now, or leave blank to add later.
-  - type: textarea
-    id: project_description
-    attributes:
-      label: Project description
-      description: Project abstract from DataMad.
-      placeholder: ...
-    validations:
-      required: false
   - type: input
     id: datamad_link
     attributes:
@@ -38,5 +30,13 @@ body:
       label: DSW
       description: Link to DSW project.
       placeholder: ex. https://nerceds.fair-wizard.com/wizard/projects/xxxx
+    validations:
+      required: false
+  - type: textarea
+    id: project_description
+    attributes:
+      label: Project description
+      description: Project description from DataMad.
+      placeholder: ...
     validations:
       required: false
