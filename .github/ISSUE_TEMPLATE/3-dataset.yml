@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Fill in the details below to add to the issue now, or leave blank to add later.
+        This form populates the body of the sub-issue. Additional fields are available once the sub-issue is open. Leave any section blank to add later.
   - type: input
     id: data_contact_name
     attributes:
