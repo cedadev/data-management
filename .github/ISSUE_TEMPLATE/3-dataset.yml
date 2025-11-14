@@ -1,16 +1,15 @@
 name: Dataset
 description: Add a dataset.
-title: ""
+title: "Add dataset working title"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
   - type: markdown
     attributes:
       value: |
-        [] ingest data
-        [] send reminder to data contacnt
+        Fill in the details below to add to the issue now, or leave blank to add later.
   - type: input
-    id: data_contact
+    id: data_contact_name
     attributes:
       label: Contact name
       description: Dataset contact name
@@ -18,7 +17,7 @@ body:
     validations:
       required: false
   - type: input
-    id: data_contact
+    id: data_contact_email
     attributes:
       label: Contact name
       description: Dataset contact name

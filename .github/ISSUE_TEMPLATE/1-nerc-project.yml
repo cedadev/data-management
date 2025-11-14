@@ -1,6 +1,6 @@
 name: NERC grant
 description: Add a NERC grant.
-title: ""
+title: "Add grant title"
 labels: ["Project"]
 projects: ["cedadev/139"]
 body:

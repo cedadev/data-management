@@ -1,6 +1,6 @@
 name: non-NERC project
 description: Add a non-NERC project.
-title: ""
+title: "Add project title"
 labels: ["Project"]
 projects: ["cedadev/139"]
 body:
@@ -16,8 +16,6 @@ body:
       placeholder: ...
     validations:
       required: false
-  - type: input
-    id: datamad_link
   - type: input
     id: helpscout_link
     attributes:
