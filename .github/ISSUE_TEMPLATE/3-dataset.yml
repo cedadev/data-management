@@ -19,13 +19,13 @@ body:
   - type: input
     id: data_contact_email
     attributes:
-      label: Contact name
-      description: Dataset contact name
+      label: Datset contact email
+      description: Dataset contact email
       placeholder: ex. email@example.com
     validations:
       required: false
   - type: input
-    id: dataset_link
+    id: dataset_description
     attributes:
       label: Dataset description
       description: Short description of the datset.
