@@ -1,6 +1,6 @@
 name: Dataset
-description: Dataset tasks
-title: "[Dataset]: "
+description: Add a dataset.
+title: 
 labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
@@ -9,12 +9,35 @@ body:
       value: |
         [] ingest data
         [] send reminder to data contacnt
-      
   - type: input
     id: data_contact
     attributes:
-      label: Contact Details
-      description: Data contact details
+#      label: Contact name
+      description: Dataset contact name
+      placeholder: ex. Name Surname
+    validations:
+      required: false
+  - type: input
+    id: data_contact
+    attributes:
+#      label: Contact name
+      description: Dataset contact name
       placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: input
+    id: dataset_link
+    attributes:
+#      label: Dataset description
+      description: Short description of the datset.
+      placeholder: ...
+    validations:
+      required: false
+  - type: input
+    id: dataset_volume
+    attributes:
+#      label: Dataset volume
+      description: Expected volume of the dataset.
+      placeholder: ex. 10 TB
     validations:
       required: false

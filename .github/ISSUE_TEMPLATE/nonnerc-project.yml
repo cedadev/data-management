@@ -1,0 +1,37 @@
+name: non-NERC project
+description: Add a non-NERC project.
+title: 
+labels: ["Project"]
+projects: ["cedadev/139"]
+assignees: 
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill in the details below to add to the issue now, or leave blank to add later.
+  - type: input
+    id: abstract
+    attributes:
+#      label: Project abstract
+      description: Short description of the project.
+      placeholder: ...
+    validations:
+      required: false
+  - type: input
+    id: datamad_link
+  - type: input
+    id: helpscout_link
+    attributes:
+#      label: Help Scout link
+      description: Link to HelpScout conversation.
+      placeholder: ex. https://secure.helpscout.net/conversation/xxxx
+    validations:
+      required: false
+  - type: input
+    id: dsw_link
+    attributes:
+#      label: DSW link
+      description: Link to DSW project.
+      placeholder: ex. https://nerceds.fair-wizard.com/wizard/projects/xxxx
+    validations:
+      required: false
