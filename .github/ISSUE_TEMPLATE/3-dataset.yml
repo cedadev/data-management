@@ -4,47 +4,23 @@ title: "Add dataset working title"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
+
   - type: markdown
     attributes:
       value: |
-        This form populates the body of the sub-issue. Additional fields are available once the sub-issue is open. Leave any section blank to add later.
-  - type: input
-    id: data_contact_name
+        Create a dataset sub-issue by adding a title above, and filling in the details below (or leave blank to add these later). 
+        Additional fields are available once the sub-issue is open.
+
+  - type: textarea
     attributes:
-      label: Dataset contact name
-      description: Dataset contact name
-      placeholder: ex. Name Surname
-    validations:
-      required: false
-  - type: input
-    id: data_contact_email
-    attributes:
-      label: Datset contact email
-      description: Dataset contact email
-      placeholder: ex. email@example.com
-    validations:
-      required: false
-  - type: input
-    id: dataset_format
-    attributes:
-      label: Dataset format
-      description: Expected format of the dataset.
-      placeholder: ex. netCDF, BADC-CSV, GeoTIFF
-    validations:
-      required: false
-  - type: input
-    id: dataset_volume
-    attributes:
-      label: Dataset volume
-      description: Expected volume of the dataset.
-      placeholder: ex. 10 TB
-    validations:
-      required: false
-  - type: input
-    id: dataset_description
-    attributes:
-      label: Dataset description
-      description: Short description of the datset.
-      placeholder: ...
+      label: Issue details
+      value: |
+        **Dataset contact name:** _paste text here_
+        **Datset contact email:** _paste text here_
+        **File format:** _paste text here_
+        **Expected volume:** _paste text here_
+
+        **Dataset description:**
+        _paste text here_
     validations:
       required: false

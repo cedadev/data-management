@@ -13,7 +13,7 @@ body:
 
   - type: textarea
     attributes:
-      label: Project details
+      label: Issue details
       value: |
         **DataMad:** _paste link here_
         **Help Scout:** _paste link here_

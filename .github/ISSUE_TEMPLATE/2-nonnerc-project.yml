@@ -4,31 +4,21 @@ title: "Add project title"
 labels: ["Project"]
 projects: ["cedadev/139"]
 body:
+
   - type: markdown
     attributes:
       value: |
-        This form populates the body of the issue. Additional fields are available once the issue is open. Leave any section blank to add later.
-  - type: input
-    id: helpscout_link
-    attributes:
-      label: Help Scout
-      description: Link to HelpScout conversation.
-      placeholder: ex. https://secure.helpscout.net/conversation/xxxx
-    validations:
-      required: false
-  - type: input
-    id: dsw_link
-    attributes:
-      label: DSW
-      description: Link to DSW project.
-      placeholder: ex. https://nerceds.fair-wizard.com/wizard/projects/xxxx
-    validations:
-      required: false
+        Create a new issue by adding a title above, and filling in the details below (or leave blank to add these later). 
+        Additional fields are available once the issue is open.
+
   - type: textarea
-    id: project_description
     attributes:
-      label: Project description
-      description: Short description of the project.
-      placeholder: ...
+      label: Issue details
+      value: |
+        **Help Scout:** _paste link here_
+        **DSW:** _paste link here_
+
+        **Description:**
+        _paste text here_
     validations:
       required: false
