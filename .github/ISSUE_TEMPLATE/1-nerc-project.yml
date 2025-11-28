@@ -3,10 +3,18 @@ description: Add a NERC grant.
 title: "Add grant title"
 labels: ["Project"]
 projects: ["cedadev/139"]
-body: |
-  **DataMad:** _add link here_ 
-  **Help Scout:** _add link here_ 
-  **DSW:** _add link here_ 
+body:
 
-  **Description:**  
-  _add description here_
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to create a new issue. Add the grant title (NERC ref:Title), and paste the project description below (or leave blank to add later). Additional fields are available once the issue is open.
+
+  - type: textarea
+    id: Description
+    attributes:
+      label: Description
+      description: Project description from DataMad.
+      placeholder: ...
+    validations:
+      required: false
