@@ -8,7 +8,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this form to create a new issue. Add the grant title (NERC ref:Title), and paste the project description below (or leave blank to add later). Additional fields are available once the issue is open.
+        Use this form to create a new issue. 
+        Add the grant title above (NERC ref:Title), and paste the project details below (or leave blank to add later). 
+        Additional fields are available once the issue is open.
 
   - type: textarea
     id: Description
@@ -16,5 +18,25 @@ body:
       label: Description
       description: Project description from DataMad.
       placeholder: ...
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: body_text
+      description: |
+        **DataMad:** https://datamad.ceda.ac.uk/grant/xxxx
+        **Help Scout:** https://secure.helpscout.net/conversation/xxxx
+        **DSW:** https://nerceds.fair-wizard.com/wizard/projects/xxxx
+      value: |
+        **DataMad:**
+        <br/>
+        **Help Scout:**
+        <br/>
+        **DSW:**
+        <br/>
+        <br/>
+        **Description:**<br/>
+      render: markdown
     validations:
       required: false
