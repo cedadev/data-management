@@ -8,8 +8,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        ✨ Create a new issue by adding a title above, and filling in the details below (or leave blank to add these later). 
-        🌱 Additional fields are available once the issue is open.
+        ✨ Create a new issue by adding a title above
+        📝 Fill in the details below (or leave as is to edit later)
+        🌱 Additional fields are available once the issue is open
 
   - type: textarea
     attributes:
