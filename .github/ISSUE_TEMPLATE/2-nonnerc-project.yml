@@ -1,6 +1,6 @@
 name: non-NERC project
 description: Add a non-NERC project.
-title: "Add project title"
+title: "<e.g. Project ref:Title)>"
 labels: ["Project"]
 projects: ["cedadev/139"]
 body:
@@ -16,11 +16,11 @@ body:
     attributes:
       label: Issue details
       value: |
-        **Project webpage (?):** _e.g. datamad.ceda.ac.uk/grant/xxxx_
-        **Help Scout:** _e.g. helpscout.net/conversation/xxxx_
-        **DSW (?):** _e.g. nerceds.fair-wizard.com/projects/xxxx_
+        **Project webpage (?):** _<e.g. datamad.ceda.ac.uk/grant/xxxx>_
+        **Help Scout:** _<e.g. helpscout.net/conversation/xxxx>_
+        **DSW (?):** _<e.g. nerceds.fair-wizard.com/projects/xxxx>_
 
         **Description:**
-        _Short description of the project_
+        _<Short description of the project>_
     validations:
       required: false

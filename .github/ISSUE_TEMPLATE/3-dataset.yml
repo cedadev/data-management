@@ -1,6 +1,6 @@
 name: Dataset
 description: Add a dataset. Only add datasets as sub-issues within a NERC grant or non-NERC project.
-title: "Add dataset working title"
+title: "<e.g. NERC ref:Working title of dataset)>"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
@@ -16,12 +16,12 @@ body:
     attributes:
       label: Issue details
       value: |
-        **Dataset contact name:** _e.g. Contact Name_
-        **Datset contact email:** _e.g. email@example.com_
-        **File format:** _e.g. netCDF, BADC-CSV_
-        **Expected volume:** _e.g. 10TB_
+        **Dataset contact name:** _<e.g. Contact Name>_
+        **Datset contact email:** _<e.g. email@example.com>_
+        **File format:** _<e.g. netCDF, BADC-CSV>_
+        **Expected volume:** _<e.g. 10TB>_
 
         **Dataset description:**
-        _Short description of the dataset_
+        _<Short description of the dataset>_
     validations:
       required: false

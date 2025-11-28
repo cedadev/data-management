@@ -1,6 +1,6 @@
 name: NERC grant
 description: Add a NERC grant.
-title: "<Add grant title here (e.g. NERC ref:Title)>"
+title: "<e.g. NERC ref:Title)>"
 labels: ["Project"]
 projects: ["cedadev/139"]
 body:
@@ -16,11 +16,11 @@ body:
     attributes:
       label: Issue details
       value: |
-        **DataMad:** _e.g. datamad.ceda.ac.uk/grant/xxxx_
-        **Help Scout:** _e.g. helpscout.net/conversation/xxxx_
-        **DSW:** _e.g. nerceds.fair-wizard.com/projects/xxxx_
+        **DataMad:** _<e.g. datamad.ceda.ac.uk/grant/xxxx>_
+        **Help Scout:** _<e.g. helpscout.net/conversation/xxxx>_
+        **DSW:** _<e.g. nerceds.fair-wizard.com/projects/xxxx>_
 
         **Description:**
-        _Project description from DataMad_
+        _<Project description from DataMad>_
     validations:
       required: false
