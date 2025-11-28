@@ -3,14 +3,10 @@ description: Add a NERC grant.
 title: "Add grant title"
 labels: ["Project"]
 projects: ["cedadev/139"]
-body:
+body: |
+  **DataMad:** _add link here_ 
+  **Help Scout:** _add link here_ 
+  **DSW:** _add link here_ 
 
-- type: markdown
-  attributes:
-    value: |
-      **DataMad:** _paste link here_
-      **Help Scout:** _paste link here_
-      **DSW:** _paste link here_
-
-      **Description:**
-      _paste text here_
+  **Description:**  
+  _add description here_
