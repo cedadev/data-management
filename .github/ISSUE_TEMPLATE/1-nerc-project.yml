@@ -15,11 +15,11 @@ body:
     attributes:
       label: Project details
       value: |
-        **DataMad:**
-        **Help Scout:**
-        **DSW:**
+        **DataMad:** _paste link here_
+        **Help Scout:** _paste link here_
+        **DSW:** _paste link here_
 
         **Description:**
-      render: markdown
+        _paste text here_
     validations:
       required: false
