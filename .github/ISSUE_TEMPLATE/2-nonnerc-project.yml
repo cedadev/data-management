@@ -1,6 +1,6 @@
 name: non-NERC project
 description: Add a non-NERC project.
-title: "<e.g. Project ref:Title)>"
+title: "<e.g. Project ref:Title>"
 labels: ["Project"]
 projects: ["cedadev/139"]
 body:

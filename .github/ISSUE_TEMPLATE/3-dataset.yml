@@ -1,6 +1,6 @@
 name: Dataset
 description: Add a dataset. Only add datasets as sub-issues within a NERC grant or non-NERC project.
-title: "<e.g. NERC ref:Working title of dataset)>"
+title: "<e.g. NERC ref:Working title of dataset>"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
