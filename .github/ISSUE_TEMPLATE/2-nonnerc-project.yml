@@ -16,10 +16,11 @@ body:
     attributes:
       label: Issue details
       value: |
-        **Help Scout:** _paste link here_
-        **DSW:** _paste link here_
+        **Project webpage (?):** _e.g. datamad.ceda.ac.uk/grant/xxxx_
+        **Help Scout:** _e.g. helpscout.net/conversation/xxxx_
+        **DSW (?):** _e.g. nerceds.fair-wizard.com/projects/xxxx_
 
         **Description:**
-        _paste text here_
+        _Short description of the project_
     validations:
       required: false

@@ -16,12 +16,12 @@ body:
     attributes:
       label: Issue details
       value: |
-        **Dataset contact name:** _paste text here_
-        **Datset contact email:** _paste text here_
-        **File format:** _paste text here_
-        **Expected volume:** _paste text here_
+        **Dataset contact name:** _e.g. Contact Name_
+        **Datset contact email:** _e.g. email@example.com_
+        **File format:** _e.g. netCDF, BADC-CSV_
+        **Expected volume:** _e.g. 10TB_
 
         **Dataset description:**
-        _paste text here_
+        _Short description of the dataset_
     validations:
       required: false
