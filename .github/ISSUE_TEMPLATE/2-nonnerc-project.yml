@@ -14,7 +14,7 @@ body:
 
   - type: textarea
     attributes:
-      label: Issue details
+      label: Project details
       value: |
         **Project webpage (?):** _<e.g. datamad.ceda.ac.uk/grant/xxxx>_
         **Help Scout:** _<e.g. helpscout.net/conversation/xxxx>_
