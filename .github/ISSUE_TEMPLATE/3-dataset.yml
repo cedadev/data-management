@@ -14,7 +14,7 @@ body:
 
   - type: textarea
     attributes:
-      label: Issue details
+      label: Dataset details
       value: |
         **Dataset contact name:** _<e.g. Contact Name>_
         **Datset contact email:** _<e.g. email@example.com>_
