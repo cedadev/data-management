@@ -17,7 +17,7 @@ jobs:
     - uses: actions/stale@v10
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue has had no activity for 30 days. Update issue to remove label on next run and reset timer.'
+        stale-issue-message: 'This project or dataset has had no activity for 30 days. Remove label by deselecting it within the issue (label is removed immediately) or updating the issue (label is auto-removed overnight).'
         stale-issue-label: '30 days inactive'
         days-before-stale: 30
         days-before-close: -1
