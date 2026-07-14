@@ -24,8 +24,7 @@ body:
       required: false
 
   - type: checkboxes
-    attributes:
-          value: |	 
+    attributes:	 
           label: Checklist for tasks 
           options:
             - label: CEDA - Check data format and data integrity
