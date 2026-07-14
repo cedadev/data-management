@@ -1,5 +1,5 @@
 name: CCI Dataset
-description: Add a dataset. 
+description: Add a CCI dataset. 
 title: "<e.g. CCI project: product description and version>"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
@@ -16,8 +16,6 @@ body:
     attributes:
       label: Dataset details
       value: |
-
-
         **Dataset description:**
         _<Short description of the dataset>_
     validations:
