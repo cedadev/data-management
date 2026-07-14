@@ -4,8 +4,7 @@ title: "<e.g. CCI project: product title and version>"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
-
-  - type: markdown
+- type: markdown
     attributes:
       value: |
         ✨ Create a new dataset sub-issue by adding a title above
