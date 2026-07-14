@@ -11,14 +11,14 @@ body:
         📝 Fill in the details below (or leave as is to edit later)
         🌱 Additional fields are available once the sub-issue is open
 
-  - type: textarea
+- type: textarea
     attributes:
       label: Dataset details
       value: |
         **Dataset description:**
         _<Short description of the dataset>_
 
-  - type: checkboxes
+ - type: checkboxes
   attributes: 
       label: Checklist for tasks 
       options:
