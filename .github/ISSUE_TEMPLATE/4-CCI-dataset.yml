@@ -1,4 +1,4 @@
-name: Dataset
+name: CCI Dataset
 description: Add a dataset. 
 title: "<e.g. CCI project: product description and version>"
 labels: ["Dataset"]
