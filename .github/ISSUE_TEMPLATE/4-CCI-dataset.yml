@@ -1,22 +1,27 @@
-name: CCI Dataset
-description: Datasets from the CCI project. 
-title: "<e.g. CCI project: product title and version>"
+name: Dataset
+description: Add a dataset. 
+title: "<e.g. CCI project: product description and version>"
 labels: ["Dataset"]
 projects: ["cedadev/139"]
 body:
-- type: markdown
+
+  - type: markdown
     attributes:
       value: |
         ✨ Create a new dataset sub-issue by adding a title above
         📝 Fill in the details below (or leave as is to edit later)
         🌱 Additional fields are available once the sub-issue is open
 
-- type: textarea
+  - type: textarea
     attributes:
       label: Dataset details
       value: |
+
+
         **Dataset description:**
         _<Short description of the dataset>_
+    validations:
+      required: false
 
  - type: checkboxes
   attributes: 
@@ -40,6 +45,3 @@ body:
         - label: CEDA: Inform data provider (and ESA) when data published on the ODP
         - label: CEDA: notify CCI comms team that dataset published on the ODP
         - label: CEDA: Create Kerchunk/Zarr file
-        
-    validations:
-      required: false
