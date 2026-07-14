@@ -28,21 +28,21 @@ body:
           value: |	 
           label: Checklist for tasks 
           options:
-          - label: CEDA - Check data format and data integrity
-          - label: CEDA - Email data provider if any file metadata issues found
-          - label: Data provider -  Provide corrected dataset (if issues were found)
-          - label: CEDA - Download data
-          - label: CEDA - Create/clone catalogue record
-          - label: CEDA - Email data provider to provide feedback on catalogue record
-          - label: Data provider - provide feedback on catalogue record
-          - label: CEDA - Submit catalogue record for CEDA internal review
-          - label: CEDA - Ingest data into CEDA archive
-          - label: CEDA - Check data has ingested correctly
-          - label: CEDA - Publish data on the CEDA archive
-          - label: CEDA - Mint DOI (if requested/required)
-          - label: CEDA - Tag dataset
-          - label: CEDA - Publish dataset on CCI ODP
-          - label: CEDA - Check data is available by different download/access methods
-          - label: CEDA - Inform data provider (and ESA) when data published on the ODP
-          - label: CEDA - notify CCI comms team that dataset published on the ODP
-          - label: CEDA - Create Kerchunk/Zarr file
+            - label: CEDA - Check data format and data integrity
+            - label: CEDA - Email data provider if any file metadata issues found
+            - label: Data provider -  Provide corrected dataset (if issues were found)
+            - label: CEDA - Download data
+            - label: CEDA - Create/clone catalogue record
+            - label: CEDA - Email data provider to provide feedback on catalogue record
+            - label: Data provider - provide feedback on catalogue record
+            - label: CEDA - Submit catalogue record for CEDA internal review
+            - label: CEDA - Ingest data into CEDA archive
+            - label: CEDA - Check data has ingested correctly
+            - label: CEDA - Publish data on the CEDA archive
+            - label: CEDA - Mint DOI (if requested/required)
+            - label: CEDA - Tag dataset
+            - label: CEDA - Publish dataset on CCI ODP
+            - label: CEDA - Check data is available by different download/access methods
+            - label: CEDA - Inform data provider (and ESA) when data published on the ODP
+            - label: CEDA - notify CCI comms team that dataset published on the ODP
+            - label: CEDA - Create Kerchunk/Zarr file
