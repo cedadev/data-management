@@ -1,4 +1,4 @@
-# CEDA NERC grants data management tracking
+# NERC grants data management tracking
 
 ## Purpose
 This project supports effective data management for NERC grants, providing a central place to:
