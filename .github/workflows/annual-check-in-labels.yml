@@ -4,7 +4,7 @@ name: annual check-in labels
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '39 15 * * *'
   workflow_dispatch:
 
 jobs:
