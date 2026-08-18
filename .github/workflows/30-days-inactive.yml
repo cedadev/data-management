@@ -1,5 +1,6 @@
 # This workflow labels and comments on issues which have had no activity for 30 days
 # For more information, see: https://github.com/actions/stale
+
 name: 30 days inactive
 
 on:
@@ -17,7 +18,7 @@ jobs:
     - uses: actions/stale@v10
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This project or dataset has had no activity for 30 days. Remove label by deselecting it within the issue (label is removed immediately) or updating the issue (label is auto-removed overnight).'
+        #stale-issue-message: 'This project or dataset has had no activity for 30 days. Remove label by deselecting it within the issue (label is removed immediately) or updating the issue (label is auto-removed overnight).'
         stale-issue-label: '30 days inactive'
         days-before-stale: 30
         days-before-close: -1
