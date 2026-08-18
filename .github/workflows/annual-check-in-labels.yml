@@ -1,0 +1,60 @@
+# This workflow adds annual check-in labels based on issue creation date
+
+name: annual check-in labels
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Add annual check-in labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const checkInDays = [365, 730, 1095];
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              per_page: 100
+            });
+
+            for (const issue of issues) {
+              const created = new Date(issue.created_at);
+              const now = new Date();
+
+              const ageDays = Math.floor(
+                (now.getTime() - created.getTime()) /
+                (1000 * 60 * 60 * 24)
+              );
+
+              const hasCheckInLabel = issue.labels.some(
+                label => label.name === "Annual check-in due"
+              );
+
+              const isCheckInDue = checkInDays.some(
+                d => ageDays >= d && ageDays < d + 1
+              );
+
+              if (isCheckInDue && !hasCheckInLabel) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ["Annual check-in due"]
+                });
+
+                console.log(
+                  `Added 'Annual check-in due' to issue #${issue.number} (${ageDays} days old)`
+                );
+              }
+            }
