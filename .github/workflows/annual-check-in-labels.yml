@@ -1,10 +1,10 @@
-# This workflow adds annual check-in labels based on issue creation date
+# This workflow adds annual check-in labels based on issue creation date and notifies assignees when a label is added
 
 name: annual check-in labels
 
 on:
   schedule:
-    - cron: '44 15 * * *'
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       issues: write
 
     steps:
-      - name: Add annual check-in labels
+      - name: Add annual check-in labels and notify assignees
         uses: actions/github-script@v7
         with:
           script: |
@@ -53,8 +53,21 @@ jobs:
                   labels: ["Annual check-in due"]
                 });
 
+                const mentions = issue.assignees
+                  .map(a => `@${a.login}`)
+                  .join(" ");
+
+                if (mentions) {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    body: `${mentions}\nThis issue has been labelled \`Annual check-in due\`.`
+                  });
+                }
+
                 console.log(
-                  `Added 'Annual check-in due' to issue #${issue.number} (${ageDays} days old)`
+                  `Added label and notified assignees for issue #${issue.number}`
                 );
               }
             }
