@@ -1,0 +1,33 @@
+# This workflow comments on issues @assignee when any label is applied
+
+name: notify assignee on label
+
+on:
+  issues:
+    types:
+      - labeled
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Build assignee mentions
+        id: mentions
+        run: |
+          MENTIONS=$(jq -r '.issue.assignees[].login' "$GITHUB_EVENT_PATH" | sed 's/^/@/' | tr '\n' ' ')
+          echo "mentions=$MENTIONS" >> "$GITHUB_OUTPUT"
+
+      - name: Add comment
+        if: steps.mentions.outputs.mentions != ''
+        run: gh issue comment "$NUMBER" --body "$BODY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          BODY: >
+            ${{ steps.mentions.outputs.mentions }}
+            This issue has been labelled `${{ github.event.label.name }}`.
