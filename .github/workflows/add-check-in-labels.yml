@@ -5,7 +5,7 @@ name: add check-in labels
 on:
   schedule:
     #- cron: "0 6 * * *" # Daily at 06:00 UTC
-    - cron: "21 15 * * *"
+    - cron: "28 15 * * *"
   workflow_dispatch:
 
 permissions:
