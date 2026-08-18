@@ -1,0 +1,187 @@
+# This workflow adds check-in labels based on issue age
+
+name: add check-in labels
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # Daily at 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  repository-projects: read
+
+jobs:
+  apply-labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check issues and apply labels
+        uses: actions/github-script@v7
+        env:
+          PROJECT_ID: ${{ vars.PROJECT_ID }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const MS_PER_DAY = 1000 * 60 * 60 * 24;
+            const today = new Date();
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            // Get all open issues
+            const issues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                owner,
+                repo,
+                state: "open",
+                per_page: 100
+              }
+            );
+
+            // Get all Project v2 items with pagination
+            const projectItems = [];
+
+            if (process.env.PROJECT_ID) {
+              let hasNextPage = true;
+              let endCursor = null;
+
+              while (hasNextPage) {
+                const projectResult = await github.graphql(
+                  `
+                  query($projectId: ID!, $cursor: String) {
+                    node(id: $projectId) {
+                      ... on ProjectV2 {
+                        items(first: 100, after: $cursor) {
+                          nodes {
+                            content {
+                              ... on Issue {
+                                id
+                                number
+                              }
+                            }
+                            fieldValues(first: 50) {
+                              nodes {
+                                ... on ProjectV2ItemFieldDateValue {
+                                  date
+                                  field {
+                                    ... on ProjectV2FieldCommon {
+                                      name
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          pageInfo {
+                            hasNextPage
+                            endCursor
+                          }
+                        }
+                      }
+                    }
+                  }
+                  `,
+                  {
+                    projectId: process.env.PROJECT_ID,
+                    cursor: endCursor
+                  }
+                );
+
+                const items = projectResult.node.items;
+
+                projectItems.push(...items.nodes);
+
+                hasNextPage = items.pageInfo.hasNextPage;
+                endCursor = items.pageInfo.endCursor;
+              }
+            }
+
+            // Map issue number -> Project end date
+            const projectEndDates = new Map();
+
+            for (const item of projectItems) {
+              if (!item.content?.number) continue;
+
+              const projectEndField = item.fieldValues.nodes.find(
+                f =>
+                  f.field?.name === "Project end" &&
+                  f.date
+              );
+
+              if (projectEndField) {
+                projectEndDates.set(
+                  item.content.number,
+                  projectEndField.date
+                );
+              }
+            }
+
+            for (const issue of issues) {
+              const createdAt = new Date(issue.created_at);
+              const ageDays = Math.floor(
+                (today - createdAt) / MS_PER_DAY
+              );
+
+              // Annual check-ins at approximately 1, 2 and 3 years
+              if (
+                [365, 730, 1095].some(
+                  target => Math.abs(ageDays - target) <= 1
+                )
+              ) {
+                if (
+                  !issue.labels.some(
+                    label => label.name === "Annual check-in due"
+                  )
+                ) {
+                  await github.rest.issues.addLabels({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    labels: ["Annual check-in due"]
+                  });
+
+                  console.log(
+                    `Added Annual check-in due to issue #${issue.number}`
+                  );
+                }
+              }
+
+              // Six months before Project end date
+              const projectEnd = projectEndDates.get(issue.number);
+
+              if (projectEnd) {
+                const endDate = new Date(projectEnd);
+
+                const sixMonthsBefore = new Date(endDate);
+                sixMonthsBefore.setMonth(
+                  sixMonthsBefore.getMonth() - 6
+                );
+
+                const diffDays = Math.abs(
+                  Math.floor(
+                    (today - sixMonthsBefore) / MS_PER_DAY
+                  )
+                );
+
+                if (diffDays <= 1) {
+                  if (
+                    !issue.labels.some(
+                      label => label.name === "6-month check-in due"
+                    )
+                  ) {
+                    await github.rest.issues.addLabels({
+                      owner,
+                      repo,
+                      issue_number: issue.number,
+                      labels: ["6-month check-in due"]
+                    });
+
+                    console.log(
+                      `Added 6-month check-in due to issue #${issue.number}`
+                    );
+                  }
+                }
+              }
+            }
