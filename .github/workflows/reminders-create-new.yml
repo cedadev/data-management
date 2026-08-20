@@ -1,6 +1,6 @@
 # This workflow checks for and creates new reminders entered as "/remind [who] [what] [when]" in issue comments
 
-name: create reminder
+name: create new reminder
 
 permissions:
   issues: write
