@@ -19,7 +19,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const checkInDays = [365, 730, 1095];
+            const checkInDays = [38, 365, 730, 1095];
 
             const { data: issues } = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
@@ -62,7 +62,7 @@ jobs:
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: issue.number,
-                    body: `${mentions}\nThis issue has been labelled \`Annual check-in due\`.`
+                    body: `${mentions} This grant is due an annual check-in. Email the PI (there's a saved reply!) then manually remove the check-in label on this issue.`
                   });
                 }
 
