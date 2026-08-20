@@ -14,5 +14,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: check for reminder
+      - name: check for and create new reminders
         uses: agrc/create-reminder-action@v1
