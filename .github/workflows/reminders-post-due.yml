@@ -1,6 +1,6 @@
 # This workflow checks for due reminders and posts a comment to notify issue assignees
 
-name: post reminder
+name: post due reminder
 
 on:
   schedule:
