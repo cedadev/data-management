@@ -4,7 +4,7 @@ name: annual check-in labels for issues with pre-delivery comms status
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -14,39 +14,55 @@ jobs:
     permissions:
       issues: write
       contents: read
+      repository-projects: read
+
+    env:
+      PROJECT_ID: ${{ secrets.PROJECT_V2_ID }}
 
     steps:
       - name: add annual check-in labels and notify assignees
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.PROJECT_PAT }}
           script: |
-            const checkInDays = [37, 365, 730, 1095];
+            const checkInDays = [36, 365, 730, 1095];
 
-            const { data: issues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: "open",
-              per_page: 100
-            });
-
-            for (const issue of issues) {
-
-              // Find the project's Status field value
-              const projectData = await github.graphql(`
-                query($owner: String!, $repo: String!, $number: Int!) {
-                  repository(owner: $owner, name: $repo) {
-                    issue(number: $number) {
-                      projectItems(first: 20) {
-                        nodes {
-                          fieldValues(first: 20) {
-                            nodes {
-                              ... on ProjectV2ItemFieldSingleSelectValue {
-                                name
-                                field {
-                                  ... on ProjectV2SingleSelectField {
-                                    name
-                                  }
+            const query = `
+              query($projectId: ID!) {
+                node(id: $projectId) {
+                  ... on ProjectV2 {
+                    items(first: 100) {
+                      nodes {
+                        fieldValues(first: 20) {
+                          nodes {
+                            ... on ProjectV2ItemFieldSingleSelectValue {
+                              name
+                              field {
+                                ... on ProjectV2SingleSelectField {
+                                  name
                                 }
+                              }
+                            }
+                          }
+                        }
+                        content {
+                          ... on Issue {
+                            repository {
+                              owner {
+                                login
+                              }
+                              name
+                            }
+                            number
+                            createdAt
+                            labels(first: 100) {
+                              nodes {
+                                name
+                              }
+                            }
+                            assignees(first: 20) {
+                              nodes {
+                                login
                               }
                             }
                           }
@@ -55,35 +71,34 @@ jobs:
                     }
                   }
                 }
-              `, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                number: issue.number
-              });
-
-              let status = null;
-
-              const projectItems =
-                projectData.repository.issue.projectItems.nodes || [];
-
-              for (const item of projectItems) {
-                for (const fieldValue of item.fieldValues.nodes || []) {
-                  if (
-                    fieldValue.field?.name === "Status"
-                  ) {
-                    status = fieldValue.name;
-                    break;
-                  }
-                }
-                if (status) break;
               }
+            `;
 
-              // Only process issues with Status = Pre-delivery comms
-              if (status !== "Pre-delivery comms") {
+            const result = await github.graphql(query, {
+              projectId: process.env.PROJECT_ID
+            });
+
+            const items = result.node.items.nodes;
+
+            for (const item of items) {
+
+              const status = item.fieldValues.nodes.find(
+                field =>
+                  field.field?.name === "Status" &&
+                  field.name === "Pre-delivery comms"
+              );
+
+              if (!status) {
                 continue;
               }
 
-              const created = new Date(issue.created_at);
+              const issue = item.content;
+
+              if (!issue) {
+                continue;
+              }
+
+              const created = new Date(issue.createdAt);
               const now = new Date();
 
               const ageDays = Math.floor(
@@ -91,7 +106,7 @@ jobs:
                 (1000 * 60 * 60 * 24)
               );
 
-              const hasCheckInLabel = issue.labels.some(
+              const hasCheckInLabel = issue.labels.nodes.some(
                 label => label.name === "Annual check-in due"
               );
 
@@ -99,30 +114,34 @@ jobs:
                 d => ageDays >= d && ageDays < d + 1
               );
 
-              if (isCheckInDue && !hasCheckInLabel) {
-                await github.rest.issues.addLabels({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  labels: ["Annual check-in due"]
-                });
-
-                const mentions = issue.assignees
-                  .map(a => `@${a.login}`)
-                  .join(" ");
-
-                if (mentions) {
-                  await github.rest.issues.createComment({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    body: `${mentions}
-                    This issue has been labelled \`Annual check-in due\`.`
-                  });
-                }
-
-                console.log(
-                  `Added label and notified assignees for issue #${issue.number}`
-                );
+              if (!isCheckInDue || hasCheckInLabel) {
+                continue;
               }
+
+              await github.rest.issues.addLabels({
+                owner: issue.repository.owner.login,
+                repo: issue.repository.name,
+                issue_number: issue.number,
+                labels: ["Annual check-in due"]
+              });
+
+              const mentions = issue.assignees.nodes
+                .map(a => `@${a.login}`)
+                .join(" ");
+
+              if (mentions) {
+                await github.rest.issues.createComment({
+                  owner: issue.repository.owner.login,
+                  repo: issue.repository.name,
+                  issue_number: issue.number,
+                  body: `${mentions}
+
+                  This issue has been labelled \`Annual check-in due\`.`
+                });
+              }
+
+              console.log(
+                `Added label and notified assignees for issue #${issue.number}`
+              );
             }
+`
