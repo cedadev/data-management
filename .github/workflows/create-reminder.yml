@@ -1,0 +1,18 @@
+# This workflow checks for and creates reminders entered as "/remind [who] [what] [when]" in issue comments
+
+name: create reminder
+
+permissions:
+  issues: write
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  reminder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: check for reminder
+        uses: agrc/create-reminder-action@v1
