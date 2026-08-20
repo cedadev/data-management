@@ -25,7 +25,7 @@ jobs:
         with:
           github-token: ${{ secrets.PROJECT_PAT }}
           script: |
-            const checkInDays = [36, 365, 730, 1095];
+            const checkInDays = [38, 365, 730, 1095];
 
             const query = `
               query($projectId: ID!) {
