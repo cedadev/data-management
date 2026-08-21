@@ -1,6 +1,8 @@
-# This workflow adds the 'Data due' label to issues when the 'Actual end date' has passed (within a 7 day grace period), then comments on the issue to notify assignees that data delivery is due
+# This workflow adds the 'Actual end date passed' label to issues 
+# when the 'Actual end date' has passed (within a 7 day grace period),
+# then comments on the issue to notify assignees that data delivery is due
 
-name: data due label
+name: actual end date passed label
 
 on:
   schedule:
@@ -16,7 +18,7 @@ jobs:
       contents: read
 
     steps:
-      - name: add data due label and notify assignees
+      - name: Add actual end date passed label and notify assignees
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.PROJECT_PAT }}
@@ -140,7 +142,7 @@ jobs:
               const isDue = diffDays >= 0 && diffDays <= 7;
 
               const hasLabel = issue.labels.some(
-                label => label.name === "Data due"
+                label => label.name === "Actual end date passed"
               );
 
               if (!isDue || hasLabel) {
@@ -151,7 +153,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                labels: ["Data due"]
+                labels: ["Actual end date passed"]
               });
 
               const mentions = issue.assignees
@@ -163,11 +165,11 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  body: `👋 ${mentions}, this project's \`Actual end date\` has now passed and data delivery is due. Please contact the PI regarding data submission and follow the usual data ingest process. Once the required data have been received and processed, remove the \`Data due\` label.`
+                  body: `👋 ${mentions}, this project might have ended. Check that \`Actual end date\` matches in GitHub and DataMad. If they match, email the PI about data delivery (there's a saved reply!). If not, update \`Actual end date\`. Then remove the label.`
                 });
               }
 
               console.log(
-                `Added Data due label and notified assignees for issue #${issue.number}`
+                `Added Actual end date passed label and notified assignees for issue #${issue.number}`
               );
             }
