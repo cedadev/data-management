@@ -64,7 +64,7 @@ jobs:
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number: issue.number,
-                    body: `👋 ${mentions}, this grant is due an annual check-in. Email the PI (there's a saved reply!) then remove the check-in label.`
+                    body: `👋 ${mentions}, this project is due an annual check-in. Email the PI (there's a saved reply!) then remove the check-in label.`
                   });
                 }
 
