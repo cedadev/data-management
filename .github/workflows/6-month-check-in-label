@@ -1,0 +1,172 @@
+# This workflow adds the '6-month check-in due' label to issues when 'Actual end date' is 6 months away, then comments on the issue to notify assignees that the check-in is due
+
+name: 6-month check-in label
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Add 6-month check-in labels and notify assignees
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const PROJECT_NUMBER = 1; // Change to your project number
+            const ORG_LOGIN = "your-org"; // Change to your organisation
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Get all open issues from the repository
+            const issues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: "open",
+                per_page: 100
+              }
+            );
+
+            const issueMap = new Map(
+              issues.map(issue => [issue.number, issue])
+            );
+
+            // Retrieve all project items using GraphQL pagination
+            let hasNextPage = true;
+            let cursor = null;
+            const projectItems = [];
+
+            while (hasNextPage) {
+              const result = await github.graphql(
+                `
+                query($org: String!, $project: Int!, $cursor: String) {
+                  organization(login: $org) {
+                    projectV2(number: $project) {
+                      items(first: 100, after: $cursor) {
+                        nodes {
+                          content {
+                            ... on Issue {
+                              number
+                            }
+                          }
+                          fieldValues(first: 50) {
+                            nodes {
+                              ... on ProjectV2ItemFieldDateValue {
+                                date
+                                field {
+                                  ... on ProjectV2FieldCommon {
+                                    name
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                      }
+                    }
+                  }
+                }
+                `,
+                {
+                  org: ORG_LOGIN,
+                  project: PROJECT_NUMBER,
+                  cursor
+                }
+              );
+
+              const items =
+                result.organization.projectV2.items;
+
+              projectItems.push(...items.nodes);
+
+              hasNextPage = items.pageInfo.hasNextPage;
+              cursor = items.pageInfo.endCursor;
+            }
+
+            console.log(
+              `Retrieved ${projectItems.length} project items`
+            );
+
+            for (const item of projectItems) {
+
+              const issueNumber = item.content?.number;
+
+              if (!issueNumber) {
+                continue;
+              }
+
+              const issue = issueMap.get(issueNumber);
+
+              // Skip closed issues or issues from elsewhere
+              if (!issue) {
+                continue;
+              }
+
+              const endDateField = item.fieldValues.nodes.find(
+                field =>
+                  field.field?.name === "Actual end date" &&
+                  field.date
+              );
+
+              if (!endDateField) {
+                continue;
+              }
+
+              const endDate = new Date(endDateField.date);
+              endDate.setHours(0, 0, 0, 0);
+
+              const sixMonthsBefore = new Date(endDate);
+              sixMonthsBefore.setMonth(
+                sixMonthsBefore.getMonth() - 6
+              );
+
+              const isDue =
+                today.getTime() === sixMonthsBefore.getTime();
+
+              const hasLabel = issue.labels.some(
+                label => label.name === "6-month check-in due"
+              );
+
+              if (!isDue || hasLabel) {
+                continue;
+              }
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ["6-month check-in due"]
+              });
+
+              const mentions = issue.assignees
+                .map(a => `@${a.login}`)
+                .join(" ");
+
+              if (mentions) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: `👋 ${mentions}, this grant is now 6 months from its Actual end date and the 6-month check-in is due. Please contact the PI and then manually remove the check-in label once completed.`
+                });
+              }
+
+              console.log(
+                `Added label and notified assignees for issue #${issue.number}`
+              );
+            }
