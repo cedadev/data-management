@@ -16,5 +16,5 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: check for due reminders and post a comment
+      - name: Check for due reminders and post a comment
         uses: agrc/reminder-action@v1
