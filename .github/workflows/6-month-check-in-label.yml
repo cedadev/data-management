@@ -21,7 +21,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const PROJECT_NUMBER = PVT_kwDOABsvsc4BEo4i; // UPDATE THIS IF PROJECT IS CHANGED
+            const PROJECT_NUMBER = 139; // UPDATE THIS IF PROJECT IS CHANGED
             const ORG_LOGIN = "cedadev"; // UPDATE THIS IS ORG IS CHANGED
 
             const today = new Date();
