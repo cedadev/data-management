@@ -1,4 +1,4 @@
-# This workflow adds the '6-month check-in due' label to issues when 'Actual end date' is 6 months away, then comments on the issue to notify assignees that the check-in is due
+# This workflow adds the '6-month check-in due' label to issues when 'Actual end date' is ~6 months away (within a 7 day grace period), then comments on the issue to notify assignees that the check-in is due
 
 name: 6-month check-in label
 
@@ -21,13 +21,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const PROJECT_NUMBER = 1; // Change to your project number
-            const ORG_LOGIN = "your-org"; // Change to your organisation
+            const PROJECT_NUMBER = PVT_kwDOABsvsc4BEo4i; // UPDATE THIS IF PROJECT IS CHANGED
+            const ORG_LOGIN = "cedadev"; // UPDATE THIS IS ORG IS CHANGED
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            // Get all open issues from the repository
+            // Get all open issues in the repository
             const issues = await github.paginate(
               github.rest.issues.listForRepo,
               {
@@ -106,13 +106,14 @@ jobs:
 
               const issueNumber = item.content?.number;
 
+              // Skip non-issue project items
               if (!issueNumber) {
                 continue;
               }
 
               const issue = issueMap.get(issueNumber);
 
-              // Skip closed issues or issues from elsewhere
+              // Skip closed issues or issues not in this repository
               if (!issue) {
                 continue;
               }
@@ -135,8 +136,13 @@ jobs:
                 sixMonthsBefore.getMonth() - 6
               );
 
-              const isDue =
-                today.getTime() === sixMonthsBefore.getTime();
+              const diffDays = Math.floor(
+                (today.getTime() - sixMonthsBefore.getTime()) /
+                (1000 * 60 * 60 * 24)
+              );
+
+              // Due date plus 7-day grace period
+              const isDue = diffDays >= 0 && diffDays <= 7;
 
               const hasLabel = issue.labels.some(
                 label => label.name === "6-month check-in due"
