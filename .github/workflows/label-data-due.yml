@@ -1,0 +1,173 @@
+# This workflow adds the 'Data due' label to issues when the 'Actual end date' has passed (within a 7 day grace period), then comments on the issue to notify assignees that data delivery is due
+
+name: data due label
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: add data due label and notify assignees
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PROJECT_PAT }}
+          script: |
+            const PROJECT_NUMBER = 139; // UPDATE THIS IF PROJECT IS CHANGED
+            const ORG_LOGIN = "cedadev"; // UPDATE THIS IF ORG IS CHANGED
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Get all open issues in the repository
+            const issues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: "open",
+                per_page: 100
+              }
+            );
+
+            const issueMap = new Map(
+              issues.map(issue => [issue.number, issue])
+            );
+
+            // Retrieve all project items using GraphQL pagination
+            let hasNextPage = true;
+            let cursor = null;
+            const projectItems = [];
+
+            while (hasNextPage) {
+              const result = await github.graphql(
+                `
+                query($org: String!, $project: Int!, $cursor: String) {
+                  organization(login: $org) {
+                    projectV2(number: $project) {
+                      items(first: 100, after: $cursor) {
+                        nodes {
+                          content {
+                            ... on Issue {
+                              number
+                            }
+                          }
+                          fieldValues(first: 50) {
+                            nodes {
+                              ... on ProjectV2ItemFieldDateValue {
+                                date
+                                field {
+                                  ... on ProjectV2FieldCommon {
+                                    name
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                      }
+                    }
+                  }
+                }
+                `,
+                {
+                  org: ORG_LOGIN,
+                  project: PROJECT_NUMBER,
+                  cursor
+                }
+              );
+
+              const items =
+                result.organization.projectV2.items;
+
+              projectItems.push(...items.nodes);
+
+              hasNextPage = items.pageInfo.hasNextPage;
+              cursor = items.pageInfo.endCursor;
+            }
+
+            console.log(
+              `Retrieved ${projectItems.length} project items`
+            );
+
+            for (const item of projectItems) {
+
+              const issueNumber = item.content?.number;
+
+              // Skip non-issue project items
+              if (!issueNumber) {
+                continue;
+              }
+
+              const issue = issueMap.get(issueNumber);
+
+              // Skip closed issues or issues not in this repository
+              if (!issue) {
+                continue;
+              }
+
+              const endDateField = item.fieldValues.nodes.find(
+                field =>
+                  field.field?.name === "Actual end date" &&
+                  field.date
+              );
+
+              if (!endDateField) {
+                continue;
+              }
+
+              const endDate = new Date(endDateField.date);
+              endDate.setHours(0, 0, 0, 0);
+
+              const diffDays = Math.floor(
+                (today.getTime() - endDate.getTime()) /
+                (1000 * 60 * 60 * 24)
+              );
+
+              // End date reached, with a 7-day grace period
+              const isDue = diffDays >= 0 && diffDays <= 7;
+
+              const hasLabel = issue.labels.some(
+                label => label.name === "Data due"
+              );
+
+              if (!isDue || hasLabel) {
+                continue;
+              }
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ["Data due"]
+              });
+
+              const mentions = issue.assignees
+                .map(a => `@${a.login}`)
+                .join(" ");
+
+              if (mentions) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: `👋 ${mentions}, this project's \`Actual end date\` has now passed and data delivery is due. Please contact the PI regarding data submission and follow the usual data ingest process. Once the required data have been received and processed, remove the \`Data due\` label.`
+                });
+              }
+
+              console.log(
+                `Added Data due label and notified assignees for issue #${issue.number}`
+              );
+            }
