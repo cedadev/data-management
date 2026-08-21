@@ -133,13 +133,8 @@ jobs:
               const endDate = new Date(endDateField.date);
               endDate.setHours(0, 0, 0, 0);
 
-              const diffDays = Math.floor(
-                (today.getTime() - endDate.getTime()) /
-                (1000 * 60 * 60 * 24)
-              );
-
-              // End date reached, with a 7-day grace period
-              const isDue = diffDays >= 0 && diffDays <= 7;
+              // Actual end date has passed
+              const isDue = endDate <= today;
 
               const hasLabel = issue.labels.some(
                 label => label.name === "Actual end date passed"
