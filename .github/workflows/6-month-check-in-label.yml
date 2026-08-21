@@ -162,7 +162,7 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  body: `👋 ${mentions}, this grant is now 6 months from its Actual end date and the 6-month check-in is due. Please contact the PI and then manually remove the check-in label once completed.`
+                  body: `👋 ${mentions}, this grant is due a 6-month check-in. Email the PI (there's a saved reply!) then manually remove the check-in label.`
                 });
               }
 
