@@ -1,4 +1,6 @@
-# This workflow adds the '6-month check-in due' label to issues when 'Actual end date' is ~6 months away (within a 7 day grace period), then comments on the issue to notify assignees that the check-in is due
+# This workflow adds the '6-month check-in due' label to issues
+# when 'Actual end date' is ~6 months away (within a 7 day grace period)
+# then comments on the issue to notify assignees that the check-in is due
 
 name: 6-month check-in label
 
