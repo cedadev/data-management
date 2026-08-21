@@ -19,7 +19,7 @@ jobs:
       - name: Add 6-month check-in labels and notify assignees
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PROJECT_PAT }}
           script: |
             const PROJECT_NUMBER = 139; // UPDATE THIS IF PROJECT IS CHANGED
             const ORG_LOGIN = "cedadev"; // UPDATE THIS IS ORG IS CHANGED
