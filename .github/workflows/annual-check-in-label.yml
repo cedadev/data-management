@@ -1,4 +1,4 @@
-# This workflow adds annual check-in labels based on issue creation date and notifies assignees when a label is added
+# This workflow adds the 'Annual check-in due' label to issues created 1, 2, and 3 years ago (365, 730, and 1095 days), then comments on the issue to notify assignees that the check-in is due
 
 name: annual check-in labels
 
