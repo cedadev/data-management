@@ -17,7 +17,7 @@ jobs:
       issues: write
 
     steps:
-      - name: Add annual check-in labels and notify assignees
+      - name: Add annual check-in label and notify assignees
         uses: actions/github-script@v7
         with:
           script: |
