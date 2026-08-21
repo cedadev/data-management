@@ -160,7 +160,7 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  body: `👋 ${mentions}, this project might have ended. Check that \`Actual end date\` matches in GitHub and DataMad. If they match, email the PI about data delivery (there's a saved reply!). If not, update \`Actual end date\`. Then remove the label.`
+                  body: `👋 ${mentions}, this project might have ended. Check that \`Actual end date\` matches in GitHub and DataMad. If they match, email the PI to let them know their data delivery is now due (there's a saved reply!). If not, update \`Actual end date\`. Then remove the label.`
                 });
               }
 
