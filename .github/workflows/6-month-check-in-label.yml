@@ -168,7 +168,7 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  body: `👋 ${mentions}, this grant is due a 6-month check-in. Email the PI (there's a saved reply!) then manually remove the check-in label.`
+                  body: `👋 ${mentions}, this grant might be due a 6-month check-in. Check that \`Actual end date\` matches in GitHub and DataMad, email the PI if so (there's a saved reply!) or update \`Actual end date\` if not, then remove the check-in label.`
                 });
               }
 
