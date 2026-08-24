@@ -19,8 +19,8 @@ body:
     attributes:
       label: Tasks
       value: |
-        - [ ] Change status to *Archiving in progress* (GitHub)
         - [ ] Data in arrivals (Arrivals)
+        - [ ] Change status to *Archiving in progress* (GitHub)
         - [ ] Update *Data delivered* field (GitHub)
         - [ ] Check data meet archival standards
         - [ ] Ingest data using cedaarchive (Ingest)
