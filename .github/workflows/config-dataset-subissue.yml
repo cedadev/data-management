@@ -233,33 +233,43 @@ jobs:
 
             case "$TYPE" in
 
+            echo "FIELD CONTENT:"
+            echo "$FIELD" | jq .
+
               ProjectV2ItemFieldTextValue)
 
-                VALUE=$(echo "$FIELD" | jq -r '.text')
+                VALUE=$(echo "$FIELD" | jq -r '
+                  if .text == null then empty
+                  else (.text|tostring)
+                  end
+                ')
 
-                gh api graphql -f query='
-                mutation(
-                  $project:ID!,
-                  $item:ID!,
-                  $field:ID!,
-                  $value:String!
-                ) {
-                  updateProjectV2ItemFieldValue(
-                    input:{
-                      projectId:$project
-                      itemId:$item
-                      fieldId:$field
-                      value:{ text:$value }
-                    }
+                if [ -n "$VALUE" ]; then
+
+                  gh api graphql -f query='
+                  mutation(
+                    $project:ID!,
+                    $item:ID!,
+                    $field:ID!,
+                    $value:String!
                   ) {
-                    projectV2Item { id }
-                  }
-                }' \
-                -F project="$PROJECT_ID" \
-                -F item="$CHILD_ITEM_ID" \
-                -F field="$FIELD_ID" \
-                -F value="$VALUE"
-                ;;
+                    updateProjectV2ItemFieldValue(
+                      input:{
+                        projectId:$project
+                        itemId:$item
+                        fieldId:$field
+                        value:{ text:$value }
+                      }
+                    ) {
+                      projectV2Item { id }
+                    }
+                  }' \
+                  -F project="$PROJECT_ID" \
+                  -F item="$CHILD_ITEM_ID" \
+                  -F field="$FIELD_ID" \
+                  -F value="$VALUE"
+                  fi
+                  ;;
 
               ProjectV2ItemFieldDateValue)
 
