@@ -1,0 +1,381 @@
+name: Configure dataset sub-issue
+
+on:
+  issues:
+    types:
+      - opened
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  configure-subissue:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_PAT}}
+
+    steps:
+      - name: Assign creator
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          CREATOR: ${{ github.event.issue.user.login }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --add-assignee "$CREATOR"
+
+      - name: Configure dataset sub-issue
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          OWNER=$(echo "$REPO" | cut -d/ -f1)
+          REPO_NAME=$(echo "$REPO" | cut -d/ -f2)
+
+          ####################################################################
+          # Get child issue and parent issue
+          ####################################################################
+
+          ISSUE_DATA=$(gh api graphql -f query='
+          query($owner:String!, $repo:String!, $number:Int!) {
+            repository(owner:$owner, name:$repo) {
+              issue(number:$number) {
+                id
+                parent {
+                  number
+                }
+              }
+            }
+          }' \
+          -F owner="$OWNER" \
+          -F repo="$REPO_NAME" \
+          -F number="$ISSUE_NUMBER")
+
+          CHILD_NODE_ID=$(echo "$ISSUE_DATA" | jq -r '
+            .data.repository.issue.id
+          ')
+
+          PARENT_NUMBER=$(echo "$ISSUE_DATA" | jq -r '
+            .data.repository.issue.parent.number
+          ')
+
+          if [ "$PARENT_NUMBER" = "null" ]; then
+            echo "Issue is not a sub-issue."
+            exit 0
+          fi
+
+          ####################################################################
+          # Get parent project item and field values
+          ####################################################################
+
+          PARENT_DATA=$(gh api graphql -f query='
+          query($owner:String!, $repo:String!, $number:Int!) {
+            repository(owner:$owner, name:$repo) {
+              issue(number:$number) {
+                projectItems(first:20) {
+                  nodes {
+                    id
+
+                    project {
+                      id
+                    }
+
+                    fieldValues(first:100) {
+                      nodes {
+
+                        __typename
+
+                        ... on ProjectV2ItemFieldTextValue {
+                          text
+                          field {
+                            ... on ProjectV2FieldCommon {
+                              id
+                              name
+                            }
+                          }
+                        }
+
+                        ... on ProjectV2ItemFieldDateValue {
+                          date
+                          field {
+                            ... on ProjectV2FieldCommon {
+                              id
+                              name
+                            }
+                          }
+                        }
+
+                        ... on ProjectV2ItemFieldSingleSelectValue {
+                          optionId
+                          name
+                          field {
+                            ... on ProjectV2FieldCommon {
+                              id
+                              name
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }' \
+          -F owner="$OWNER" \
+          -F repo="$REPO_NAME" \
+          -F number="$PARENT_NUMBER")
+
+          PROJECT_ID=$(echo "$PARENT_DATA" | jq -r '
+            .data.repository.issue.projectItems.nodes[0].project.id
+          ')
+
+          if [ "$PROJECT_ID" = "null" ]; then
+            echo "Parent issue is not in a project."
+            exit 1
+          fi
+
+          ####################################################################
+          # Add child issue to same project
+          ####################################################################
+
+          PROJECT_ITEM=$(gh api graphql -f query='
+          mutation($project:ID!, $content:ID!) {
+            addProjectV2ItemById(
+              input:{
+                projectId:$project
+                contentId:$content
+              }
+            ) {
+              item {
+                id
+              }
+            }
+          }' \
+          -F project="$PROJECT_ID" \
+          -F content="$CHILD_NODE_ID")
+
+          CHILD_ITEM_ID=$(echo "$PROJECT_ITEM" | jq -r '
+            .data.addProjectV2ItemById.item.id
+          ')
+
+          ####################################################################
+          # Issue Type / Label
+          ####################################################################
+
+          gh issue edit "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --type "Dataset"
+
+          ####################################################################
+          # Explicit allow-list
+          ####################################################################
+
+          ALLOWED_FIELDS=(
+            "NERC ID"
+            "UKRI ID"
+            "Data centre"
+            "Status"
+            "Funder"
+            "Funding stream"
+            "PI name"
+            "PI email"
+            "Actual start date"
+            "Actual end date"
+            "Will grant produce data"
+            "Date contacted PI"
+          )
+
+          echo "$PARENT_DATA" | jq -c '
+          .data.repository.issue.projectItems.nodes[0].fieldValues.nodes[]
+          ' > fields.json
+
+          while read FIELD
+          do
+            FIELD_NAME=$(echo "$FIELD" | jq -r '.field.name // empty')
+
+            COPY=false
+
+            for ALLOWED in "${ALLOWED_FIELDS[@]}"
+            do
+              if [ "$FIELD_NAME" = "$ALLOWED" ]
+              then
+                COPY=true
+                break
+              fi
+            done
+
+            if [ "$COPY" = false ]
+            then
+              continue
+            fi
+
+            TYPE=$(echo "$FIELD" | jq -r '.__typename')
+            FIELD_ID=$(echo "$FIELD" | jq -r '.field.id')
+
+            echo "Copying field: $FIELD_NAME"
+
+            case "$TYPE" in
+
+              ProjectV2ItemFieldTextValue)
+
+                VALUE=$(echo "$FIELD" | jq -r '.text')
+
+                gh api graphql -f query='
+                mutation(
+                  $project:ID!,
+                  $item:ID!,
+                  $field:ID!,
+                  $value:String!
+                ) {
+                  updateProjectV2ItemFieldValue(
+                    input:{
+                      projectId:$project
+                      itemId:$item
+                      fieldId:$field
+                      value:{ text:$value }
+                    }
+                  ) {
+                    projectV2Item { id }
+                  }
+                }' \
+                -F project="$PROJECT_ID" \
+                -F item="$CHILD_ITEM_ID" \
+                -F field="$FIELD_ID" \
+                -F value="$VALUE"
+                ;;
+
+              ProjectV2ItemFieldDateValue)
+
+                VALUE=$(echo "$FIELD" | jq -r '.date')
+
+                gh api graphql -f query='
+                mutation(
+                  $project:ID!,
+                  $item:ID!,
+                  $field:ID!,
+                  $value:Date!
+                ) {
+                  updateProjectV2ItemFieldValue(
+                    input:{
+                      projectId:$project
+                      itemId:$item
+                      fieldId:$field
+                      value:{ date:$value }
+                    }
+                  ) {
+                    projectV2Item { id }
+                  }
+                }' \
+                -F project="$PROJECT_ID" \
+                -F item="$CHILD_ITEM_ID" \
+                -F field="$FIELD_ID" \
+                -F value="$VALUE"
+                ;;
+
+              ProjectV2ItemFieldSingleSelectValue)
+
+                OPTION_ID=$(echo "$FIELD" | jq -r '.optionId')
+
+                gh api graphql -f query='
+                mutation(
+                  $project:ID!,
+                  $item:ID!,
+                  $field:ID!,
+                  $option:String!
+                ) {
+                  updateProjectV2ItemFieldValue(
+                    input:{
+                      projectId:$project
+                      itemId:$item
+                      fieldId:$field
+                      value:{
+                        singleSelectOptionId:$option
+                      }
+                    }
+                  ) {
+                    projectV2Item { id }
+                  }
+                }' \
+                -F project="$PROJECT_ID" \
+                -F item="$CHILD_ITEM_ID" \
+                -F field="$FIELD_ID" \
+                -F option="$OPTION_ID"
+                ;;
+
+            esac
+
+          done < fields.json
+
+          ####################################################################
+          # Set Status = Data due
+          ####################################################################
+
+          FIELD_DATA=$(gh api graphql -f query='
+          query($project:ID!) {
+            node(id:$project) {
+              ... on ProjectV2 {
+                fields(first:100) {
+                  nodes {
+                    ... on ProjectV2SingleSelectField {
+                      id
+                      name
+                      options {
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }' \
+          -F project="$PROJECT_ID")
+
+          STATUS_FIELD_ID=$(echo "$FIELD_DATA" | jq -r '
+            .data.node.fields.nodes[]
+            | select(.name=="Status")
+            | .id
+          ')
+
+          DATA_DUE_OPTION_ID=$(echo "$FIELD_DATA" | jq -r '
+            .data.node.fields.nodes[]
+            | select(.name=="Status")
+            | .options[]
+            | select(.name=="Data due")
+            | .id
+          ')
+
+          gh api graphql -f query='
+          mutation(
+            $project:ID!,
+            $item:ID!,
+            $field:ID!,
+            $option:String!
+          ) {
+            updateProjectV2ItemFieldValue(
+              input:{
+                projectId:$project
+                itemId:$item
+                fieldId:$field
+                value:{
+                  singleSelectOptionId:$option
+                }
+              }
+            ) {
+              projectV2Item {
+                id
+              }
+            }
+          }' \
+          -F project="$PROJECT_ID" \
+          -F item="$CHILD_ITEM_ID" \
+          -F field="$STATUS_FIELD_ID" \
+          -F option="$DATA_DUE_OPTION_ID"
+
+          echo "Dataset sub-issue configured successfully."
