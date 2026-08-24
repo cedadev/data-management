@@ -231,6 +231,9 @@ jobs:
 
             echo "Copying field: $FIELD_NAME"
 
+            echo "FIELD JSON:"
+            echo "$FIELD" | jq .
+            
             echo "$FIELD" | jq -r '
               (.field.name // "unknown")
               + " => "
@@ -241,38 +244,36 @@ jobs:
 
               ProjectV2ItemFieldTextValue)
 
-                VALUE=$(echo "$FIELD" | jq -r '
-                  if .text == null then empty
-                  else (.text|tostring)
-                  end
-                ')
+                VALUE=$(echo "$FIELD" | jq -r '.text')
 
-                if [ -n "$VALUE" ]; then
+                echo "Text value: [$VALUE]"
 
-                  gh api graphql -f query='
-                  mutation(
-                    $project:ID!,
-                    $item:ID!,
-                    $field:ID!,
-                    $value:String!
-                  ) {
+                if [ -n "$VALUE" ] && [ "$VALUE" != "null" ]; then
+
+                  ESCAPED_VALUE=$(printf '%s' "$VALUE" \
+                    | sed 's/\\/\\\\/g' \
+                    | sed 's/"/\\"/g')
+
+                  gh api graphql -f query="
+                  mutation {
                     updateProjectV2ItemFieldValue(
                       input:{
-                        projectId:$project
-                        itemId:$item
-                        fieldId:$field
-                        value:{ text:$value }
+                        projectId:\"$PROJECT_ID\"
+                        itemId:\"$CHILD_ITEM_ID\"
+                        fieldId:\"$FIELD_ID\"
+                        value:{
+                          text:\"$ESCAPED_VALUE\"
+                        }
                       }
                     ) {
-                      projectV2Item { id }
+                      projectV2Item {
+                        id
+                      }
                     }
-                  }' \
-                  -F project="$PROJECT_ID" \
-                  -F item="$CHILD_ITEM_ID" \
-                  -F field="$FIELD_ID" \
-                  -F value="$VALUE"
-                  fi
-                  ;;
+                  }"
+                
+                fi
+                ;;
 
               ProjectV2ItemFieldDateValue)
 
