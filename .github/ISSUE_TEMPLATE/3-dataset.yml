@@ -1,6 +1,6 @@
 name: Dataset
 description: Create a dataset sub-issue
-title: "<NERC ID: Working dataset title>"
+title: "NERC ID: Working dataset title"
 labels:
   - Dataset
 
@@ -24,15 +24,14 @@ body:
     id: description
     attributes:
       label: Description
-      description: Describe the dataset and its purpose.
     validations:
       required: true
 
-  - type: markdown
+  - type: textarea
+    id: checklist
     attributes:
+      label: Mandatory checklist
       value: |
-        ### Mandatory checklist
-
         - [ ] Dataset scope agreed
         - [ ] Data source identified
         - [ ] Access permissions obtained
@@ -40,4 +39,5 @@ body:
         - [ ] Quality checks performed
         - [ ] Documentation updated
         - [ ] Dataset delivered
-``
+    validations:
+      required: true
