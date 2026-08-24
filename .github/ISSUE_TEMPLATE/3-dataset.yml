@@ -1,27 +1,46 @@
 name: Dataset
-description: Add a dataset. Only add datasets as sub-issues within a NERC grant or non-NERC project.
-title: "<e.g. NERC ref:Working title of dataset>"
-labels: ["Dataset"]
+description: Create a dataset sub-issue.
+title: "[NERC ID:
+  - Dataset
+assignees:
+  - "@me"
 projects: ["cedadev/139"]
-body:
 
+body:
   - type: markdown
     attributes:
       value: |
-        ✨ Create a new dataset sub-issue by adding a title above
-        📝 Fill in the details below (or leave as is to edit later)
-        🌱 Additional fields are available once the sub-issue is open
+        ## Dataset Sub-Issue
+
+        Status: **Data due**
+
+  - type: input
+    id: dataset_name
+    attributes:
+      label: Dataset name
+      placeholder: Enter dataset name
+    validations:
+      required: true
 
   - type: textarea
+    id: description
     attributes:
-      label: Dataset details
-      value: |
-        **Dataset contact name:** _<e.g. Contact Name>_
-        **Datset contact email:** _<e.g. email@example.com>_
-        **File format:** _<e.g. netCDF, BADC-CSV>_
-        **Expected volume:** _<e.g. 10TB>_
-
-        **Dataset description:**
-        _<Short description of the dataset>_
+      label: Notes
+      description: What is known so far about the dataset?
     validations:
-      required: false
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      value: |
+        - [ ] Dataset scope agreed
+        - [ ] Data source identified
+        - [ ] Access permissions obtained
+        - [ ] Metadata completed
+        - [ ] Quality checks performed
+        - [ ] Documentation updated
+        - [ ] Dataset delivered
+    validations:
+      required: true
