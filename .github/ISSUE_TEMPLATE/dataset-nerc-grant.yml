@@ -1,9 +1,6 @@
 name: Dataset
-description: Create a dataset sub-issue
+description: Add a NERC grants dataset.
 title: "<NERC ID: Working dataset title>"
-
-labels:
-  - Dataset
 
 body:
   - type: textarea
