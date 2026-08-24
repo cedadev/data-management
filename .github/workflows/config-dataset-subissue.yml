@@ -198,6 +198,8 @@ jobs:
             "Actual end date"
             "Will grant produce data"
             "Date contacted PI"
+            "DMP due"
+            "DMP agreed"
           )
 
           echo "$PARENT_DATA" | jq -c '
