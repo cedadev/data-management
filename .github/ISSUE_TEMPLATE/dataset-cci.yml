@@ -2,16 +2,15 @@ name: CCI Dataset
 description: Add a CCI dataset. 
 title: "<e.g. CCI project: product description and version>"
 labels: ["CCI"]
-body:
 
-  - type: textarea
+body:
+    - type: textarea
+    id: notes
     attributes:
-      label: Dataset details
-      value: |
-        **Dataset description:**
-        _<Short description of the dataset>_
+      label: Notes
+      description: What is known about this dataset so far?
     validations:
-      required: false
+      required: true
 
   - type: checkboxes
     attributes:	 
