@@ -110,6 +110,16 @@ jobs:
                           }
                         }
 
+                        ... on ProjectV2ItemFieldNumberValue {
+                          number
+                          field {
+                            ... on ProjectV2FieldCommon {
+                              id
+                              name
+                            }
+                          }
+                        }
+
                         ... on ProjectV2ItemFieldSingleSelectValue {
                           optionId
                           name
@@ -165,7 +175,7 @@ jobs:
           ')
 
           ####################################################################
-          # Issue Type / Label
+          # Issue Type
           ####################################################################
 
           gh issue edit "$ISSUE_NUMBER" \
@@ -278,6 +288,36 @@ jobs:
                 -F value="$VALUE"
                 ;;
 
+              ProjectV2ItemFieldNumberValue)
+
+                VALUE=$(echo "$FIELD" | jq -r '.number')
+
+                if [ "$VALUE" != "null" ]; then
+
+                  gh api graphql -f query='
+                  mutation(
+                    $project:ID!,
+                    $item:ID!,
+                    $field:ID!,
+                    $value:Float!
+                  ) {
+                    updateProjectV2ItemFieldValue(
+                      input:{
+                        projectId:$project
+                        itemId:$item
+                        fieldId:$field
+                        value:{ number:$value }
+                      }
+                    ) {
+                      projectV2Item { id }
+                    }
+                  }' \
+                  -F project="$PROJECT_ID" \
+                  -F item="$CHILD_ITEM_ID" \
+                  -F field="$FIELD_ID" \
+                  -F value="$VALUE"
+                  ;;         
+                
               ProjectV2ItemFieldSingleSelectValue)
 
                 OPTION_ID=$(echo "$FIELD" | jq -r '.optionId')
