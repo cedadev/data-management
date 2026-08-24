@@ -1,6 +1,6 @@
-name: CCI Dataset
+name: CCI dataset
 description: Add a CCI dataset. 
-title: "<e.g. CCI project: product description and version>"
+title: "<CCI project: product description and version>"
 labels: ["CCI"]
 
 body:
