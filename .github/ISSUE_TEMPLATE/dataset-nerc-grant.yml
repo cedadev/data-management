@@ -1,4 +1,4 @@
-name: Dataset
+name: NERC grant dataset
 description: Add a NERC grants dataset.
 title: "<NERC ID: Working dataset title>"
 
@@ -11,23 +11,23 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: checklist
-    attributes:
-      label: Tasks
-      value: |
-        - [ ] Data in arrivals (Arrivals)
-        - [ ] Change status to *Archiving in progress* (GitHub)
-        - [ ] Update *Data delivered* field (GitHub)
-        - [ ] Check data meet archival standards
-        - [ ] Ingest data using cedaarchive (Ingest)
-        - [ ] Create MOLES records (MOLES Admin)
-        - [ ] Add MOLES record links to parent issue (GitHub)
-        - [ ] Send MOLES records for PI sign-off (saved reply 04.02) (Help Scout)
-        - [ ] Send MOLES records for internal review (MOLES Admin)
-        - [ ] Send confirmation of internal review (saved reply 04.03) (Help Scout)
-        - [ ] Complete MOLES review actions (MOLES Admin)
-        - [ ] Publish MOLES records (MOLES Admin)
-        - [ ] Change status to *Archiving completed* (GitHub)
+  - type: checkboxes
+    id: tasks
+    attributes:	 
+      label: Tasks 
+      options:
+        - label: Data in arrivals (Arrivals)
+        - label: Change status to *Archiving in progress* (GitHub)
+        - label: Update *Data delivered* field (GitHub)
+        - label: Check data meet archival standards
+        - label: Ingest data using cedaarchive (Ingest)
+        - label: Create MOLES records (MOLES Admin)
+        - label: Add MOLES record links to parent issue (GitHub)
+        - label: Send MOLES records for PI sign-off (saved reply 04.02) (Help Scout)
+        - label: Send MOLES records for internal review (MOLES Admin)
+        - label: Send confirmation of internal review (saved reply 04.03) (Help Scout)
+        - label: Complete MOLES review actions (MOLES Admin)
+        - label: Publish MOLES records (MOLES Admin)
+        - label: Change status to *Archiving completed* (GitHub)
     validations:
       required: true
