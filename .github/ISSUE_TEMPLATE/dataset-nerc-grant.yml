@@ -16,6 +16,7 @@ body:
     attributes:	 
       label: Tasks 
       options:
+        - label: Update *Data delivery expected* field (GitHub)
         - label: Data in arrivals (Arrivals)
         - label: Change status to *Archiving in progress* (GitHub)
         - label: Update *Data delivered* field (GitHub)
