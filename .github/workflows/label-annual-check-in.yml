@@ -2,7 +2,7 @@
 # to issues created 1, 2, and 3 years ago (365, 730, and 1095 days)
 # then comments on the issue to notify assignees that the check-in is due
 
-name: annual check-in label
+name: Annual check-in label
 
 on:
   schedule:
