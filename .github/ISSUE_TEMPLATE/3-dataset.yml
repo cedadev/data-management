@@ -49,4 +49,3 @@ body:
         - [ ] Change status to *Archiving completed* (GitHub)
     validations:
       required: true
-`
