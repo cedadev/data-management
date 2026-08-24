@@ -6,26 +6,11 @@ labels:
   - Dataset
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ## Dataset Sub-Issue
-
-        **Status:** Data due
-
-  - type: input
-    id: dataset_name
-    attributes:
-      label: Dataset name
-      placeholder: Enter dataset name
-    validations:
-      required: true
-
   - type: textarea
-    id: description
+    id: notes
     attributes:
-      label: Description
-      description: Describe the dataset and any relevant context.
+      label: Notes
+      description: What is known about this dataset so far?
     validations:
       required: true
 
