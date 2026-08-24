@@ -4,7 +4,7 @@ title: "<CCI project: product description and version>"
 labels: ["CCI"]
 
 body:
-    - type: textarea
+  - type: textarea
     id: notes
     attributes:
       label: Notes
