@@ -2,7 +2,7 @@
 # when the 'Actual end date' has passed (within a 7 day grace period),
 # then comments on the issue to notify assignees that data delivery is due
 
-name: actual end date passed label
+name: Actual end date passed label
 
 on:
   schedule:
