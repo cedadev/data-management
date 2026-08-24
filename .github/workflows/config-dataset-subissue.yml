@@ -315,6 +315,7 @@ jobs:
                   -F item="$CHILD_ITEM_ID" \
                   -F field="$FIELD_ID" \
                   -F value="$VALUE"
+                  fi
                   ;;         
                 
               ProjectV2ItemFieldSingleSelectValue)
