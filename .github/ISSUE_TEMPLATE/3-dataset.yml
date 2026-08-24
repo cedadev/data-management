@@ -30,14 +30,20 @@ body:
   - type: textarea
     id: checklist
     attributes:
-      label: Mandatory checklist
+      label: Tasks
       value: |
-        - [ ] Dataset scope agreed
-        - [ ] Data source identified
-        - [ ] Access permissions obtained
-        - [ ] Metadata completed
-        - [ ] Quality checks performed
-        - [ ] Documentation updated
-        - [ ] Dataset delivered
+      - [ ] Change status to *Archiving in progress* (GitHub)
+      - [ ] Data in arrivals (Arrivals)
+      - [ ] Update *Data delivered* field (GitHub)
+      - [ ] Check data meet archival standards
+      - [ ] Ingest data using cedaarchive (Ingest)
+      - [ ] Create MOLES records (MOLES Admin)
+      - [ ] Add MOLES record links to parent issue (GitHub)
+      - [ ] Send MOLES records for PI sign-off (saved reply 04.02) (Help Scout)
+      - [ ] Send MOLES records for internal review (MOLES Admin)
+      - [ ] Send confirmation of internal review (saved reply 04.03) (Help Scout)
+      - [ ] Complete MOLES review actions (MOLES Admin)
+      - [ ] Publish MOLES records (MOLES Admin)
+      - [ ] Change status to *Archiving completed* (GitHub)        
     validations:
       required: true
