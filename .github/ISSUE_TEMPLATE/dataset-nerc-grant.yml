@@ -9,7 +9,7 @@ body:
       label: Notes
       description: What is known about this dataset so far?
     validations:
-      required: true
+      required: false
 
   - type: checkboxes
     id: tasks
