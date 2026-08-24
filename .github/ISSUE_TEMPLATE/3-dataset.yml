@@ -1,9 +1,7 @@
 name: Dataset
 description: Create a dataset sub-issue.
-title: "NERC ID:
+title: "NERC ID:"
   - Dataset
-assignees:
-  - "@me"
 projects: ["cedadev/139"]
 
 body:
