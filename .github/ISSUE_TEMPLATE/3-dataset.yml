@@ -1,8 +1,8 @@
 name: Dataset
-description: Create a dataset sub-issue.
-title: "NERC ID:"
+description: Create a dataset sub-issue
+title: "<NERC ID: Working dataset title>"
+labels:
   - Dataset
-projects: ["cedadev/139"]
 
 body:
   - type: markdown
@@ -10,7 +10,7 @@ body:
       value: |
         ## Dataset Sub-Issue
 
-        Status: **Data due**
+        **Status:** Data due
 
   - type: input
     id: dataset_name
@@ -23,16 +23,16 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Notes
-      description: What is known so far about the dataset?
+      label: Description
+      description: Describe the dataset and its purpose.
     validations:
       required: true
 
-  - type: textarea
-    id: tasks
+  - type: markdown
     attributes:
-      label: Tasks
       value: |
+        ### Mandatory checklist
+
         - [ ] Dataset scope agreed
         - [ ] Data source identified
         - [ ] Access permissions obtained
@@ -40,5 +40,4 @@ body:
         - [ ] Quality checks performed
         - [ ] Documentation updated
         - [ ] Dataset delivered
-    validations:
-      required: true
+``
