@@ -231,10 +231,13 @@ jobs:
 
             echo "Copying field: $FIELD_NAME"
 
-            case "$TYPE" in
+            echo "$FIELD" | jq -r '
+              (.field.name // "unknown")
+              + " => "
+              + (.__typename // "unknown")
+            '
 
-            echo "FIELD CONTENT:"
-            echo "$FIELD" | jq .
+            case "$TYPE" in
 
               ProjectV2ItemFieldTextValue)
 
