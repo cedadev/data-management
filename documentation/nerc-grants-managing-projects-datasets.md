@@ -24,6 +24,8 @@ Projects are not created in GitHub directly. Instead, project creation is trigge
 
 Create a project by claiming a new grant in DataMad and clicking `Create GitHub issue`. This will create a `Project` issue auto-populated with the grant metadata stored in DataMad.
 
+The project is now ready for tracking!
+
 ## Creating a dataset
 Unlike projects, datasets are created in GitHub directly.
 
@@ -34,19 +36,19 @@ Create a dataset by first opening the `Project` issue you need to add datasets t
 - Title, formatted as 'NERC ID: Working dataset title'
 - Any initial notes about the dataset (e.g. 'Model output, estimated ~30GB volume')
 
-Click `Create`.
+Click `Create`. To create multiple sub-issues without leaving the dialog, check the `Create more sub-issues` checkbox before clicking `Create`. 
 
-Check the `Create more sub-issues` checkbox to create multiple sub-issues without leaving the dialog.
-
-Once a sub-issue has been created, an automated script will run which: 
+Once a sub-issue has been created, an automated script is triggered which adds all essential metadata:
 
 - Assigns the sub-issue creator
-- Auto-populates the metadata fields with information from the parent `Project`
-- Assigns the `Dataset` project type
+- Applies the `Dataset` project type
+- Auto-populates the metadata fields with information from the parent project
 - Sets the status to `Pre-delivery comms`
 
-## Linking to other tools (e.g. DataMad, Help Scout, DSW, MOLES)
+The dataset is now ready for tracking!
 
+## Linking to other tools (e.g. DataMad, Help Scout, DSW, MOLES)
+When a project is created 
 
 ## Task checklists
 
