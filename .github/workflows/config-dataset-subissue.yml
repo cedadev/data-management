@@ -52,8 +52,8 @@ jobs:
               }
             }
           }' \
-          -F owner="$OWNER" \
-          -F repo="$REPO_NAME" \
+          -f owner="$OWNER" \
+          -f repo="$REPO_NAME" \
           -F number="$ISSUE_NUMBER")
 
           CHILD_NODE_ID=$(echo "$ISSUE_DATA" | jq -r '
@@ -137,8 +137,8 @@ jobs:
               }
             }
           }' \
-          -F owner="$OWNER" \
-          -F repo="$REPO_NAME" \
+          -f owner="$OWNER" \
+          -f repo="$REPO_NAME" \
           -F number="$PARENT_NUMBER")
 
           PARENT_ITEM=$(echo "$PARENT_DATA" | jq -c '
@@ -368,7 +368,7 @@ jobs:
                 -F project="$PROJECT_ID" \
                 -F item="$CHILD_ITEM_ID" \
                 -F field="$FIELD_ID" \
-                -F option="$OPTION_ID"
+                  -f option="$OPTION_ID"
               fi
               ;;
 
@@ -445,6 +445,6 @@ jobs:
           -F project="$PROJECT_ID" \
           -F item="$CHILD_ITEM_ID" \
           -F field="$STATUS_FIELD_ID" \
-          -F option="$PRE_DELIVERY_COMMS_OPTION_ID"
+          -f option="$PRE_DELIVERY_COMMS_OPTION_ID"
 
           echo "Dataset sub-issue configured successfully."
