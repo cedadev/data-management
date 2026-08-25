@@ -271,7 +271,7 @@ jobs:
                   -F project="$PROJECT_ID" \
                   -F item="$CHILD_ITEM_ID" \
                   -F field="$FIELD_ID" \
-                  -F value="$VALUE"
+                  -f value="$VALUE"
                 
                 fi
                 ;;
