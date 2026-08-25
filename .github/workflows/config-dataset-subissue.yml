@@ -34,8 +34,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          OWNER=$(echo "$REPO" | cut -d/ -f1)
-          REPO_NAME=$(echo "$REPO" | cut -d/ -f2)
+          OWNER=${REPO%%/*}
+          REPO_NAME=${REPO#*/}
 
           ####################################################################
           # Get sub-issue and parent issue
@@ -141,14 +141,18 @@ jobs:
           -F repo="$REPO_NAME" \
           -F number="$PARENT_NUMBER")
 
-          PROJECT_ID=$(echo "$PARENT_DATA" | jq -r '
-            .data.repository.issue.projectItems.nodes[0].project.id
+          PARENT_ITEM=$(echo "$PARENT_DATA" | jq -c '
+            .data.repository.issue.projectItems.nodes
+            | map(select(.project.id != null))
+            | .[0] // empty
           ')
 
-          if [ "$PROJECT_ID" = "null" ]; then
+          if [ -z "$PARENT_ITEM" ]; then
             echo "Parent issue is not in a project."
             exit 1
           fi
+
+          PROJECT_ID=$(echo "$PARENT_ITEM" | jq -r '.project.id')
 
           ####################################################################
           # Add sub-issue to same project
@@ -173,6 +177,11 @@ jobs:
           CHILD_ITEM_ID=$(echo "$PROJECT_ITEM" | jq -r '
             .data.addProjectV2ItemById.item.id
           ')
+
+          if [ "$CHILD_ITEM_ID" = "null" ]; then
+            echo "Could not add sub-issue to the parent project."
+            exit 1
+          fi
 
           ####################################################################
           # Set issue type
@@ -202,11 +211,7 @@ jobs:
             "DMP agreed"
           )
 
-          echo "$PARENT_DATA" | jq -c '
-          .data.repository.issue.projectItems.nodes[0].fieldValues.nodes[]
-          ' > fields.json
-
-          while read FIELD
+          while IFS= read -r FIELD
           do
             FIELD_NAME=$(echo "$FIELD" | jq -r '.field.name // empty')
 
@@ -231,15 +236,6 @@ jobs:
 
             echo "Copying field: $FIELD_NAME"
 
-            echo "FIELD JSON:"
-            echo "$FIELD" | jq .
-            
-            echo "$FIELD" | jq -r '
-              (.field.name // "unknown")
-              + " => "
-              + (.__typename // "unknown")
-            '
-
             case "$TYPE" in
 
               ProjectV2ItemFieldTextValue)
@@ -250,19 +246,20 @@ jobs:
 
                 if [ -n "$VALUE" ] && [ "$VALUE" != "null" ]; then
 
-                  ESCAPED_VALUE=$(printf '%s' "$VALUE" \
-                    | sed 's/\\/\\\\/g' \
-                    | sed 's/"/\\"/g')
-
-                  gh api graphql -f query="
-                  mutation {
+                  gh api graphql -f query='
+                  mutation(
+                    $project:ID!,
+                    $item:ID!,
+                    $field:ID!,
+                    $value:String!
+                  ) {
                     updateProjectV2ItemFieldValue(
                       input:{
-                        projectId:\"$PROJECT_ID\"
-                        itemId:\"$CHILD_ITEM_ID\"
-                        fieldId:\"$FIELD_ID\"
+                        projectId:$project
+                        itemId:$item
+                        fieldId:$field
                         value:{
-                          text:\"$ESCAPED_VALUE\"
+                          text:$value
                         }
                       }
                     ) {
@@ -270,7 +267,11 @@ jobs:
                         id
                       }
                     }
-                  }"
+                  }' \
+                  -F project="$PROJECT_ID" \
+                  -F item="$CHILD_ITEM_ID" \
+                  -F field="$FIELD_ID" \
+                  -F value="$VALUE"
                 
                 fi
                 ;;
@@ -279,7 +280,8 @@ jobs:
 
                 VALUE=$(echo "$FIELD" | jq -r '.date')
 
-                gh api graphql -f query='
+                if [ -n "$VALUE" ] && [ "$VALUE" != "null" ]; then
+                  gh api graphql -f query='
                 mutation(
                   $project:ID!,
                   $item:ID!,
@@ -301,6 +303,7 @@ jobs:
                 -F item="$CHILD_ITEM_ID" \
                 -F field="$FIELD_ID" \
                 -F value="$VALUE"
+                fi
                 ;;
 
               ProjectV2ItemFieldNumberValue)
@@ -342,8 +345,6 @@ jobs:
                 echo "Option ID: $OPTION_ID"
 
                 if [ "$OPTION_ID" != "null" ] && [ -n "$OPTION_ID" ]; then
-                OPTION_ID=$(echo "$OPTION_ID" | jq -R .)
-                
                 gh api graphql -f query='
                 mutation(
                   $project:ID!,
@@ -373,7 +374,7 @@ jobs:
 
             esac
 
-          done < fields.json
+          done < <(echo "$PARENT_ITEM" | jq -c '.fieldValues.nodes[]')
 
           ####################################################################
           # Set status = Pre-delivery comms
@@ -413,6 +414,11 @@ jobs:
             | select(.name=="Pre-delivery comms")
             | .id
           ')
+
+          if [ "$STATUS_FIELD_ID" = "null" ] || [ "$PRE_DELIVERY_COMMS_OPTION_ID" = "null" ]; then
+            echo "Project status field or Pre-delivery comms option was not found."
+            exit 1
+          fi
 
           gh api graphql -f query='
           mutation(
