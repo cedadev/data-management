@@ -1,8 +1,12 @@
+# Data management tracking
+
+This repo is home to the following GitHub Projects for data management tracking:
+- [NERC grants data management tracking](https://github.com/orgs/cedadev/projects/139)
+- [CCI dataset tracking](https://github.com/orgs/cedadev/projects/157)
+
+---
+
 ## 🔀 Track NERC grants and the datasets they generate through the whole data management lifecycle.
-
-# NERC grants data management tracking
-
-This repo is home to the [NERC grants data management tracking GitHub Project](https://github.com/orgs/cedadev/projects/139/).
 
 # Quickstart
 
