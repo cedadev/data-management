@@ -369,7 +369,7 @@ jobs:
           done < fields.json
 
           ####################################################################
-          # Set Status = Data due
+          # Set Status = Pre-delivery comms
           ####################################################################
 
           FIELD_DATA=$(gh api graphql -f query='
@@ -403,7 +403,7 @@ jobs:
             .data.node.fields.nodes[]
             | select(.name=="Status")
             | .options[]
-            | select(.name=="Data due")
+            | select(.name=="Pre-delivery comms")
             | .id
           ')
 
