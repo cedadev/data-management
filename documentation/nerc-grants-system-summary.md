@@ -1,7 +1,6 @@
 ## 🔀 Track NERC grants and the datasets they generate through the whole data management lifecycle.
 
 # Quickstart
-
 1. Browse **My projects** to view NERC grants assigned to you
 2. Click on a project's **title** to open the issue
 3. Get an overview of project metadata using the **project fields** in the right-hand sidebar
@@ -11,7 +10,6 @@
 # How to use
 
 ## 🔭 Track projects and the datasets they generate
-
 To enable the tracking of NERC grants _and_ the datasets they generate, this workflow uses two types of issue:
 
 ### `Project`
@@ -28,7 +26,6 @@ In GitHub terminology, `Dataset` issues are **sub-issues** which sit within corr
 Choose between five views which display projects, datasets, and their metadata differently depending on use case.
 
 ### 👀 Views
-
 #### All projects & All datasets
 Two kanban board views which show all active projects and datasets. These views are best for users who need an overview of things like activity, progress, and workload.
 
@@ -46,7 +43,6 @@ Feel free to apply new filters if you need to find something specific, but pleas
 If you think that a new permanent view would be useful, use the contact information below to discuss if this can be included in future iterations of the workflow.
 
 ## 📈 Use statuses to track progress
-
 Projects and datasets move through eight statuses which represent the main stages of the data management lifecycle:
 
 - `No Status`: Waiting to be actioned
