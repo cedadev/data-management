@@ -341,6 +341,7 @@ jobs:
                 echo "Single select field: $FIELD_NAME"
                 echo "Option ID: $OPTION_ID"
 
+                if [ "$OPTION_ID" != "null" ] && [ -n "$OPTION_ID" ]; then
                 gh api graphql -f query='
                 mutation(
                   $project:ID!,
@@ -365,7 +366,8 @@ jobs:
                 -F item="$CHILD_ITEM_ID" \
                 -F field="$FIELD_ID" \
                 -F option="$OPTION_ID"
-                ;;
+              fi
+              ;;
 
             esac
 
