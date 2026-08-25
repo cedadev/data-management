@@ -38,7 +38,7 @@ jobs:
           REPO_NAME=$(echo "$REPO" | cut -d/ -f2)
 
           ####################################################################
-          # Get child issue and parent issue
+          # Get sub-issue and parent issue
           ####################################################################
 
           ISSUE_DATA=$(gh api graphql -f query='
@@ -151,7 +151,7 @@ jobs:
           fi
 
           ####################################################################
-          # Add child issue to same project
+          # Add sub-issue to same project
           ####################################################################
 
           PROJECT_ITEM=$(gh api graphql -f query='
@@ -175,7 +175,7 @@ jobs:
           ')
 
           ####################################################################
-          # Issue Type
+          # Set issue type
           ####################################################################
 
           gh issue edit "$ISSUE_NUMBER" \
@@ -183,7 +183,7 @@ jobs:
             --type "Dataset"
 
           ####################################################################
-          # Explicit allow-list
+          # Define explicit allow-list
           ####################################################################
 
           ALLOWED_FIELDS=(
@@ -369,7 +369,7 @@ jobs:
           done < fields.json
 
           ####################################################################
-          # Set Status = Pre-delivery comms
+          # Set status = Pre-delivery comms
           ####################################################################
 
           FIELD_DATA=$(gh api graphql -f query='
@@ -399,7 +399,7 @@ jobs:
             | .id
           ')
 
-          DATA_DUE_OPTION_ID=$(echo "$FIELD_DATA" | jq -r '
+          PRE_DELIVERY_COMMS_OPTION_ID=$(echo "$FIELD_DATA" | jq -r '
             .data.node.fields.nodes[]
             | select(.name=="Status")
             | .options[]
@@ -432,6 +432,6 @@ jobs:
           -F project="$PROJECT_ID" \
           -F item="$CHILD_ITEM_ID" \
           -F field="$STATUS_FIELD_ID" \
-          -F option="$DATA_DUE_OPTION_ID"
+          -F option="$PRE_DELIVERY_COMMS_OPTION_ID"
 
           echo "Dataset sub-issue configured successfully."
