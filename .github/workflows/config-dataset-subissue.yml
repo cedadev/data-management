@@ -338,6 +338,9 @@ jobs:
 
                 OPTION_ID=$(echo "$FIELD" | jq -r '.optionId')
 
+                echo "Single select field: $FIELD_NAME"
+                echo "Option ID: $OPTION_ID"
+
                 gh api graphql -f query='
                 mutation(
                   $project:ID!,
