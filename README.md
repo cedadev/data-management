@@ -18,6 +18,8 @@ This repo is home to the following GitHub Projects for data management tracking:
     - Reminders
 - Creating reports
 - Development roadmap
-    - Integrations
-    - Accessing legacy information from Jira
+    - Tracking how well the system works
+    - Current integrations
+    - Future integrations (must have / nice to have)
+- Accessing legacy information from Jira
 - Help and feedback
