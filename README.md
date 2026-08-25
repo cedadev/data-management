@@ -1,8 +1,8 @@
 ## 🔀 Track NERC grants and the datasets they generate through the whole data management lifecycle.
 
-# Project
+# NERC grants data management tracking
 
-This repo is home to the [NERC grants data management tracking system](https://github.com/orgs/cedadev/projects/139/).
+This repo is home to the [NERC grants data management tracking GitHub Project](https://github.com/orgs/cedadev/projects/139/).
 
 # Quickstart
 
