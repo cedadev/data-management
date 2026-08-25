@@ -342,6 +342,8 @@ jobs:
                 echo "Option ID: $OPTION_ID"
 
                 if [ "$OPTION_ID" != "null" ] && [ -n "$OPTION_ID" ]; then
+                OPTION_ID=$(echo "$OPTION_ID" | jq -R .)
+                
                 gh api graphql -f query='
                 mutation(
                   $project:ID!,
