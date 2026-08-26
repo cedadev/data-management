@@ -47,13 +47,32 @@ Once a sub-issue has been created, an automated script is triggered which adds a
 
 The dataset is now ready for tracking!
 
-## 🔗 Integrations with other tools (e.g. DataMad, Help Scout, DSW, MOLES)
-Data management tasks take place across multiple platforms. Links to the essential tools used in the data management workflow are collected in the `Links` section, at the top of `Project` issues. Add these links 
+## 🔗 Integrations with other tools (e.g. DataMad, Help Scout, DSW, Arrivals/MOLES)
+The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
 
-The `DataMad` link is auto-populated when a `Project` is created.
+Links to essential information located on other platforms are collected in the `Links` section at the top of `Project` issues. This section contains the following links: 
 
+- Help Scout
+- DataMad: auto-populated when a project issue is created
+- DSW
+- Dataset [add link]
+- Instrument/Computation/Platform [add link]
+- Project [add link/delete]
+- Collection [add link /delete]
 
-This section outlines how Github integrates with other tools used in the data management workflow.
+These are markdown links which require the URLs adding as they become available, e.g.:
+
+```
+# Link waiting for URL to be added
+[Help Scout]()
+
+# Link with URL added
+[Help Scout](https://secure.helpscout.net/conversation/12345)
+```
+
+Manually update these links by clicking on the three dots at the top of the issue body and editing the markdown text.
+
+Future development work aims to better integrate GitHub with the other tools used in the data management workflow. At the moment DataMad and Help Scout, next DSW and Arrivals.
 
 ### DataMad
 Project issues are created in GitHub through the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. 
@@ -61,7 +80,6 @@ Project issues are created in GitHub through the `Create GitHub issue` button in
 A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
 
 ### Help Scout
-
 
 ### Data Stewardship Wizard
 
