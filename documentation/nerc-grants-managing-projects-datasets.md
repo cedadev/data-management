@@ -48,19 +48,21 @@ Once a sub-issue has been created, an automated script is triggered which adds a
 The dataset is now ready for tracking!
 
 ## 🔗 Integrations with other data management tools
-The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
+The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc). 
 
-Links to this information are collected in the `Links` section at the top of `Project` issues. This section contains the following links: 
+## Links are stored in `Project` issues
+Links to this information are collected in the `Links` section at the top of `Project` issues. The `Links` section contains the following links: 
 
 - Help Scout
-- DataMad: auto-populated when a project issue is created
+- DataMad
 - DSW
-- Dataset [add link]
-- Instrument/Computation/Platform [add link]
-- Project [add link/delete]
-- Collection [add link /delete]
+- Dataset record
+- Instrument/Computation/Platform record
+- Project record
+- Collection record
 
-These are markdown links which require the URLs adding as they become available, e.g.:
+### Editing links in projects
+Links are formatted as markdown text, and require the relevant URLs to be added as they become available, e.g.:
 
 ```
 # Link waiting for URL to be added
@@ -70,20 +72,20 @@ These are markdown links which require the URLs adding as they become available,
 [Help Scout](https://secure.helpscout.net/conversation/12345)
 ```
 
-Manually update these links by clicking on the three dots at the top of the issue body and editing the markdown text.
+To update links, click on the three dots at the top of the issue body, click `Edit`, edit the markdown text, then click `Save`.
 
-Future development work aims to more closely integrate GitHub with the other tools used in the data management workflow. At the moment DataMad and Help Scout, next DSW and Arrivals.
+Future development work aims to more closely integrate GitHub with other essential tools At the moment DataMad and Help Scout, next DSW and Arrivals.
 
-### DataMad
-Project issues are created in GitHub through the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. 
+### Link a Help Scout conversation to a project
 
-A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
+### Link a DataMad grant to a project
+The DataMad link is auto-populated when the issue is created via DataMad the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
 
-### Help Scout
+### Link a Data Stewardship Wizard DMP to a project
 
-### Data Stewardship Wizard
+### Link a MOLES dataset record to a project
 
-## MOLES
+## Link a project 
 
 ## ✅ Task checklists
 
