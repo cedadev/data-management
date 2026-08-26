@@ -1,4 +1,4 @@
-# 1. Projects and datasets: The essentials
+# 1. Understanding project and dataset issue types
 
 ## 🪆 Separating projects and datasets using issue types
 To enable the tracking of NERC grants _and_ the datasets they generate, this workflow uses two types of issue:
@@ -15,7 +15,7 @@ To enable the tracking of NERC grants _and_ the datasets they generate, this wor
 Both issue types have the same overall structure. You can check whether an issue is a project or dataset type via the issue's right-hand sidebar, under `Type`.
 
 ## 👀 Viewing active projects and datasets
-Five views are available for viewing projects and datasets. Switch between views by clicking on their tabs. Each view displays projects, datasets, and their metadata differently depending on use case.
+Project and dataset issue types are used to filter all active issues into five user-friendly views. Switch between views by clicking on the view tabs. Each view displays projects, datasets, and their metadata differently depending on use case.
 
 #### All projects & All datasets views
 These views are two kanban boards which show all active projects and datasets. These views are best for users who need an overview of things like activity, progress, and workload.
@@ -129,11 +129,10 @@ To keep your inbox tidy, set up a rule which routes your reminders to a dedicate
 
 # 4. Connecting to other data management tools
 
-## 🔗 Linking GitHub to other data management tools
+## 🔗 Collecting links in project issues
 The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
 
-## Collecting links in project issues
-Links to this information are collected in the `Links` section at the top of `Project` issues. The `Links` section contains the following links: 
+Links to this essential information are collected in the `Links` section at the top of project issues. The `Links` section contains the following links:
 
 - Help Scout
 - DataMad
@@ -143,7 +142,7 @@ Links to this information are collected in the `Links` section at the top of `Pr
 - Project record
 - Collection record
 
-### Editing links in projects
+### 📝 Editing links in project issues
 Links are formatted as markdown text, and require the relevant URLs to be added as they become available, e.g.:
 
 ```
@@ -158,14 +157,16 @@ To update links, click on the three dots at the top of the issue body, click `Ed
 
 Future development work aims to more closely integrate GitHub with other essential tools At the moment DataMad and Help Scout, next DSW and Arrivals.
 
-### Linking a Help Scout conversation to a project
+### 🗺️ Overview of connections by tool
 
-### Linking a DataMad grant to a project
+#### Linking a Help Scout conversation to a project
+
+#### Linking a DataMad grant to a project
 The DataMad link is auto-populated when the issue is created via DataMad the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
 
-### Linking a Data Stewardship Wizard DMP to a project
+#### Linking a Data Stewardship Wizard DMP to a project
 
-### Linking a MOLES record to a project
+#### Linking a MOLES record to a project
 
-## Linking a data delivery to a project or dataset
+#### Linking a data delivery to a project or dataset
 
