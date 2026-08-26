@@ -67,7 +67,7 @@ The dataset is now ready for tracking!
 
 # 3. Tracking progress
 
-## 📈 Recording progress using statuses
+## 🎯 Recording progress using statuses
 Projects and datasets move through eight statuses which represent the main stages of the data management lifecycle:
 
 - `No Status`: Waiting to be actioned
@@ -99,6 +99,7 @@ Use the `On hold` label to flag that the progress of a project or dataset is wai
 Use the `Unresponsive` label to flag that progress is blocked by an unresponsive project or dataset contact. Where necessary, unresponsive PIs can be reported to the NERC Research Grants Team.
 
 ## ⏰ Setting and receiving reminders for important events
+
 ### Setting reminders
 1. Set a reminder by adding a comment to the relevant issue using this syntax:  `/remind [who] [what] [when]`, e.g.:
 - /remind me to check back in with the PI on Help Scout in 2 weeks
@@ -142,7 +143,7 @@ Links to this essential information are collected in the `Links` section at the 
 - Project record
 - Collection record
 
-### 📝 Editing links in project issues
+## 📝 Editing links in project issues
 Links are formatted as markdown text, and require the relevant URLs to be added as they become available, e.g.:
 
 ```
@@ -157,16 +158,16 @@ To update links, click on the three dots at the top of the issue body, click `Ed
 
 Future development work aims to more closely integrate GitHub with other essential tools At the moment DataMad and Help Scout, next DSW and Arrivals.
 
-### 🗺️ Overview of connections by tool
+## 🗺️ Overview of connections by tool
 
-#### Linking a Help Scout conversation to a project
+### Linking a project to a Help Scout conversation
 
-#### Linking a DataMad grant to a project
+### Linking a DataMad grant to a project
 The DataMad link is auto-populated when the issue is created via DataMad the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
 
-#### Linking a Data Stewardship Wizard DMP to a project
+### Linking a project to a Data Stewardship Wizard DMP
 
-#### Linking a MOLES record to a project
+### Linking a project to a MOLES record
 
-#### Linking a data delivery to a project or dataset
+### Linking a project or dataset to a data delivery in Arrivals
 
