@@ -60,7 +60,7 @@ In kanban board views, statuses progress from left to right. In other views, sta
 ## ✅ Keep on top of tasks with checklists
 The data management lifecycle includes lots of different types of task which take place across multiple platforms and varied timescales.
 
-Both `Project` and `Dataset` issues come with a ready-made task checklist, providing one central place to keep on top of everything.
+Both project and dataset issues come with a ready-made task checklist, providing one central place to keep on top of everything.
 
 ## 🛑 Use labels to communicate blockers
 Sometimes things don't go to plan.
@@ -71,32 +71,6 @@ Use the `Unresponsive` label to flag that progress is blocked by an unresponsive
 
 ## 📣 Get reminders for important milestones
 The level of contact and engagement needed to keep data management on track varies widely depending on what stage a project is in. Set custom reminders when there's something to come back to later, and receive automated reminders for important milestones.
-
-### Setting reminders
-1. Set a reminder by adding a comment to the relevant issue using this syntax:  `/remind [who] [what] [when]`, e.g.:
-- /remind me to check back in with the PI on Help Scout in 2 weeks
-- /remind me to discuss this project with @username next Thursday
-
-2. Setting a reminder adds a `Reminder` label to the issue. Don't remove this label, as this is how reminders are identified and posted when they are due. (It also reminds you that you've set the reminder!) 
-
-3. When due, reminders are automatically posted as a comment in the same issue the reminder was set
-
-In task checklists, tasks with the alarm clock emoji (⏰) represent specific reminders which needs to be set manually. You can also set custom reminders as needed.
-
-### Built-in reminders
-The below reminders are already built-in, and do not need to be set manually:
-- Annual check-in due
-- 6-month check-in due
-- Actual end date passed
-
-When a built-in reminder is triggered, a label (e.g. 'Annual check-in due') will be applied to the issue, which triggers an email. Once you have completed the reminded task, remove the label via the issue's right-hand sidebar.
-
-### Receiving reminders
-Reminders come through as emails. In task checklists, tasks with the waving emoji (👋) represent tasks which are prompted by an automated reminder email.
-
-⚠️ **For reminders to work, make sure that you have both On Github and Email notifications set up at https://github.com/settings/notifications.**
-
-To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
 
 ## 💬 Help & support
 Contact Lucy Killoran at CEDA (lucy.killoran@stfc.ac.uk) with any issues, queries, feedback, or ideas for improvements.

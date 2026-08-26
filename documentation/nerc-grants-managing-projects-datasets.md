@@ -1,6 +1,6 @@
 # Managing projects and datasets
 
-## 🪆 Using project and dataset issue types
+## 🪆 Separating projects and datasets using issue types
 To enable the tracking of NERC grants _and_ the datasets they generate, this workflow uses two types of issue:
 
 ### `Project`
@@ -17,24 +17,24 @@ Both issue types have the same overall structure. You can check whether an issue
 ## 👀 Viewing active projects and datasets
 Five views are available for viewing projects and datasets. Switch between views by clicking on their tabs. Each view displays projects, datasets, and their metadata differently depending on use case.
 
-#### All projects & All datasets
-Two kanban board views which show all active projects and datasets. These views are best for users who need an overview of things like activity, progress, and workload.
+#### All projects & All datasets views
+These views are two kanban boards which show all active projects and datasets. These views are best for users who need an overview of things like activity, progress, and workload.
 
-#### My projects & My datasets
-Two kanban boards which show only the projects and datasets assigned to the viewing user. These views are best for users who need to focus on progressing their assigned projects and datasets. Multiple users can use these views at any one time. 
+#### My projects & My datasets views
+These views are two kanban boards which show only the projects and datasets assigned to the viewing user. These views are best for users who need to focus on progressing their assigned projects and datasets. Multiple users can use these views at any one time. 
 
-#### Reporting
+#### Reporting view
 A tabular view for managing metadata per field and tracking key metrics. This view is best for users who need to query all issues for management and reporting purposes.
 
-## ℹ️ Customising views
-Views are highly customisable and can be edited using the filter bar (underneath the view tabs) and `⚙️View` menu (to the right of the filter bar).
+## 💅 Customising views
+Views are highly customisable and can be edited using the filter bar (underneath the view tabs) and the `⚙️View` menu (to the right of the filter bar).
 
-Feel free to apply new filters if you need to find something specific, but please don't save these changes as it will override the settings for all other users. The exception to this is the Reporting view which is expected to be updated depending on the needs of the reporting manager. 
+Feel free to apply new filters if you need to find something specific, but **please don't save these changes** as it will override the settings for all other users. The exception to this is the Reporting view, which is expected to be regularly edited depending on the needs of the reporting user. 
 
-If you think that a new permanent view would be useful, use the contact information below to discuss if this can be included in future iterations of the workflow.
+If you think that a new permanent view would be useful, contact the development team to discuss if the view can be included in future iterations of the workflow.
 
 ## 📂 Creating a project
-Projects are not created in GitHub directly. Instead, project creation is triggered from DataMad. 
+Projects are not created in GitHub directly. Instead, project creation is triggered as part of the grant claiming process in DataMad.
 
 Create a project by claiming a new grant in DataMad and clicking `Create GitHub issue`. This will create a project issue auto-populated with the grant metadata stored in DataMad.
 
@@ -42,8 +42,6 @@ The project is now ready for tracking!
 
 ## 📊 Creating a dataset
 Unlike projects, datasets are created in GitHub directly.
-
-
 
 Create a dataset by first opening the project issue you need to add datasets to. Scroll down to the bottom of the issue body and click `Create sub-issue`. This button sits just before the issue's activity feed. In the `Create new sub-issue` dialog, click `Dataset (NERC grant)`, then add the following information when prompted:
 
@@ -61,10 +59,68 @@ Once a sub-issue has been created, an automated script is triggered which adds a
 
 The dataset is now ready for tracking!
 
-## 🔗 Integrations with other data management tools
-The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc). 
+## 📈 Recording progress using statuses
+Projects and datasets move through eight statuses which represent the main stages of the data management lifecycle:
 
-## Links to other tools are stored in project issues
+- `No Status`: Waiting to be actioned
+- `DMP in progress`: DMP not yet agreed
+- `Pre-delivery comms`: DMP agreed and project ongoing, data delivery not yet due
+- `Data due`: Project end date passed, data delivery now due
+- `Archiving in progress`: Data are being archived
+- `Archiving completed`: Data are fully archived
+- `No archival data`: No archival data will be generated
+- `Escalate to NERC`: For support with unresponsive PIs where necessary
+
+In kanban board views, statuses progress from left to right. In other views, statuses are shown as a drop-down list and progress from top to bottom. 
+
+## ✅ Managing tasks with checklists
+The data management lifecycle includes lots of different types of task which take place across multiple platforms and varied timescales. Both project and dataset issues come with a ready-made task checklist, providing one central place to keep on top of everything. 
+
+Task checklists are broken down by status.
+
+Contact the development team if you spot any obsolete or missing tasks.
+
+## 📑 Recording essential information in metadata fields
+...
+
+## 🛑 Using labels to communicate blockers
+Sometimes things don't go to plan.
+
+Use the `On hold` label to flag that the progress of a project or dataset is waiting for something or otherwise blocked. Note down the reason in a comment.
+
+Use the `Unresponsive` label to flag that progress is blocked by an unresponsive project or dataset contact. Where necessary, unresponsive PIs can be reported to the NERC Research Grants Team.
+
+## ⏰ Setting and receiving reminders for important events
+### Setting reminders
+1. Set a reminder by adding a comment to the relevant issue using this syntax:  `/remind [who] [what] [when]`, e.g.:
+- /remind me to check back in with the PI on Help Scout in 2 weeks
+- /remind me to discuss this project with @username next Thursday
+
+2. Setting a reminder adds a `Reminder` label to the issue. Don't remove this label, as this is how reminders are identified and posted when they are due. (It also reminds you that you've set the reminder!) 
+
+3. When due, reminders are automatically posted as a comment in the same issue the reminder was set
+
+In task checklists, tasks with the alarm clock emoji (⏰) represent specific reminders which needs to be set manually. You can also set custom reminders as needed.
+
+### Built-in reminders
+The below reminders are already built-in, and do not need to be set manually:
+- Annual check-in due
+- 6-month check-in due
+- Actual end date passed
+
+When a built-in reminder is triggered, a label (e.g. 'Annual check-in due') will be applied to the issue, which triggers an email. Once you have completed the reminded task, remove the label via the issue's right-hand sidebar.
+
+### Receiving reminders
+Reminders come through as emails. In task checklists, tasks with the waving emoji (👋) represent tasks which are prompted by an automated reminder email.
+
+⚠️ **For reminders to work, make sure that you have both On Github and Email notifications set up at https://github.com/settings/notifications.**
+
+To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
+
+## 🔗 Linking GitHub to other data management tools
+The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
+
+## Collecting links in project issues
 Links to this information are collected in the `Links` section at the top of `Project` issues. The `Links` section contains the following links: 
 
 - Help Scout
@@ -90,23 +146,14 @@ To update links, click on the three dots at the top of the issue body, click `Ed
 
 Future development work aims to more closely integrate GitHub with other essential tools At the moment DataMad and Help Scout, next DSW and Arrivals.
 
-### Link a Help Scout conversation to a project
+### Linking a Help Scout conversation to a project
 
-### Link a DataMad grant to a project
+### Linking a DataMad grant to a project
 The DataMad link is auto-populated when the issue is created via DataMad the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
 
-### Link a Data Stewardship Wizard DMP to a project
+### Linking a Data Stewardship Wizard DMP to a project
 
-### Link a MOLES dataset record to a project
+### Linking a MOLES record to a project
 
-## Link a project 
-
-## ✅ Task checklists
-
-
-## 📑 Metadata fields
-
-
-## ⏰ Reminders
-
+## Linking a data delivery to a project or dataset
 
