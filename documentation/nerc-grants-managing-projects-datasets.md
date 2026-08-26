@@ -162,7 +162,7 @@ Future development work aims to more closely integrate GitHub with other essenti
 
 ### Linking a project to a Help Scout conversation
 
-### Linking a DataMad grant to a project
+### Linking a project to a DataMad grant
 The DataMad link is auto-populated when the issue is created via DataMad the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
 
 ### Linking a project to a Data Stewardship Wizard DMP
