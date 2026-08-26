@@ -1,4 +1,4 @@
-# Managing projects and datasets
+# 1. Projects and datasets: The essentials
 
 ## 🪆 Separating projects and datasets using issue types
 To enable the tracking of NERC grants _and_ the datasets they generate, this workflow uses two types of issue:
@@ -33,6 +33,8 @@ Feel free to apply new filters if you need to find something specific, but **ple
 
 If you think that a new permanent view would be useful, contact the development team to discuss if the view can be included in future iterations of the workflow.
 
+# 2. Creating new projects and datasets
+
 ## 📂 Creating a project
 Projects are not created in GitHub directly. Instead, project creation is triggered as part of the grant claiming process in DataMad.
 
@@ -58,6 +60,8 @@ Once a sub-issue has been created, an automated script is triggered which adds a
 - Setting the status to `Pre-delivery comms`
 
 The dataset is now ready for tracking!
+
+# 3. Tracking progress
 
 ## 📈 Recording progress using statuses
 Projects and datasets move through eight statuses which represent the main stages of the data management lifecycle:
@@ -116,6 +120,8 @@ Reminders come through as emails. In task checklists, tasks with the waving emoj
 ⚠️ **For reminders to work, make sure that you have both On Github and Email notifications set up at https://github.com/settings/notifications.**
 
 To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
+
+# 4. Connecting to other data management tools
 
 ## 🔗 Linking GitHub to other data management tools
 The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
