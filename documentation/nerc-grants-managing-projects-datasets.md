@@ -47,10 +47,10 @@ Once a sub-issue has been created, an automated script is triggered which adds a
 
 The dataset is now ready for tracking!
 
-## 🔗 Integrations with other tools (e.g. DataMad, Help Scout, DSW, Arrivals/MOLES)
+## 🔗 Integrations with other data management tools
 The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
 
-Links to essential information located on other platforms are collected in the `Links` section at the top of `Project` issues. This section contains the following links: 
+Links to this information are collected in the `Links` section at the top of `Project` issues. This section contains the following links: 
 
 - Help Scout
 - DataMad: auto-populated when a project issue is created
@@ -72,7 +72,7 @@ These are markdown links which require the URLs adding as they become available,
 
 Manually update these links by clicking on the three dots at the top of the issue body and editing the markdown text.
 
-Future development work aims to better integrate GitHub with the other tools used in the data management workflow. At the moment DataMad and Help Scout, next DSW and Arrivals.
+Future development work aims to more closely integrate GitHub with the other tools used in the data management workflow. At the moment DataMad and Help Scout, next DSW and Arrivals.
 
 ### DataMad
 Project issues are created in GitHub through the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. 
