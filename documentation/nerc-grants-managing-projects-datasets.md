@@ -33,6 +33,8 @@ Feel free to apply new filters if you need to find something specific, but **ple
 
 If you think that a new permanent view would be useful, contact the development team to discuss if the view can be included in future iterations of the workflow.
 
+---
+
 # 2. Creating new projects and datasets
 
 ## 📂 Creating a project
@@ -60,6 +62,8 @@ Once a sub-issue has been created, an automated script is triggered which adds a
 - Setting the status to `Pre-delivery comms`
 
 The dataset is now ready for tracking!
+
+---
 
 # 3. Tracking progress
 
@@ -120,6 +124,8 @@ Reminders come through as emails. In task checklists, tasks with the waving emoj
 ⚠️ **For reminders to work, make sure that you have both On Github and Email notifications set up at https://github.com/settings/notifications.**
 
 To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
+
+---
 
 # 4. Connecting to other data management tools
 
