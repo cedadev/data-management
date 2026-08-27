@@ -113,41 +113,41 @@ In kanban board views, statuses progress from left to right. In other views, sta
 ## ✅ Managing tasks with checklists
 Both project and dataset issues come with ready-made task checklists, providing one central place to keep on top of everything.
 
-Task checklists are broken down into chunks by status. Once you have completed all tasks for a given status, progress the issue to the next status. Change an issue's status by dragging and dropping the issue in kanban board views, or updating the `Status` field in the issue's right-hand sidebar.
+Task checklists are broken down into chunks by status. Once you have completed all tasks for a given status, progress the issue to the next status. Change an issue's status by dragging and dropping the issue in kanban board views, or updating the `Status` field in the issue's metadata field (via the issue right-hand sidebar, or field in a table view).
 
 ## 📑 Recording information in metadata fields
-Both project and dataset issues have a set of metadata fields which record essential information. Most of these fields are auto-populated fields (shown by the robot emoji 🤖 in the list below). Instructions for filling in the remaining few fields as information becomes available are included in task checklists.
+Both project and dataset issues have a set of metadata fields which record essential information. The majority of these fields are auto-populated. The fields which need to be filled in manually are shown by the writing hand emoji (✍️) in the list below. Instructions for filling in these fields are included in project and dataset task checklists.
 
 ### Grant essentials
-- 🤖 NERC ID
-- 🤖 UKRI ID
-- 🤖 Data centre
-- 🤖 Funder
-- Funding stream
-- 🤖 PI name
-- 🤖 PI email
+- NERC ID
+- UKRI ID
+- Data centre
+- Funder
+- ✍️ Funding stream
+- PI name
+- PI email
 - Will grant produce data
 
 ### GitHub essentials
-- 🤖 Type
-- Status
-- 🤖 Assignees (also added to manually)
-- 🤖 Labels (also added to manually)
-- 🤖 Sub-issues progress
+- Type
+- ✍️ Status
+- Assignees (also added to manually)
+- Labels (also added to manually)
+- Sub-issues progress (explained in the next section)
 
 ### Important dates
 - Date contacted PI
-- 🤖 Actual start date
-- 🤖 Actual end date
-- 🤖 DMP due
-- DMP agreed
-- Data delivery expected
-- Data delivered
+- Actual start date
+- Actual end date
+- DMP due
+- ✍️ DMP agreed
+- ✍️ Data delivery expected
+- ✍️ Data delivered
 
 ### Issue activity
-- 🤖 Created
-- 🤖 Updated
-- 🤖 Closed
+- Created
+- Updated
+- Closed
 
 ## 📶 Viewing dataset completion at a glance
 The `Sub-issues progress` metadata field displays how many datasets have been created within a project and whether they are open or closed. Datasets are automatically closed when they reach the `Archiving completed` status. This is displayed in the `Sub-issues progress` field as a progress bar and percentage, with dark sections of the representing a closed issue (or, archived datset).
