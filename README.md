@@ -1,25 +1,11 @@
 # 🔀 Data management tracking
 
-This repo is home to the following GitHub Projects for data management tracking:
-- [NERC grants data management tracking](https://github.com/orgs/cedadev/projects/139)
+This repo is home to the [NERC grants data management tracking](https://github.com/orgs/cedadev/projects/139) GitHub Project.
+
+> Take a look at the [full documentation](https://github.com/cedadev/data-management/blob/9f055838bbd1f95a35126b7bd2b35acd77140ecc/documentation/nerc-grants-documentation.md#%EF%B8%8F-datamad-and-help-scout-integrations) before getting started.
+
+## Projects in development
+
+This repo also hosts the following in-development GitHub Projects for data management:
+
 - [CCI dataset tracking](https://github.com/orgs/cedadev/projects/157)
-
-## Documentation
-
-### NERC grants data management tracking (docs todo)
-- System summary
-- Managing projects and datasets
-    - Viewing active projects and datasets
-    - Creating a project
-    - Creating a dataset
-    - Linking to other tools (e.g. DataMad, Help Scout, DSW, MOLES)
-    - Task checklists
-    - Metadata fields
-    - Reminders
-- Creating reports
-- Development roadmap
-    - Tracking how well the system works
-    - Current integrations
-    - Future integrations (must have / nice to have)
-- Accessing legacy information from Jira
-- Help and feedback

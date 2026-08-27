@@ -1,4 +1,6 @@
-> 📣 Welcome to the NERC grants data management tracking GitHub Project. Below is an introductory README only. Take a look at the [full documentation](https://github.com/cedadev/data-management/blob/9f055838bbd1f95a35126b7bd2b35acd77140ecc/documentation/nerc-grants-documentation.md#%EF%B8%8F-datamad-and-help-scout-integrations) before getting started.
+---
+📣 Welcome to the NERC grants data management tracking GitHub Project. Below is an introductory README only. Take a look at the [full documentation](https://github.com/cedadev/data-management/blob/9f055838bbd1f95a35126b7bd2b35acd77140ecc/documentation/nerc-grants-documentation.md#%EF%B8%8F-datamad-and-help-scout-integrations) before getting started.
+---
 
 ## 🔀 Track NERC grants and the datasets they generate through the whole data management lifecycle.
 
