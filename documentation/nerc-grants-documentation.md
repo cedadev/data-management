@@ -1,3 +1,31 @@
+# NERC grants data management tracking documentation
+
+## Contents
+
+1. Understanding project and dataset issue types
+    - 🪆 Separating projects and datasets using issue types
+    - 👀 Viewing active projects and datasets
+    - 💅 Customising views
+
+2. Creating new projects and datasets
+    - 📂 Creating a project
+    - 📊 Creating a dataset
+
+3. Tracking progress
+    - 🎯 Tracking progress using statuses
+    - 📶 Viewing dataset completion at a glance
+    - ✅ Managing tasks with checklists
+    - 📑 Recording information in metadata fields
+    - 🛑 Using labels to communicate blockers
+    - ⏰ Setting and receiving reminders
+
+4. Connecting to other data management tools
+    - 🔗 Collecting links in project issues
+    - 📝 Editing links in project issues
+    - ⚙️ DataMad and Help Scout integrations
+
+---
+
 # 1. Understanding project and dataset issue types
 
 ## 🪆 Separating projects and datasets using issue types
@@ -48,7 +76,7 @@ Unlike projects, datasets are created in GitHub directly. Datasets should be cre
 Follow these steps to create a dataset:
 
 - Open the project issue you need to add datasets to
-- Scroll down to the bottom of the issue body and click `Create sub-issue` (this button sits just before the issue's activity feed)
+- Scroll down to the bottom of the issue body and click `Create sub-issue` (this sits just before the issue's activity feed)
 - In the `Create new sub-issue` dialog, click `Dataset (NERC grant)`, then add the following information when prompted:
     - Dataset title (formatted as 'NERC ID: Working dataset title')
     - Any initial notes about the dataset (e.g. 'Model output, estimated volume ~30GB')
@@ -82,7 +110,7 @@ Projects and datasets move through eight statuses. These statuses represent the 
 
 In kanban board views, statuses progress from left to right. In other views, statuses are shown as a drop-down list and progress from top to bottom. 
 
-## 📶 Viewing dataset progress at a glance
+## 📶 Viewing dataset completion at a glance
 ... (Sub-issues progress)
 
 ## ✅ Managing tasks with checklists
@@ -90,7 +118,7 @@ Both project and dataset issues come with ready-made task checklists, providing 
 
 Task checklists are broken down into chunks by status. Once you have completed all tasks for a given status, progress the issue to the next status. Change an issue's status by dragging and dropping the issue in kanban board views, or updating the `Status` field in the issue's right-hand sidebar.
 
-## 📑 Recording essential information in metadata fields
+## 📑 Recording information in metadata fields
 Both project and dataset issues have a set of metadata fields which record essential information. These fields are:
 
 ### Grant essentials
@@ -132,7 +160,7 @@ Use the `On hold` label to flag that the progress of a project or dataset is wai
 
 Use the `Unresponsive` label to flag that progress is blocked by an unresponsive project or dataset contact. Where necessary, unresponsive PIs can be reported to the NERC Research Grants Team.
 
-## ⏰ Setting and receiving reminders for important events
+## ⏰ Setting and receiving reminders
 
 ### Setting reminders
 1. Set a reminder by adding a comment to the relevant issue using this syntax:  `/remind [who] [what] [when]`, e.g.:
@@ -190,20 +218,30 @@ Links are formatted as markdown text, and require the relevant URLs to be added 
 
 To update links, click on the three dots at the top of the issue body, click `Edit`, edit the markdown text, then click `Save`.
 
-Future development work aims to more closely integrate GitHub with other essential tools At the moment DataMad and Help Scout, next DSW and Arrivals.
+## ⚙️ DataMad and Help Scout integrations
 
-## 🗺️ Overview of connections by tool
+DataMad and Help Scout have additional integrations with GitHub. The Help Scout integration needs to be set up manually for each project, but the DataMad integration does not.
 
 ### Linking a project to a Help Scout conversation
+Link Help Scout conversations to their relevant project issues.
+
+- Open the Help Scout conversation
+- In the sidebar, find the `GitHub` section and click `Link an issue`
+- In the dialog, search for the relevant issue (you can use keywords or issue numbers)
+- Hover over the relevant issue and either:
+    - Click `Link` in the top-right corner of the issue card to link the issue
+    - Click anywhere else on the issue card to preview the issue without linking it
+- Exit the dialog to return to the Help Scout conversation
+- To unlink an issue, hover over a linked issue and click `Unlink` in the top-right corner of the issue card
+
+Linked issues can be previewed or opened from the Help Scout sidebar by clicking on the linked issue. This preview shows the issue body only, so is most useful for checking progress via the task checklist.
+
+Linking an issue this way does not update the markdown link at the top of the issue body, this still needs to be done manually.
 
 ### Linking a project to a DataMad grant
-The DataMad link is auto-populated when the issue is created via DataMad the `Create GitHub issue` button in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
+The DataMad link is auto-populated when the issue is created via `Create GitHub issue` in DataMad. At the moment this integration is one-way only: DataMad can send information to GitHub, but GitHub cannot currently send information back to DataMad. A two-way integration is planned for future development. This would remove the need to manually enter values in the fields which are duplicated across both platforms (e.g. `Date contacted PI`).
 
-### Linking a project to a Data Stewardship Wizard DMP
-
-### Linking a project to a MOLES record
-
-### Linking a project or dataset to a data delivery in Arrivals
+Future development work aims to more closely integrate GitHub with the essential tools in the data management workflow.
 
 ---
 
