@@ -29,7 +29,7 @@
 # 1. Understanding project and dataset issue types
 
 ## 🪆 Separating projects and datasets using issue types
-To enable the tracking of NERC grants _and_ the datasets they generate, this workflow uses two types of issue: `Project` and `Dataset`.
+To enable the tracking of NERC grants _and_ the datasets they generate, this workflow uses two issue types. Issue types are a GitHub feature which allows issues be classified at a high level, making it easier to separate out different types of work. The issue types used in this workflow are `Project` and `Dataset`.
 
 ### Project
 - This issue type represents a piece of work which is generating data
