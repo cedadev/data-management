@@ -1,27 +1,27 @@
 # NERC grants data management tracking documentation
 
 ## Contents
-1. Understanding project and dataset issue types
-    - 🪆 Separating projects and datasets using issue types
-    - 👀 Viewing active projects and datasets
-    - 💅 Customising views
+[1. Understanding project and dataset issue types](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#1-understanding-project-and-dataset-issue-types)
+    - [🪆 Separating projects and datasets using issue types](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-separating-projects-and-datasets-using-issue-types)
+    - [👀 Viewing active projects and datasets](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-viewing-active-projects-and-datasets)
+    - [💅 Customising views](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-customising-views)
 
-2. Creating new projects and datasets
-    - 📂 Creating a project
-    - 📊 Creating a dataset
+[2. Creating new projects and datasets](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#2-creating-new-projects-and-datasets)
+    - [📂 Creating a project](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-creating-a-project)
+    - [📊 Creating a dataset](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-creating-a-dataset)
 
-3. Tracking progress
-    - 🎯 Tracking progress using statuses
-    - ✅ Managing tasks with checklists
-    - 📑 Recording information in metadata fields
-    - 📶 Viewing dataset completion at a glance
-    - 🛑 Using labels to communicate blockers
-    - ⏰ Setting and receiving reminders
+[3. Tracking progress](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#3-tracking-progress)
+    - [🎯 Tracking progress using statuses](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-tracking-progress-using-statuses)
+    - [✅ Managing tasks with checklists](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-managing-tasks-with-checklists)
+    - [📑 Recording information in metadata fields](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-recording-information-in-metadata-fields)
+    - [📶 Viewing dataset completion at a glance](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-viewing-dataset-completion-at-a-glance)
+    - [🛑 Using labels to communicate blockers](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-using-labels-to-communicate-blockers)
+    - [⏰ Setting and receiving reminders](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-setting-and-receiving-reminders)
 
-4. Connecting to other data management tools
-    - 🔗 Collecting links in project issues
-    - 📝 Editing links in project issues
-    - ⚙️ DataMad and Help Scout integrations
+[4. Connecting to other data management tools](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#4-connecting-to-other-data-management-tools)
+    - [🔗 Collecting links in project issues](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-collecting-links-in-project-issues)
+    - [📝 Editing links in project issues](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-editing-links-in-project-issues)
+    - [⚙️ DataMad and Help Scout integrations](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#%EF%B8%8F-datamad-and-help-scout-integrations)
 
 ---
 
@@ -229,7 +229,7 @@ The DataMad link in the project `Links` section is auto-populated when the issue
 - Click `Save`
 
 ## ⚙️ DataMad and Help Scout integrations
-DataMad and Help Scout have additional integrations with GitHub. The Help Scout integration needs to be set up manually for each project. The DataMad integration is automatic.
+DataMad and Help Scout have additional integrations with GitHub. The Help Scout integration needs to be manually set up for each project. The DataMad integration is automatic.
 
 ### Linking a project to a Help Scout conversation
 Follow these steps to link a Help Scout conversation to its relevant project issue:
