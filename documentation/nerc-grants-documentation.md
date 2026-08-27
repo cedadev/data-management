@@ -11,12 +11,12 @@
     - [📊 Creating a dataset](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-creating-a-dataset)
 
 [3. Tracking progress](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#3-tracking-progress)
-    - [🎯 Tracking progress using statuses](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-tracking-progress-using-statuses)
-    - [✅ Managing tasks with checklists](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-managing-tasks-with-checklists)
-    - [📑 Recording information in metadata fields](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-recording-information-in-metadata-fields)
-    - [📶 Viewing dataset completion at a glance](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-viewing-dataset-completion-at-a-glance)
-    - [🛑 Using labels to communicate blockers](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-using-labels-to-communicate-blockers)
-    - [⏰ Setting and receiving reminders](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-setting-and-receiving-reminders)
+- [🎯 Tracking progress using statuses](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-tracking-progress-using-statuses)
+- [✅ Managing tasks with checklists](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-managing-tasks-with-checklists)
+- [📑 Recording information in metadata fields](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-recording-information-in-metadata-fields)
+- [📶 Viewing dataset completion at a glance](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-viewing-dataset-completion-at-a-glance)
+- [🛑 Using labels to communicate blockers](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-using-labels-to-communicate-blockers)
+- [⏰ Setting and receiving reminders](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-setting-and-receiving-reminders)
 
 [4. Connecting to other data management tools](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#4-connecting-to-other-data-management-tools)
     - [🔗 Collecting links in project issues](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-collecting-links-in-project-issues)
