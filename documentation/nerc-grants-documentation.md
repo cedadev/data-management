@@ -208,7 +208,9 @@ Links to this essential information are collected in the `Links` section at the 
 - Collection record
 
 ## 📝 Editing links in project issues
-Issue bodies are formatted markdown text which can be edited. When viewing the unrendered markdown, links appear as:
+Only the DataMad link is auto-populated when the project issue is created. All of the other links need to be updated manually as their URLs become available. Add URLs to links by editing the raw markdown of an issue body.
+
+When viewing the unrendered markdown, links appear as:
 
 `[Link name, displayed when rendered](URL, hidden when rendered)`, e.g.:
 
@@ -220,11 +222,11 @@ Issue bodies are formatted markdown text which can be edited. When viewing the u
 [Help Scout](https://secure.helpscout.net/conversation/12345)
 ```
 
-The DataMad link in the project `Links` section is auto-populated when the issue is created. The other links need to be updated manually as their URLs become available. Follow these steps to update links:
+Follow these steps to update links:
 
 - Click on the three dots at the top of the issue body
 - Click `Edit`
-- Edit the markdown text
+- Copy and paste the URL into the link's markdown text
 - Click `Save`
 
 ## ⚙️ DataMad and Help Scout integrations
