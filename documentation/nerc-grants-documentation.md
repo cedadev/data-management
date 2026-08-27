@@ -66,7 +66,7 @@ Feel free to apply new filters if you need to find something specific, but **ple
 ## 📂 Creating a project
 Projects are not created in GitHub directly. Project creation is triggered as part of the grant claiming process in DataMad.
 
-Create a project by claiming a new grant in DataMad and clicking `Create GitHub issue`. This will create a project issue auto-populated with the grant metadata stored in DataMad.
+Create a project by claiming a grant in DataMad and clicking `Create GitHub issue`. This will create a project issue auto-populated with the grant metadata stored in DataMad.
 
 The project is now ready for tracking!
 
@@ -83,9 +83,9 @@ Follow these steps to create a dataset:
 - Click `Create` to create the dataset issue
     - To create multiple dataset issues without leaving the dialog, check the `Create more sub-issues` checkbox before clicking `Create`
 
-Once a dataset issue has been created, an automated script is triggered which makes sure all essential metadata is present. This script makes the following edits to the dataset issue:
+Once a dataset issue has been created, an automated script is triggered which makes sure that all essential metadata is present. This script makes the following edits to the dataset issue:
 
-- Assigns the sub-issue to the user who created it
+- Assigns the dataset to the user who created it
 - Applies the `Dataset` project type
 - Auto-populates the metadata fields with information from the parent project
 - Sets the status to `Pre-delivery comms`
