@@ -1,7 +1,6 @@
 # NERC grants data management tracking documentation
 
 ## Contents
-
 1. Understanding project and dataset issue types
     - 🪆 Separating projects and datasets using issue types
     - 👀 Viewing active projects and datasets
@@ -150,24 +149,26 @@ Both project and dataset issues have a set of metadata fields which record essen
 - Closed
 
 ## 📶 Viewing dataset completion at a glance
-The `Sub-issues progress` metadata field displays how many datasets have been created within a project and whether they are open or closed. Datasets are automatically closed when they reach the `Archiving completed` status. This is displayed in the `Sub-issues progress` field as a progress bar and percentage, with dark sections of the representing a closed issue (or, archived datset).
+The `Sub-issues progress` metadata field displays how many datasets have been created within a project, and whether they are open or closed. Datasets are automatically closed when they reach the `Archiving completed` status. This is displayed in the `Sub-issues progress` field as a progress bar and percentage, with dark sections of the bar representing a closed issue (or, archived datset).
 
 ## 🛑 Using labels to communicate blockers
 Things don't always go to plan. When delays happen, use labels to communicate that progress is blocked
 
-Use the `On hold` label to flag that the progress of a project or dataset is waiting for something or otherwise blocked. Note down the reason in a comment.
+Use the `On hold` label to flag that the progress of a project or dataset is waiting for something, or otherwise blocked. Note down the reason in a comment.
 
-Use the `Unresponsive` label to flag that progress is blocked by an unresponsive project or dataset contact. Where necessary, unresponsive PIs can be reported to the NERC Research Grants Team.
+Use the `Unresponsive` label to flag that progress is blocked by an unresponsive PI (or other contact). Where necessary, unresponsive PIs can be reported to the NERC Research Grants Team to unblock progress. The process for this is included in the project task checklist.
 
 ## ⏰ Setting and receiving reminders
 The level of contact and engagement needed to keep data management on track varies widely depending on what stage a project is in. Set custom reminders when there's something to come back to later, and receive automated reminders for important milestones.
 
 ### Setting reminders
+Follow these steps to set a reminder:
+
 1. Set a reminder by adding a comment to the relevant issue using this syntax:  `/remind [who] [what] [when]`, e.g.:
 - /remind me to check back in with the PI on Help Scout in 2 weeks
 - /remind me to discuss this project with @username next Thursday
 
-2. Setting a reminder adds a `Reminder` label to the issue. Don't remove this label, as this is how reminders are identified and posted when they are due. (It also reminds you that you've set the reminder!) 
+2. Setting a reminder adds a `Reminder` label to the issue. Don't remove this label, as this is how reminders are identified and posted when they are due (it also reminds you that you've set the reminder!) 
 
 3. When due, reminders are automatically posted as a comment in the same issue the reminder was set
 
@@ -175,16 +176,17 @@ In task checklists, tasks with the alarm clock emoji (⏰) represent specific re
 
 ### Built-in reminders
 The below reminders are already built-in, and do not need to be set manually:
+
 - Annual check-in due
 - 6-month check-in due
 - Actual end date passed
 
-When a built-in reminder is triggered, a label (e.g. 'Annual check-in due') will be applied to the issue, which triggers an email. Once you have completed the reminded task, remove the label via the issue's right-hand sidebar.
+When a built-in reminder is triggered, a label (e.g. 'Annual check-in due') will be applied to the issue, which triggers an email to all issue assignees. Once you have completed the reminded task, remove the label via the metadata field (via the issue right-hand sidebar, or field in a table view).
 
 ### Receiving reminders
-Reminders come through as emails. In task checklists, tasks with the waving emoji (👋) represent tasks which are prompted by an automated reminder email.
+Reminders come through as emails. In task checklists, tasks with the waving emoji (👋) represent tasks which are prompted by an automated email.
 
-⚠️ **For reminders to work, make sure that you have both On Github and Email notifications set up at https://github.com/settings/notifications.**
+⚠️ **For reminders to work, make sure that you have both `On Github` and `Email` notifications set up at https://github.com/settings/notifications.**
 
 To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
 
@@ -193,7 +195,7 @@ To keep your inbox tidy, set up a rule which routes your reminders to a dedicate
 # 4. Connecting to other data management tools
 
 ## 🔗 Collecting links in project issues
-The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP on Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
+The data management workflow takes place across multiple tools (e.g. a grant in DataMad relates to a DMP in Data Stewardship Wizard which relates one or more conversations in Help Scout, etc).
 
 Links to this essential information are collected in the `Links` section at the top of project issues. The `Links` section contains the following links:
 
@@ -206,33 +208,40 @@ Links to this essential information are collected in the `Links` section at the 
 - Collection record
 
 ## 📝 Editing links in project issues
-Links are formatted as markdown text, and require the relevant URLs to be added as they become available, e.g.:
+Issue bodies are formatted markdown text which can be edited. When viewing the unrendered markdown, links appear as `[Link name to be displayed](URL to be hidden)` e.g.:
 
 ```
-# Link waiting for URL to be added
+# Unrendered markdown link waiting for URL to be added
 [Help Scout]()
 
-# Link with URL added
+# Unrendered markdown link with URL added
 [Help Scout](https://secure.helpscout.net/conversation/12345)
+
+# Rendered markdown link
+Help Scout
 ```
 
-To update links, click on the three dots at the top of the issue body, click `Edit`, edit the markdown text, then click `Save`.
+The DataMad link in the project `Links` section is auto-populated when the issue is created. The other links need to be updated manually as their URLs become available. Follow these steps to update links:
+
+- Click on the three dots at the top of the issue body
+- Click `Edit`
+- Edit the markdown text
+- Click `Save`
 
 ## ⚙️ DataMad and Help Scout integrations
-
-DataMad and Help Scout have additional integrations with GitHub. The Help Scout integration needs to be set up manually for each project, but the DataMad integration does not.
+DataMad and Help Scout have additional integrations with GitHub. The Help Scout integration needs to be set up manually for each project. The DataMad integration is automatic.
 
 ### Linking a project to a Help Scout conversation
-Link Help Scout conversations to their relevant project issues.
+Follow these steps to link a Help Scout conversation to its relevant project issue:
 
 - Open the Help Scout conversation
-- In the sidebar, find the `GitHub` section and click `Link an issue`
+- In the sidebar, click `Link an issue` in the `GitHub` section
 - In the dialog, search for the relevant issue (you can use keywords or issue numbers)
 - Hover over the relevant issue and either:
-    - Click `Link` in the top-right corner of the issue card to link the issue
+    - Click `Link` in the top-right corner of the issue to link the issue
     - Click anywhere else on the issue card to preview the issue without linking it
 - Exit the dialog to return to the Help Scout conversation
-- To unlink an issue, hover over a linked issue and click `Unlink` in the top-right corner of the issue card
+- To unlink an issue, hover over a linked issue and click `Unlink` in the top-right corner of the issue
 
 Linked issues can be previewed or opened from the Help Scout sidebar by clicking on the linked issue. This preview shows the issue body only, so is most useful for checking progress via the task checklist.
 
