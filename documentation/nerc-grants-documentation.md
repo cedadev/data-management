@@ -208,11 +208,9 @@ Links to this essential information are collected in the `Links` section at the 
 - Collection record
 
 ## 📝 Editing links in project issues
-Only the DataMad link is auto-populated when the project issue is created. All of the other links need to be updated manually as their URLs become available. Add URLs to links by editing the raw markdown of an issue body.
+Only the DataMad link is auto-populated when the project issue is created. All other links need to be updated manually as their URLs become available. Add URLs to links by editing the raw markdown of an issue body.
 
-When viewing the unrendered markdown, links appear as:
-
-`[Link name, displayed when rendered](URL, hidden when rendered)`, e.g.:
+When viewing the unrendered markdown of an issue body, links appear as: `[Link name, displayed when rendered](URL, hidden when rendered)`, e.g.:
 
 ```
 # Unrendered markdown link waiting for URL to be added
