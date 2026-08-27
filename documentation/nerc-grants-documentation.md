@@ -13,9 +13,9 @@
 
 3. Tracking progress
     - 🎯 Tracking progress using statuses
-    - 📶 Viewing dataset completion at a glance
     - ✅ Managing tasks with checklists
     - 📑 Recording information in metadata fields
+    - 📶 Viewing dataset completion at a glance
     - 🛑 Using labels to communicate blockers
     - ⏰ Setting and receiving reminders
 
@@ -66,7 +66,7 @@ Feel free to apply new filters if you need to find something specific, but **ple
 ## 📂 Creating a project
 Projects are not created in GitHub directly. Project creation is triggered as part of the grant claiming process in DataMad.
 
-Create a project by claiming a grant in DataMad and clicking `Create GitHub issue`. This will create a project issue auto-populated with the grant metadata stored in DataMad.
+Create a project by claiming a grant in DataMad and clicking `Create GitHub issue`. This will create a project issue in GitHub which is auto-populated with the grant metadata stored in DataMad.
 
 The project is now ready for tracking!
 
@@ -110,57 +110,57 @@ Projects and datasets move through eight statuses. These statuses represent the 
 
 In kanban board views, statuses progress from left to right. In other views, statuses are shown as a drop-down list and progress from top to bottom. 
 
-## 📶 Viewing dataset completion at a glance
-... (Sub-issues progress)
-
 ## ✅ Managing tasks with checklists
 Both project and dataset issues come with ready-made task checklists, providing one central place to keep on top of everything.
 
 Task checklists are broken down into chunks by status. Once you have completed all tasks for a given status, progress the issue to the next status. Change an issue's status by dragging and dropping the issue in kanban board views, or updating the `Status` field in the issue's right-hand sidebar.
 
 ## 📑 Recording information in metadata fields
-Both project and dataset issues have a set of metadata fields which record essential information. These fields are:
+Both project and dataset issues have a set of metadata fields which record essential information. Most of these fields are auto-populated fields (shown by the robot emoji 🤖 in the list below). Instructions for filling in the remaining few fields as information becomes available are included in task checklists.
 
 ### Grant essentials
-- NERC ID
-- UKRI ID
-- Data centre
-- Funder
+- 🤖 NERC ID
+- 🤖 UKRI ID
+- 🤖 Data centre
+- 🤖 Funder
 - Funding stream
-- PI name
-- PI email
+- 🤖 PI name
+- 🤖 PI email
 - Will grant produce data
 
-### ...
-- Type
+### GitHub essentials
+- 🤖 Type
 - Status
-- Assignees
-- Labels
-- Sub-issues progress
+- 🤖 Assignees (also added to manually)
+- 🤖 Labels (also added to manually)
+- 🤖 Sub-issues progress
 
 ### Important dates
 - Date contacted PI
-- Actual start date
-- Actual end date
-- DMP due
+- 🤖 Actual start date
+- 🤖 Actual end date
+- 🤖 DMP due
 - DMP agreed
 - Data delivery expected
 - Data delivered
 
 ### Issue activity
-- Created
-- Updated
-- Closed
+- 🤖 Created
+- 🤖 Updated
+- 🤖 Closed
 
+## 📶 Viewing dataset completion at a glance
+The `Sub-issues progress` metadata field displays how many datasets have been created within a project and whether they are open or closed. Datasets are automatically closed when they reach the `Archiving completed` status. This is displayed in the `Sub-issues progress` field as a progress bar and percentage, with dark sections of the representing a closed issue (or, archived datset).
 
 ## 🛑 Using labels to communicate blockers
-Sometimes things don't go to plan.
+Things don't always go to plan. When delays happen, use labels to communicate that progress is blocked
 
 Use the `On hold` label to flag that the progress of a project or dataset is waiting for something or otherwise blocked. Note down the reason in a comment.
 
 Use the `Unresponsive` label to flag that progress is blocked by an unresponsive project or dataset contact. Where necessary, unresponsive PIs can be reported to the NERC Research Grants Team.
 
 ## ⏰ Setting and receiving reminders
+The level of contact and engagement needed to keep data management on track varies widely depending on what stage a project is in. Set custom reminders when there's something to come back to later, and receive automated reminders for important milestones.
 
 ### Setting reminders
 1. Set a reminder by adding a comment to the relevant issue using this syntax:  `/remind [who] [what] [when]`, e.g.:
