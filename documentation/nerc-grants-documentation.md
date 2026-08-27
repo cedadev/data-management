@@ -208,7 +208,9 @@ Links to this essential information are collected in the `Links` section at the 
 - Collection record
 
 ## 📝 Editing links in project issues
-Issue bodies are formatted markdown text which can be edited. When viewing the unrendered markdown, links appear as `[Link name, displayed when rendered](URL, hidden when rendered)` e.g.:
+Issue bodies are formatted markdown text which can be edited. When viewing the unrendered markdown, links appear as:
+
+`[Link name, displayed when rendered](URL, hidden when rendered)`, e.g.:
 
 ```
 # Unrendered markdown link waiting for URL to be added
