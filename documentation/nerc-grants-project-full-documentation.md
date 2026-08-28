@@ -1,13 +1,13 @@
 # NERC grants data management tracking documentation
 
-## Quickstart
+## ⚡️ Quickstart
 
 - Click on the `My projects` tab underneath the board title
 - Click on a project's title to open it
 - See what's next to do using the task checklist
     - If you are opening a migrated issue for the first time, check off any tasks already completed
 
-## Contents
+## 📚 Documentation contents
 
 Access the table of contents for this documentation by clicking the `Outline` icon at the top right of this file's header. Click a title to navigate to the selected section.
 
