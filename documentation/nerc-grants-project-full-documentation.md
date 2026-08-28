@@ -210,7 +210,7 @@ Reminders come through as emails. In task checklists, tasks with the waving hand
 To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
 
 ### Deleting reminders
-Follow these steps to delete any reminders which are no longer needed:
+Follow these steps to delete a reminder:
 
 1. Delete the comment containing the `/remind` command (or edit the comment to remove the `/remind` command, if you want to keep the comment)
 2. Remove the reminder label
