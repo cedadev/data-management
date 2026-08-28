@@ -1,5 +1,12 @@
 # NERC grants data management tracking documentation
 
+## Quickstart
+
+- Click on the `My projects` tab underneath the board title
+- Click on a project's title to open it
+- See what's next to do using the task checklist
+    - If you are opening a migrated issue for the first time, check off any tasks already completed
+
 ## Contents
 ### [1. Understanding project and dataset issue types](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#1-understanding-project-and-dataset-issue-types-1)
 - [🪆 Separating projects and datasets using issue types](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-documentation.md#-separating-projects-and-datasets-using-issue-types)
