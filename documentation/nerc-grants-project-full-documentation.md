@@ -9,7 +9,7 @@
 
 ## Contents
 
-Click `Outline` in the top right corner of this doc to see the table of contents.
+Click `Outline` in the top right corner of this doc to see the table of contents and navigate to the sections you need via clickable links.
 
 ---
 
