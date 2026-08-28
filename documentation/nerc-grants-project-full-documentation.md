@@ -9,7 +9,7 @@
 
 ## Contents
 
-Click `Outline` in the top right corner of this doc to see the table of contents and navigate to the sections you need via clickable links.
+Access the table of contents by clicking the `Outline` menu icon at the top right of this file's header. Each heading title is listed in the table of contents and you can click a title to navigate to the selected section.
 
 ---
 
