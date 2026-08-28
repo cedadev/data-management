@@ -9,7 +9,9 @@
 
 ## Contents
 
-Access the table of contents by clicking the `Outline` menu icon at the top right of this file's header. Each heading title is listed in the table of contents and you can click a title to navigate to the selected section.
+Access the table of contents for this documentation by clicking the `Outline` menu icon at the top right of this file's header. 
+
+Each heading title is listed in the table of contents and you can click a title to navigate to the selected section.
 
 ---
 
