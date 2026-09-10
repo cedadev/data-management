@@ -9,7 +9,7 @@
 
 ## 📚 Documentation contents
 
-Access the table of contents for this documentation by clicking the `Outline` icon at the top right of this file's header. Click a title to navigate to the selected section.
+Access the table of contents for this documentation by clicking the Outline menu icon at the top right of this file's header. Click a title to navigate to the selected section.
 
 ---
 
