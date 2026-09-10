@@ -143,7 +143,7 @@ Both project and dataset issues have a set of metadata fields which record essen
 - Closed
 
 ## 📶 Viewing dataset completion at a glance
-The `Sub-issues progress` metadata field displays how many datasets have been created within a project, and whether they are open or closed. Datasets are automatically closed when they reach the `Archiving completed` status. This is displayed in the `Sub-issues progress` field as a progress bar and percentage, with dark sections of the bar representing a closed issue (or, archived datset).
+The `Sub-issues progress` metadata field displays how many datasets have been created within a project, and whether they are open or closed. Datasets are automatically closed when they reach the `Archiving completed` status. This is displayed in the `Sub-issues progress` field as a progress bar and percentage, with each dark section of the bar representing one closed issue (or, archived dataset).
 
 ## 🛑 Using labels to communicate blockers
 Things don't always go to plan. When delays happen, use labels to communicate that progress is blocked
