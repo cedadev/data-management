@@ -5,7 +5,7 @@
 - Click on the `My projects` tab underneath the board title
 - Click on a project's title to open it
 - See what's next to do using the task checklist
-    - If you are opening a migrated issue for the first time, check off any tasks already completed
+- If you are opening a migrated issue for the first time, check off any tasks on the checklist that you've already completed
 
 ## 📚 Documentation contents
 
@@ -53,7 +53,9 @@ Feel free to apply new filters if you need to find something specific, but **ple
 # 2. Creating new projects and datasets
 
 ## 📂 Creating a project
-Projects are not created in GitHub directly. Project creation is triggered as part of the grant claiming process in DataMad.
+Projects are not created in GitHub directly. Project creation is triggered as part of the grant claiming process in DataMad. 
+
+Before creating a project, make sure that your GitHub username is added to your user account details in DataMad.
 
 Create a project by claiming a grant in DataMad and clicking `Create GitHub issue`. This will create a project issue in GitHub which is auto-populated with the grant metadata stored in DataMad.
 
