@@ -1,0 +1,19 @@
+github_field_name,github_field_type,datamad_field_name,datamad_field_type,notes
+NERC ID,text,NERC ID,?,
+UKRI ID,text,UKRI ID,?,
+Data centre,single select,Assigned datacentre,?,auto-populated in GitHub depending on data centre info for DataMad user
+Status,single select,no field - GitHub only,no field,
+Funder,single select,no field - no direct mapping,no field,"currently needs to be entered manually, no direct mapping available"
+Funding stream,single select,no field - no direct mapping,no field,"currently needs to be entered manually, no direct mapping available "
+Sub-issues progress,JSON?,no field - GitHub only,no field,REST API response is a JSON object
+PI name,text,Grant Holder,?,
+PI email,text,Email,?,
+Will grant produce data,single select,Will the grant produce data?,?,roadmap: update DataMad based on GitHub changes
+Date contacted PI,date,Date contacted PI,?,roadmap: update DataMad based on GitHub changes
+Actual start date,date,Actual Start Date,?,
+Actual end date,date,Actual End Date,?,
+DMP due,date,no field - GitHub only,no field,
+DMP agreed,date,DMP Agreed,boolean,roadmap: update DataMad based on GitHub changes (NB different types)
+Data delivery expected,date,no field - GitHub only,no field,
+Data delivered,date,Datasets delivered,boolean,roadmap: update DataMad based on GitHub changes (NB different types)
+Assignees,graphQL UserConnection! (list of users?),GitHub username,?,
