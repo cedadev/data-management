@@ -26,7 +26,7 @@ jobs:
             const CHECK_IN_MESSAGE = (mentions) => `👋 ${mentions}, **please check if this project is due its 6-month check-in**:
 
               1. Check that _Actual end date_ matches in GitHub and DataMad.
-              2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+              2. If the dates match, email the PI using the saved reply. Otherwise, update the date in GitHub.
               3. Remove the check-in label from this issue.`;
 
             const today = new Date();
