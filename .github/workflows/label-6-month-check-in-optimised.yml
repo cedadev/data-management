@@ -49,10 +49,6 @@ jobs:
                               number
                               state
 
-                              parentIssue {
-                                number
-                              }
-
                               assignees(first: 20) {
                                 nodes {
                                   login
@@ -117,12 +113,7 @@ jobs:
                 continue;
               }
 
-              // Parent issues only
-              if (issue.parentIssue) {
-                continue;
-              }
-
-              // Open issues only
+              // Skip closed issues
               if (issue.state !== "OPEN") {
                 continue;
               }
@@ -160,6 +151,21 @@ jobs:
               );
 
               if (!isDue || hasLabel) {
+                continue;
+              }
+
+              // Parent issues only
+              // Check only for candidate issues to minimise API calls
+              const issueDetails = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number
+              });
+
+              if (issueDetails.data.parent_issue_url) {
+                console.log(
+                  `Skipping sub-issue #${issue.number}`
+                );
                 continue;
               }
 
