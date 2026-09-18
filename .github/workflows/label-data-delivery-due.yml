@@ -1,8 +1,8 @@
-# This workflow adds the 'Actual end date passed' label to issues 
+# This workflow adds the 'Data delivery due' label to issues 
 # when the 'Actual end date' has passed (within a 7 day grace period),
 # then comments on the issue to notify assignees that data delivery is due
 
-name: Actual end date passed label
+name: Data delivery due label
 
 on:
   schedule:
@@ -18,7 +18,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Add actual end date passed label and notify assignees
+      - name: Add Data delivery due label and notify assignees
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.PROJECT_PAT }}
@@ -137,7 +137,7 @@ jobs:
               const isDue = endDate <= today;
 
               const hasLabel = issue.labels.some(
-                label => label.name === "Actual end date passed"
+                label => label.name === "Data delivery due"
               );
 
               if (!isDue || hasLabel) {
@@ -148,7 +148,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                labels: ["Actual end date passed"]
+                labels: ["Data delivery due"]
               });
 
               const mentions = issue.assignees
@@ -160,11 +160,14 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  body: `👋 ${mentions}, this project might have ended. Check that \`Actual end date\` matches in GitHub and DataMad. If they match, email the PI to let them know their data delivery is now due (there's a saved reply!). If not, update \`Actual end date\`. Then remove the label.`
+                  body: `👋 ${mentions}, **please check if this project is due its data delivery check-in**:
+                    1. Check that _Actual end date_ matches in GitHub and DataMad.
+                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+                    3. Remove the check-in label from this issue.`
                 });
               }
 
               console.log(
-                `Added Actual end date passed label and notified assignees for issue #${issue.number}`
+                `Added Data delivery due label and notified assignees for issue #${issue.number}`
               );
             }
