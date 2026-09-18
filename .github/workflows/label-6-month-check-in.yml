@@ -171,7 +171,8 @@ jobs:
                   repo: context.repo.repo,
                   issue_number: issue.number,
                   body: `👋 ${mentions}, please check if this project is due its 6-month check-in:
-                  1. Check that \`Actual end date\` matches in GitHub and DataMad. 
+                  
+                  1. Check that *Actual end date* matches in GitHub and DataMad. 
                   2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
                   3. Remove the check-in label from this issue.`
                 });
