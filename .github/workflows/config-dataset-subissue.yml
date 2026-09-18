@@ -19,9 +19,6 @@ jobs:
   check-parent:
     if: ${{ github.event.issue.parent_issue_url != null }}
     runs-on: ubuntu-latest
-    
-    steps:
-      - run: echo "This is a sub-issue"
   
   configure-subissue:
     needs: check-parent
