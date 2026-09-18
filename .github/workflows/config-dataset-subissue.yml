@@ -1,3 +1,9 @@
+# This workflow adds all essential metadata to dataset sub-issues upon their creation:
+# Assignee = the user who created the sub-issue
+# Issue type = Dataset
+# Metadata fields = copied from the parent project
+# Status = Pre-delivery comms
+
 name: Configure dataset sub-issue
 
 on:
@@ -17,16 +23,6 @@ jobs:
       GH_TOKEN: ${{ secrets.PROJECT_PAT}}
 
     steps:
-      - name: Assign creator
-        env:
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          REPO: ${{ github.repository }}
-          CREATOR: ${{ github.event.issue.user.login }}
-        run: |
-          gh issue edit "$ISSUE_NUMBER" \
-            --repo "$REPO" \
-            --add-assignee "$CREATOR"
-
       - name: Configure dataset sub-issue
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -448,3 +444,13 @@ jobs:
           -f option="$PRE_DELIVERY_COMMS_OPTION_ID"
 
           echo "Dataset sub-issue configured successfully."
+
+      - name: Assign creator
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          CREATOR: ${{ github.event.issue.user.login }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --add-assignee "$CREATOR"
