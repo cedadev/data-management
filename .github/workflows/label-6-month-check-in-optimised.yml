@@ -1,0 +1,189 @@
+name: 6-month check-in label
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Add 6-month check-in label and notify assignees
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PROJECT_PAT }}
+          script: |
+            const PROJECT_NUMBER = 139; // UPDATE IF PROJECT CHANGES
+            const ORG_LOGIN = "cedadev"; // UPDATE IF ORG CHANGES
+            const LABEL_NAME = "6-month check-in due";
+
+            const CHECK_IN_MESSAGE = (mentions) => `👋 ${mentions}, **please check if this project is due its 6-month check-in**:
+
+              1. Check that _Actual end date_ matches in GitHub and DataMad.
+              2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+              3. Remove the check-in label from this issue.`;
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let hasNextPage = true;
+            let cursor = null;
+            const projectItems = [];
+
+            while (hasNextPage) {
+              const result = await github.graphql(
+                `
+                query($org: String!, $project: Int!, $cursor: String) {
+                  organization(login: $org) {
+                    projectV2(number: $project) {
+                      items(first: 100, after: $cursor) {
+                        nodes {
+                          content {
+                            ... on Issue {
+                              number
+                              state
+
+                              parentIssue {
+                                number
+                              }
+
+                              assignees(first: 20) {
+                                nodes {
+                                  login
+                                }
+                              }
+
+                              labels(first: 50) {
+                                nodes {
+                                  name
+                                }
+                              }
+                            }
+                          }
+
+                          fieldValues(first: 50) {
+                            nodes {
+                              ... on ProjectV2ItemFieldDateValue {
+                                date
+                                field {
+                                  ... on ProjectV2FieldCommon {
+                                    name
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                      }
+                    }
+                  }
+                }
+                `,
+                {
+                  org: ORG_LOGIN,
+                  project: PROJECT_NUMBER,
+                  cursor
+                }
+              );
+
+              const items = result.organization.projectV2.items;
+
+              projectItems.push(...items.nodes);
+
+              hasNextPage = items.pageInfo.hasNextPage;
+              cursor = items.pageInfo.endCursor;
+            }
+
+            console.log(
+              `Retrieved ${projectItems.length} project items`
+            );
+
+            for (const item of projectItems) {
+              const issue = item.content;
+
+              // Skip non-issue project items
+              if (!issue) {
+                continue;
+              }
+
+              // Parent issues only
+              if (issue.parentIssue) {
+                continue;
+              }
+
+              // Open issues only
+              if (issue.state !== "OPEN") {
+                continue;
+              }
+
+              const endDateField = item.fieldValues.nodes.find(
+                field =>
+                  field.field?.name === "Actual end date" &&
+                  field.date
+              );
+
+              if (!endDateField) {
+                continue;
+              }
+
+              const endDate = new Date(endDateField.date);
+              endDate.setHours(0, 0, 0, 0);
+
+              const sixMonthsBefore = new Date(endDate);
+              sixMonthsBefore.setMonth(
+                sixMonthsBefore.getMonth() - 6
+              );
+
+              const diffDays = Math.floor(
+                (today.getTime() - sixMonthsBefore.getTime()) /
+                (1000 * 60 * 60 * 24)
+              );
+
+              // Due date plus 7-day grace period
+              const isDue =
+                diffDays >= 0 &&
+                diffDays <= 7;
+
+              const hasLabel = issue.labels.nodes.some(
+                label => label.name === LABEL_NAME
+              );
+
+              if (!isDue || hasLabel) {
+                continue;
+              }
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: [LABEL_NAME]
+              });
+
+              const mentions = issue.assignees.nodes
+                .map(a => `@${a.login}`)
+                .join(" ");
+
+              if (mentions) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: CHECK_IN_MESSAGE(mentions)
+                });
+              }
+
+              console.log(
+                `Added label and notified assignees for issue #${issue.number}`
+              );
+            }
