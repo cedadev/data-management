@@ -16,7 +16,15 @@ permissions:
   contents: read
 
 jobs:
+  validate-parent:
+    if: ${{ github.event.issue.parent_issue_url != null }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - run: echo "This is a sub-issue"
+  
   configure-subissue:
+    needs: validate-parent
     runs-on: ubuntu-latest
 
     env:
