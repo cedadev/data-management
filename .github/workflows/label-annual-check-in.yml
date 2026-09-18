@@ -10,7 +10,15 @@ on:
   workflow_dispatch:
 
 jobs:
+  check-parent:
+    if: ${{ github.event.issue.parent_issue_url == null }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "This is a parent issue"
+      
   label-issues:
+    needs: check-parent
     runs-on: ubuntu-latest
 
     permissions:
