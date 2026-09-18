@@ -77,7 +77,7 @@ Follow these steps to create a dataset:
 Once a dataset issue has been created, an automated script (using [GitHub Actions](https://docs.github.com/en/actions)) is triggered which makes sure that all essential metadata is present. This script makes the following edits to the dataset issue:
 
 - Assigns the dataset to the user who created it
-- Applies the `Dataset` project type
+- Applies the `Dataset` issue type
 - Auto-populates the metadata fields with information from the parent project
 - Sets the status to `Pre-delivery comms`
 
