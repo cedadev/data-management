@@ -33,7 +33,9 @@ jobs:
           OWNER=${REPO%%/*}
           REPO_NAME=${REPO#*/}
 
+          echo "GitHub event data start:"
           echo '${{ toJson(github.event) }}'
+          echo "GitHub event data end."
 
           ####################################################################
           # Get sub-issue and parent issue
