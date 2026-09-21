@@ -93,15 +93,11 @@ jobs:
                 }
               );
 
-              const items =
-                result.organization.projectV2.items;
+              const items = result.organization.projectV2.items;
 
               projectItems.push(...items.nodes);
-
-              hasNextPage =
-                items.pageInfo.hasNextPage;
-              cursor =
-                items.pageInfo.endCursor;
+              hasNextPage = items.pageInfo.hasNextPage;
+              cursor = items.pageInfo.endCursor;
             }
 
             console.log(
@@ -121,67 +117,84 @@ jobs:
                 continue;
               }
 
-              const startDateField =
-                item.fieldValues.nodes.find(
-                  field =>
-                    field.field?.name ===
-                      "Actual start date" &&
-                    field.date
-                );
+              const startDateField = item.fieldValues.nodes.find(
+                field =>
+                  field.field?.name === "Actual start date" &&
+                  field.date
+              );
 
               if (!startDateField) {
                 continue;
               }
 
-              const hasLabel =
-                issue.labels.nodes.some(
-                  label =>
-                    label.name === LABEL_NAME
-                );
+              const hasLabel = issue.labels.nodes.some(
+                label => label.name === LABEL_NAME
+              );
 
               if (hasLabel) {
                 continue;
               }
 
-              const startDate =
-                new Date(startDateField.date);
+              const startDate = new Date(startDateField.date);
+              startDate.setHours(0, 0, 0, 0);
 
-              startDate.setHours(
-                0,
-                0,
-                0,
-                0
-              );
+              const isDue = [1, 2, 3].some(years => {
+                const anniversary = new Date(startDate);
 
-              const isDue = [1, 2, 3].some(
-                years => {
-                  const anniversary =
-                    new Date(startDate);
+                anniversary.setFullYear(
+                  anniversary.getFullYear() + years
+                );
 
-                  anniversary.setFullYear(
-                    anniversary.getFullYear() +
-                      years
-                  );
+                const diffDays = Math.floor(
+                  (today.getTime() -
+                    anniversary.getTime()) /
+                  (1000 * 60 * 60 * 24)
+                );
 
-                  const diffDays =
-                    Math.floor(
-                      (
-                        today.getTime() -
-                        anniversary.getTime()
-                      ) /
-                        (1000 *
-                          60 *
-                          60 *
-                          24)
-                    );
-
-                  return (
-                    diffDays >= 0 &&
-                    diffDays <= 7
-                  );
-                }
-              );
+                return diffDays >= 0 && diffDays <= 7;
+              });
 
               if (!isDue) {
                 continue;
-             
+              }
+
+              // Parent issues only
+              // Check only candidate issues to minimise API calls
+              const issueDetails =
+                await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number
+                });
+
+              if (issueDetails.data.parent_issue_url) {
+                console.log(
+                  `Skipping sub-issue #${issue.number}`
+                );
+                continue;
+              }
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: [LABEL_NAME]
+              });
+
+              const mentions = issue.assignees.nodes
+                .map(a => `@${a.login}`)
+                .join(" ");
+
+              if (mentions) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: CHECK_IN_MESSAGE(mentions)
+                });
+              }
+
+              console.log(
+                `Added label and notified assignees for issue #${issue.number}`
+              );
+            }
