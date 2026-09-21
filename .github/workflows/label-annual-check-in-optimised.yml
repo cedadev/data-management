@@ -1,5 +1,5 @@
 # Adds the 'Annual check-in due' label to parent issues whose
-# Actual start date is 1, 2, or 3 years ago (with a 7-day grace period)
+# Actual start date is 1, 2, or 3 years ago (with a 3-day grace period)
 # then notifies assignees with a comment
 
 name: Annual check-in label
@@ -151,7 +151,7 @@ jobs:
                   (1000 * 60 * 60 * 24)
                 );
 
-                return diffDays >= 0 && diffDays <= 7;
+                return diffDays >= 0 && diffDays <= 3;
               });
 
               if (!isDue) {
