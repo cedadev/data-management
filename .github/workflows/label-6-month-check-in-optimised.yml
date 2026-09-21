@@ -1,3 +1,7 @@
+# Adds the '6-month check-in due' label to parent issues whose
+# Actual end date is six months away (with a 7-day grace period)
+# then notifies assignees with a comment
+
 name: 6-month check-in label
 
 on:
