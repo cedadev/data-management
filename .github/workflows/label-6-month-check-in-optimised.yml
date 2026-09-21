@@ -1,5 +1,5 @@
 # Adds the '6-month check-in due' label to parent issues whose
-# Actual end date is six months away (with a 7-day grace period)
+# Actual end date is six months away (with a 3-day grace period)
 # then notifies assignees with a comment
 
 name: 6-month check-in label
@@ -145,10 +145,10 @@ jobs:
                 (1000 * 60 * 60 * 24)
               );
 
-              // Due date plus 7-day grace period
+              // Due date plus 3-day grace period
               const isDue =
                 diffDays >= 0 &&
-                diffDays <= 7;
+                diffDays <= 3;
 
               const hasLabel = issue.labels.nodes.some(
                 label => label.name === LABEL_NAME
