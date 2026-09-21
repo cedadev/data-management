@@ -1,6 +1,6 @@
 # Adds the 'Annual check-in due' label to parent issues whose
 # Actual start date is 1, 2, or 3 years ago (with a 3-day grace period)
-# then notifies assignees with a comment
+# then comments on the issue to notify assignees
 
 name: Annual check-in label
 
