@@ -214,7 +214,8 @@ jobs:
           do
             FIELD_NAME=$(echo "$FIELD" | jq -r '.field.name // empty')
 
-            [[ -n "${ALLOWED_FIELDS[$FIELD_NAME]:-}" ]] || continue
+          [[ -n "$FIELD_NAME" ]] || continue
+          [[ -n "${ALLOWED_FIELDS[$FIELD_NAME]:-}" ]] || continue
 
             TYPE=$(echo "$FIELD" | jq -r '.__typename')
             FIELD_ID=$(echo "$FIELD" | jq -r '.field.id')
