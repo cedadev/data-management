@@ -1,19 +1,4 @@
-# Reviews all open parent issues and applies project milestone labels 
-# based on the issue's Actual start date and Actual end date
-#
-# Labels applied:
-# - 'End date passed': Applied when the Actual end date is today or in the past
-# - 'Annual check-in due': Applied when the Actual start date reaches its 1, 2, or 3-year anniversary, with a 7-day grace period.
-# - '6-month check-in due': Applied when the project is within 6 months of its Actual end date, with a 7-day grace period.
-#
-# To reduce unnecessary notifications:
-# - Only open issues are checked
-# - Only parent issues are labelled (sub-issues are excluded)
-# - Multiple qualifying labels can be applied during a single run
-# - A single consolidated comment is posted per issue, regardless of the number of labels added
-# - A label will not be re-added if the same label was manually removed within the previous 3 days
-
-name: Adds milestone labels
+name: Milestone check-in labels
 
 on:
   schedule:
@@ -34,12 +19,39 @@ jobs:
         with:
           github-token: ${{ secrets.PROJECT_PAT }}
           script: |
+          
+            /* 
+            * ==========================================================
+            * Set constants
+            * ==========================================================
+            */
             const PROJECT_NUMBER = 139;
             const ORG_LOGIN = "cedadev";
 
             const END_DATE_LABEL = "End date passed";
             const ANNUAL_LABEL = "Annual check-in due";
             const SIX_MONTH_LABEL = "6-month check-in due";
+
+            const ANNUAL_CHECK_IN_MESSAGE = (
+              mentions,
+              years
+            ) => `👋 ${mentions}, **check if this project is due its annual check-in (${years}-year anniversary)**:
+
+            1. Check that _Actual start date_ matches in GitHub and DataMad.
+            2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+            3. Remove the "${ANNUAL_LABEL}" label from this issue.`;
+
+            const SIX_MONTH_CHECK_IN_MESSAGE = (mentions) => `👋 ${mentions}, **check if this project is due its 6-month check-in**:
+
+            1. Check that _Actual end date_ matches in GitHub and DataMad.
+            2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+            3. Remove the "${SIX_MONTH_LABEL}" label from this issue.`;
+
+            const END_DATE_MESSAGE = (mentions) => `👋 ${mentions}, **check if this project is due its project end check-in**:
+
+            1. Check that _Actual end date_ matches in GitHub and DataMad.
+            2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+            3. Remove the "${END_DATE_LABEL}" label from this issue.`;
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -48,6 +60,11 @@ jobs:
             let cursor = null;
             const projectItems = [];
 
+            /* 
+            * ==========================================================
+            * API query
+            * ==========================================================
+            */
             while (hasNextPage) {
               const result = await github.graphql(
                 `
@@ -149,9 +166,12 @@ jobs:
 
               const candidateLabels = [];
 
-              /*
+              /* 
+               * ==========================================================
                * End date passed
+               * ==========================================================
                */
+               
               if (endDateField && !hasEndDateLabel) {
                 const endDate = new Date(endDateField.date);
                 endDate.setHours(0, 0, 0, 0);
@@ -159,59 +179,68 @@ jobs:
                 if (endDate <= today) {
                   candidateLabels.push({
                     label: END_DATE_LABEL,
-                    notification: `**End date passed**
-                    1. Check that _Actual end date_ matches in GitHub and DataMad.
-                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-                    3. Remove the "${END_DATE_LABEL}" label from this issue.`
+                    message: END_DATE_MESSAGE
                   });
                 }
               }
 
               /*
+               * ==========================================================
                * Annual check-in due
-               * Actual start date anniversary
                * 1, 2 and 3 year anniversaries
                * 7-day grace period
+               * ==========================================================
                */
               if (startDateField && !hasAnnualLabel) {
                 const startDate = new Date(startDateField.date);
                 startDate.setHours(0, 0, 0, 0);
 
-                const matchedAnniversary = [1, 2, 3].find(years => {
-                  const anniversary = new Date(startDate);
+                const matchedAnniversary = [1, 2, 3].find(
+                  years => {
+                    const anniversary = new Date(startDate);
 
-                  anniversary.setFullYear(
-                    anniversary.getFullYear() + years
-                  );
+                    anniversary.setFullYear(
+                      anniversary.getFullYear() +
+                        years
+                    );
 
-                  const diffDays = Math.floor(
-                    (today.getTime() -
-                      anniversary.getTime()) /
-                    (1000 * 60 * 60 * 24)
-                  );
+                    const diffDays = Math.floor(
+                      (today.getTime() -
+                        anniversary.getTime()) /
+                      (1000 * 60 * 60 * 24)
+                    );
 
-                  return diffDays >= 0 && diffDays <= 7;
-                });
+                    return (
+                      diffDays >= 0 &&
+                      diffDays <= 7
+                    );
+                  }
+                );
 
                 if (matchedAnniversary) {
                   candidateLabels.push({
                     label: ANNUAL_LABEL,
-                    notification: `**Annual check-in due** (${matchedAnniversary}-year anniversary)
-                    1. Check that _Actual start date_ matches in GitHub and DataMad.
-                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-                    3. Remove the "${ANNUAL_LABEL}" label from this issue.`
+                    message: mentions =>
+                      ANNUAL_CHECK_IN_MESSAGE(
+                        mentions,
+                        matchedAnniversary
+                      )
                   });
                 }
               }
 
               /*
+               * ==========================================================
                * 6-month check-in due
+               * ==========================================================
                */
               if (endDateField && !hasSixMonthLabel) {
                 const endDate = new Date(endDateField.date);
                 endDate.setHours(0, 0, 0, 0);
 
-                const sixMonthsBefore = new Date(endDate);
+                const sixMonthsBefore =
+                  new Date(endDate);
+
                 sixMonthsBefore.setMonth(
                   sixMonthsBefore.getMonth() - 6
                 );
@@ -222,56 +251,67 @@ jobs:
                   (1000 * 60 * 60 * 24)
                 );
 
-                if (diffDays >= 0 && diffDays <= 7) {
+                if (
+                  diffDays >= 0 &&
+                  diffDays <= 7
+                ) {
                   candidateLabels.push({
                     label: SIX_MONTH_LABEL,
-                    notification: `**6-month check-in due**
-                    1. Check that _Actual end date_ matches in GitHub and DataMad.
-                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-                    3. Remove the "${SIX_MONTH_LABEL}" label from this issue.`
+                    message:
+                      SIX_MONTH_CHECK_IN_MESSAGE
                   });
                 }
               }
 
+              /* 
+               * ==========================================================
+               * Validation checks
+               * No labels
+               * Parent issues only
+               * 3-day cutoff for retrieved timeline events
+               * ==========================================================
+               */
               if (candidateLabels.length === 0) {
                 continue;
               }
 
-              /*
-               * Parent issues only
-               */
-              const issueDetails = await github.rest.issues.get({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue.number
-              });
+              const issueDetails =
+                await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number
+                });
 
-              if (issueDetails.data.parent_issue_url) {
+              if (
+                issueDetails.data.parent_issue_url
+              ) {
                 console.log(
                   `Skipping sub-issue #${issue.number}`
                 );
                 continue;
               }
 
-              /*
-               * Labels removed within the last 3 days
-               */
               const cutoff = new Date();
-              cutoff.setDate(cutoff.getDate() - 3);
+              cutoff.setDate(
+                cutoff.getDate() - 3
+              );
 
-              const recentlyRemovedLabels = new Set();
+              const recentlyRemovedLabels =
+                new Set();
 
               let page = 1;
 
               while (true) {
                 const response =
-                  await github.rest.issues.listEventsForTimeline({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    per_page: 100,
-                    page
-                  });
+                  await github.rest.issues.listEventsForTimeline(
+                    {
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      per_page: 100,
+                      page
+                    }
+                  );
 
                 const events = response.data;
 
@@ -284,11 +324,14 @@ jobs:
                     event.event === "unlabeled" &&
                     event.label?.name
                   ) {
-                    const eventDate = new Date(
-                      event.created_at
-                    );
+                    const eventDate =
+                      new Date(
+                        event.created_at
+                      );
 
-                    if (eventDate >= cutoff) {
+                    if (
+                      eventDate >= cutoff
+                    ) {
                       recentlyRemovedLabels.add(
                         event.label.name
                       );
@@ -296,17 +339,21 @@ jobs:
                   }
                 }
 
-                const oldestEventDate = new Date(
-                  events[events.length - 1].created_at
-                );
+                const oldestEventDate =
+                  new Date(
+                    events[
+                      events.length - 1
+                    ].created_at
+                  );
 
-                if (oldestEventDate < cutoff) {
+                if (
+                  oldestEventDate < cutoff
+                ) {
                   break;
                 }
 
                 page++;
 
-                // Safety limit
                 if (page > 10) {
                   console.log(
                     `Timeline pagination safety limit reached for issue #${issue.number}`
@@ -316,7 +363,7 @@ jobs:
               }
 
               const labelsToAdd = [];
-              const notificationSections = [];
+              const messagesToPost = [];
 
               for (const candidate of candidateLabels) {
                 if (
@@ -330,9 +377,16 @@ jobs:
                   continue;
                 }
 
-                labelsToAdd.push(candidate.label);
-                notificationSections.push(
-                  candidate.notification
+                /* 
+               * ==========================================================
+               * Add labels & comment
+               * ==========================================================
+               */
+                labelsToAdd.push(
+                  candidate.label
+                );
+                messagesToPost.push(
+                  candidate.message
                 );
               }
 
@@ -347,19 +401,22 @@ jobs:
                 labels: labelsToAdd
               });
 
-              const mentions = issue.assignees.nodes
-                .map(a => `@${a.login}`)
-                .join(" ");
+              const mentions =
+                issue.assignees.nodes
+                  .map(
+                    a => `@${a.login}`
+                  )
+                  .join(" ");
 
               if (mentions) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  body: `👋 ${mentions}, the following actions are due for this project:
-
-                  ${notificationSections.join("\n\n")}`
-                });
+                for (const message of messagesToPost) {
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    body: message(mentions)
+                  });
+                }
               }
 
               console.log(
