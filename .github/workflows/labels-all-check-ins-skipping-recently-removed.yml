@@ -1,0 +1,347 @@
+name: Project milestone labels
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Apply milestone labels and notify assignees
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PROJECT_PAT }}
+          script: |
+            const PROJECT_NUMBER = 139;
+            const ORG_LOGIN = "cedadev";
+
+            const END_DATE_LABEL = "End date passed";
+            const ANNUAL_LABEL = "Annual check-in due";
+            const SIX_MONTH_LABEL = "6-month check-in due";
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let hasNextPage = true;
+            let cursor = null;
+            const projectItems = [];
+
+            while (hasNextPage) {
+              const result = await github.graphql(
+                `
+                query($org: String!, $project: Int!, $cursor: String) {
+                  organization(login: $org) {
+                    projectV2(number: $project) {
+                      items(first: 100, after: $cursor) {
+                        nodes {
+                          content {
+                            ... on Issue {
+                              number
+                              state
+                              assignees(first: 20) {
+                                nodes {
+                                  login
+                                }
+                              }
+                              labels(first: 50) {
+                                nodes {
+                                  name
+                                }
+                              }
+                            }
+                          }
+                          fieldValues(first: 50) {
+                            nodes {
+                              ... on ProjectV2ItemFieldDateValue {
+                                date
+                                field {
+                                  ... on ProjectV2FieldCommon {
+                                    name
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                      }
+                    }
+                  }
+                }
+                `,
+                {
+                  org: ORG_LOGIN,
+                  project: PROJECT_NUMBER,
+                  cursor
+                }
+              );
+
+              const items = result.organization.projectV2.items;
+
+              projectItems.push(...items.nodes);
+              hasNextPage = items.pageInfo.hasNextPage;
+              cursor = items.pageInfo.endCursor;
+            }
+
+            console.log(
+              `Retrieved ${projectItems.length} project items`
+            );
+
+            for (const item of projectItems) {
+              const issue = item.content;
+
+              if (!issue) {
+                continue;
+              }
+
+              if (issue.state !== "OPEN") {
+                continue;
+              }
+
+              const startDateField = item.fieldValues.nodes.find(
+                field =>
+                  field.field?.name === "Actual start date" &&
+                  field.date
+              );
+
+              const endDateField = item.fieldValues.nodes.find(
+                field =>
+                  field.field?.name === "Actual end date" &&
+                  field.date
+              );
+
+              const hasEndDateLabel = issue.labels.nodes.some(
+                label => label.name === END_DATE_LABEL
+              );
+
+              const hasAnnualLabel = issue.labels.nodes.some(
+                label => label.name === ANNUAL_LABEL
+              );
+
+              const hasSixMonthLabel = issue.labels.nodes.some(
+                label => label.name === SIX_MONTH_LABEL
+              );
+
+              const candidateLabels = [];
+
+              /*
+               * End date passed
+               */
+              if (endDateField && !hasEndDateLabel) {
+                const endDate = new Date(endDateField.date);
+                endDate.setHours(0, 0, 0, 0);
+
+                if (endDate <= today) {
+                  candidateLabels.push({
+                    label: END_DATE_LABEL,
+                    notification: `### End date passed
+                      1. Check that _Actual end date_ matches in GitHub and DataMad.
+                      2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+                       3. Remove the "${END_DATE_LABEL}" label from this issue.`
+                  });
+                }
+              }
+
+              /*
+               * Annual check-in due
+               */
+              if (startDateField && !hasAnnualLabel) {
+                const startDate = new Date(startDateField.date);
+                startDate.setHours(0, 0, 0, 0);
+
+                const annualCheckDate = new Date(startDate);
+                annualCheckDate.setFullYear(
+                  annualCheckDate.getFullYear() + 1
+                );
+
+                const diffDays = Math.floor(
+                  (today.getTime() -
+                    annualCheckDate.getTime()) /
+                  (1000 * 60 * 60 * 24)
+                );
+
+                if (diffDays >= 0 && diffDays <= 7) {
+                  candidateLabels.push({
+                    label: ANNUAL_LABEL,
+                    notification: `### Annual check-in due
+                      1. Check that _Actual start date_ matches in GitHub and DataMad.
+                      2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+                      3. Remove the "${ANNUAL_LABEL}" label from this issue.`
+                  });
+                }
+              }
+
+              /*
+               * 6-month check-in due
+               */
+              if (endDateField && !hasSixMonthLabel) {
+                const endDate = new Date(endDateField.date);
+                endDate.setHours(0, 0, 0, 0);
+
+                const sixMonthsBefore = new Date(endDate);
+                sixMonthsBefore.setMonth(
+                  sixMonthsBefore.getMonth() - 6
+                );
+
+                const diffDays = Math.floor(
+                  (today.getTime() -
+                    sixMonthsBefore.getTime()) /
+                  (1000 * 60 * 60 * 24)
+                );
+
+                if (diffDays >= 0 && diffDays <= 7) {
+                  candidateLabels.push({
+                    label: SIX_MONTH_LABEL,
+                    notification: `### 6-month check-in due
+                      1. Check that _Actual end date_ matches in GitHub and DataMad.
+                      2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+                      3. Remove the "${SIX_MONTH_LABEL}" label from this issue.`
+                  });
+                }
+              }
+
+              if (candidateLabels.length === 0) {
+                continue;
+              }
+
+              /*
+               * Parent issues only
+               */
+              const issueDetails = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number
+              });
+
+              if (issueDetails.data.parent_issue_url) {
+                console.log(
+                  `Skipping sub-issue #${issue.number}`
+                );
+                continue;
+              }
+
+              /*
+               * Labels removed within the last 3 days
+               */
+              const cutoff = new Date();
+              cutoff.setDate(cutoff.getDate() - 3);
+
+              const recentlyRemovedLabels = new Set();
+
+              let page = 1;
+
+              while (true) {
+                const response =
+                  await github.rest.issues.listEventsForTimeline({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    per_page: 100,
+                    page
+                  });
+
+                const events = response.data;
+
+                if (events.length === 0) {
+                  break;
+                }
+
+                for (const event of events) {
+                  if (
+                    event.event === "unlabeled" &&
+                    event.label?.name
+                  ) {
+                    const eventDate = new Date(
+                      event.created_at
+                    );
+
+                    if (eventDate >= cutoff) {
+                      recentlyRemovedLabels.add(
+                        event.label.name
+                      );
+                    }
+                  }
+                }
+
+                const oldestEventDate = new Date(
+                  events[events.length - 1].created_at
+                );
+
+                if (oldestEventDate < cutoff) {
+                  break;
+                }
+
+                page++;
+
+                // Safety limit
+                if (page > 10) {
+                  console.log(
+                    `Timeline pagination safety limit reached for issue #${issue.number}`
+                  );
+                  break;
+                }
+              }
+
+              const labelsToAdd = [];
+              const notificationSections = [];
+
+              for (const candidate of candidateLabels) {
+                if (
+                  recentlyRemovedLabels.has(
+                    candidate.label
+                  )
+                ) {
+                  console.log(
+                    `Skipping "${candidate.label}" for issue #${issue.number} because it was removed within the last 3 days`
+                  );
+                  continue;
+                }
+
+                labelsToAdd.push(candidate.label);
+                notificationSections.push(
+                  candidate.notification
+                );
+              }
+
+              if (labelsToAdd.length === 0) {
+                continue;
+              }
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: labelsToAdd
+              });
+
+              const mentions = issue.assignees.nodes
+                .map(a => `@${a.login}`)
+                .join(" ");
+
+              if (mentions) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: `👋 ${mentions}
+
+                  The following actions are due for this project:
+
+                  ${notificationSections.join("\n\n")}`
+                });
+              }
+
+              console.log(
+                `Added labels [${labelsToAdd.join(", ")}] to issue #${issue.number}`
+              );
+            }
