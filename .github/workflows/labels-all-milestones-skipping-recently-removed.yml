@@ -1,4 +1,19 @@
-name: Project milestone labels
+# Reviews all open parent issues and applies project milestone labels 
+# based on the issue's Actual start date and Actual end date
+#
+# Labels applied:
+# - 'End date passed': Applied when the Actual end date is today or in the past
+# - 'Annual check-in due': Applied when the Actual start date reaches its 1, 2, or 3-year anniversary, with a 7-day grace period.
+# - '6-month check-in due': Applied when the project is within 6 months of its Actual end date, with a 7-day grace period.
+#
+# To reduce unnecessary notifications:
+# - Only open issues are checked
+# - Only parent issues are labelled (sub-issues are excluded)
+# - Multiple qualifying labels can be applied during a single run
+# - A single consolidated comment is posted per issue, regardless of the number of labels added
+# - A label will not be re-added if the same label was manually removed within the previous 3 days
+
+name: Adds milestone labels
 
 on:
   schedule:
@@ -144,41 +159,50 @@ jobs:
                 if (endDate <= today) {
                   candidateLabels.push({
                     label: END_DATE_LABEL,
-                    notification: `### End date passed
-                      1. Check that _Actual end date_ matches in GitHub and DataMad.
-                      2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-                       3. Remove the "${END_DATE_LABEL}" label from this issue.`
+                    notification: `**End date passed**
+                    1. Check that _Actual end date_ matches in GitHub and DataMad.
+                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+                    3. Remove the "${END_DATE_LABEL}" label from this issue.`
                   });
                 }
               }
 
               /*
                * Annual check-in due
+               * Actual start date anniversary
+               * 1, 2 and 3 year anniversaries
+               * 7-day grace period
                */
               if (startDateField && !hasAnnualLabel) {
                 const startDate = new Date(startDateField.date);
                 startDate.setHours(0, 0, 0, 0);
 
-                const annualCheckDate = new Date(startDate);
-                annualCheckDate.setFullYear(
-                  annualCheckDate.getFullYear() + 1
-                );
+                const matchedAnniversary = [1, 2, 3].find(years => {
+                  const anniversary = new Date(startDate);
 
-                const diffDays = Math.floor(
-                  (today.getTime() -
-                    annualCheckDate.getTime()) /
-                  (1000 * 60 * 60 * 24)
-                );
+                  anniversary.setFullYear(
+                    anniversary.getFullYear() + years
+                  );
 
-                if (diffDays >= 0 && diffDays <= 7) {
+                  const diffDays = Math.floor(
+                    (today.getTime() -
+                      anniversary.getTime()) /
+                    (1000 * 60 * 60 * 24)
+                  );
+
+                  return diffDays >= 0 && diffDays <= 7;
+                });
+
+                if (matchedAnniversary) {
                   candidateLabels.push({
                     label: ANNUAL_LABEL,
-                    notification: `### Annual check-in due
-                      1. Check that _Actual start date_ matches in GitHub and DataMad.
-                      2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-                      3. Remove the "${ANNUAL_LABEL}" label from this issue.`
+                    notification: `**Annual check-in due** (${matchedAnniversary}-year anniversary)
+                    1. Check that _Actual start date_ matches in GitHub and DataMad.
+                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+                    3. Remove the "${ANNUAL_LABEL}" label from this issue.`
                   });
                 }
+              }
               }
 
               /*
@@ -202,10 +226,10 @@ jobs:
                 if (diffDays >= 0 && diffDays <= 7) {
                   candidateLabels.push({
                     label: SIX_MONTH_LABEL,
-                    notification: `### 6-month check-in due
-                      1. Check that _Actual end date_ matches in GitHub and DataMad.
-                      2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-                      3. Remove the "${SIX_MONTH_LABEL}" label from this issue.`
+                    notification: `**6-month check-in due**
+                    1. Check that _Actual end date_ matches in GitHub and DataMad.
+                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+                    3. Remove the "${SIX_MONTH_LABEL}" label from this issue.`
                   });
                 }
               }
@@ -333,9 +357,7 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  body: `👋 ${mentions}
-
-                  The following actions are due for this project:
+                  body: `👋 ${mentions}, the following actions are due for this project:
 
                   ${notificationSections.join("\n\n")}`
                 });
