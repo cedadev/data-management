@@ -1,5 +1,5 @@
-# This workflow adds the 'End date passed' label to issues 
-# when the 'Actual end date' has passed (within a 3 day grace period),
+# Adds the 'End date passed' label to parent issues whose
+# Actual end date has passed (with a 3-day grace period)
 # then comments on the issue to notify assignees
 
 name: End date passed label
@@ -10,15 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-parent:
-    if: ${{ github.event.issue.parent_issue_url == null }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - run: echo "This is a parent issue"
-  
   label-issues:
-    needs: check-parent
     runs-on: ubuntu-latest
 
     permissions:
@@ -31,28 +23,19 @@ jobs:
         with:
           github-token: ${{ secrets.PROJECT_PAT }}
           script: |
-            const PROJECT_NUMBER = 139; // UPDATE THIS IF PROJECT IS CHANGED
-            const ORG_LOGIN = "cedadev"; // UPDATE THIS IF ORG IS CHANGED
+            const PROJECT_NUMBER = 139; // UPDATE IF PROJECT CHANGES
+            const ORG_LOGIN = "cedadev"; // UPDATE IF ORG CHANGES
+            const LABEL_NAME = "End date passed";
+
+            const NOTIFICATION_MESSAGE = (mentions) => `👋 ${mentions}, **please check if this project is due its data delivery check-in**:
+            
+              1. Check that _Actual end date_ matches in GitHub and DataMad.
+              2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
+              3. Remove the check-in label from this issue.`;
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            // Get all open issues in the repository
-            const issues = await github.paginate(
-              github.rest.issues.listForRepo,
-              {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                state: "open",
-                per_page: 100
-              }
-            );
-
-            const issueMap = new Map(
-              issues.map(issue => [issue.number, issue])
-            );
-
-            // Retrieve all project items using GraphQL pagination
             let hasNextPage = true;
             let cursor = null;
             const projectItems = [];
@@ -68,6 +51,17 @@ jobs:
                           content {
                             ... on Issue {
                               number
+                              state
+                              assignees(first: 20) {
+                                nodes {
+                                  login
+                                }
+                              }
+                              labels(first: 50) {
+                                nodes {
+                                  name
+                                }
+                              }
                             }
                           }
                           fieldValues(first: 50) {
@@ -99,11 +93,9 @@ jobs:
                 }
               );
 
-              const items =
-                result.organization.projectV2.items;
+              const items = result.organization.projectV2.items;
 
               projectItems.push(...items.nodes);
-
               hasNextPage = items.pageInfo.hasNextPage;
               cursor = items.pageInfo.endCursor;
             }
@@ -113,18 +105,15 @@ jobs:
             );
 
             for (const item of projectItems) {
-
-              const issueNumber = item.content?.number;
+              const issue = item.content;
 
               // Skip non-issue project items
-              if (!issueNumber) {
+              if (!issue) {
                 continue;
               }
 
-              const issue = issueMap.get(issueNumber);
-
-              // Skip closed issues or issues not in this repository
-              if (!issue) {
+              // Skip closed issues
+              if (issue.state !== "OPEN") {
                 continue;
               }
 
@@ -141,14 +130,34 @@ jobs:
               const endDate = new Date(endDateField.date);
               endDate.setHours(0, 0, 0, 0);
 
-              // Actual end date has passed
+              const diffDays = Math.floor(
+                (today.getTime() - endDate.getTime()) /
+                (1000 * 60 * 60 * 24)
+              );
+
+              // End date passed
               const isDue = endDate <= today;
 
-              const hasLabel = issue.labels.some(
-                label => label.name === "End date passed"
+              const hasLabel = issue.labels.nodes.some(
+                label => label.name === LABEL_NAME
               );
 
               if (!isDue || hasLabel) {
+                continue;
+              }
+
+              // Parent issues only
+              // Check only for candidate issues to minimise API calls
+              const issueDetails = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number
+              });
+
+              if (issueDetails.data.parent_issue_url) {
+                console.log(
+                  `Skipping sub-issue #${issue.number}`
+                );
                 continue;
               }
 
@@ -156,10 +165,10 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                labels: ["End date passed"]
+                labels: [LABEL_NAME]
               });
 
-              const mentions = issue.assignees
+              const mentions = issue.assignees.nodes
                 .map(a => `@${a.login}`)
                 .join(" ");
 
@@ -168,10 +177,7 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  body: `👋 ${mentions}, **please check if this project is due its data delivery check-in**:
-                    1. Check that _Actual end date_ matches in GitHub and DataMad.
-                    2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-                    3. Remove the check-in label from this issue.`
+                  body: NOTIFICATION_MESSAGE(mentions)
                 });
               }
 
