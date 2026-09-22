@@ -4,7 +4,7 @@
 
 This repo hosts these live data management GitHub Projects:
 
-- [NERC grants data management tracking](https://github.com/orgs/cedadev/projects/139). 🗺️ **Start here ➡️ [Read the docs](documentation/nerc-grants-project-full-documentation.md)**.
+- [NERC grants data management tracking](https://github.com/orgs/cedadev/projects/139) ➡️ **[Read the docs](documentation/nerc-grants-project-full-documentation.md)**
 
 ## Projects in development
 
