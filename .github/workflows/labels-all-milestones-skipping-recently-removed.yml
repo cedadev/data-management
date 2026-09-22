@@ -1,4 +1,4 @@
-name: Milestone check-in labels
+name: Check-in milestone labels
 
 on:
   schedule:
