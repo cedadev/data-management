@@ -1,4 +1,6 @@
-# This workflow checks for and creates new reminders entered as "/remind [who] [what] [when]" in issue comments
+# This workflow triggers when an issue comment is posted.
+# It checks for comments entered as "/remind [who] [what] [when]"
+# and creates new reminders from any matching comments
 
 name: Create new reminder
 
