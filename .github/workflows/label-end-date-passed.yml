@@ -1,8 +1,8 @@
-# This workflow adds the 'Data delivery due' label to issues 
-# when the 'Actual end date' has passed (within a 7 day grace period),
-# then comments on the issue to notify assignees that data delivery is due
+# This workflow adds the 'End date passed' label to issues 
+# when the 'Actual end date' has passed (within a 3 day grace period),
+# then comments on the issue to notify assignees
 
-name: Data delivery due label
+name: End date passed label
 
 on:
   schedule:
@@ -26,7 +26,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Add Data delivery due label and notify assignees
+      - name: Add End date passed label and notify assignees
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.PROJECT_PAT }}
@@ -145,7 +145,7 @@ jobs:
               const isDue = endDate <= today;
 
               const hasLabel = issue.labels.some(
-                label => label.name === "Data delivery due"
+                label => label.name === "End date passed"
               );
 
               if (!isDue || hasLabel) {
@@ -156,7 +156,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                labels: ["Data delivery due"]
+                labels: ["End date passed"]
               });
 
               const mentions = issue.assignees
@@ -176,6 +176,6 @@ jobs:
               }
 
               console.log(
-                `Added Data delivery due label and notified assignees for issue #${issue.number}`
+                `Added End date passed label and notified assignees for issue #${issue.number}`
               );
             }
