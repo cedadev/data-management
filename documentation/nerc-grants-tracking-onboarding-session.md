@@ -11,17 +11,17 @@ By the end of this session, attendees will be able to:
 - Know where to find support and additional documentation
 
 ## 📚 Session materials
-- [Onboarding slide deck]()
-- [Onboarding documentation]()
-- [Full documentation]()
-- [Quick reference guide]()
+- [Full documentation](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-full-documentation.md)
+- [Onboarding session](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-onboarding-session.md)
+- [Quick reference guide](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-quickref.md)
+- [Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7)
 
 ---
 
 # 🗺️ Introduction and system overview (10 mins)
 
 ## Objective
-Understand what the system is used for and how it fits into the wider data management process.
+Understand what the system is used for and how it fits into the wider data management workflow.
 
 ## Demonstration
 Show:
@@ -43,7 +43,7 @@ Explain:
 ## Key takeaways
 - Projects are parent issues
 - Datasets are sub-issues
-- Most day-to-day work happens within GitHub issues
+- Most day-to-day work happens within issues
 
 ---
 
@@ -62,6 +62,8 @@ Show:
 
 Explain:
 - Personal views focus on assigned work
+- Views can be filtered, but please **do not save changes**
+- `Sub-issues progress` shows dataset progress at a glance
 - Team views provide operational oversight
 - Reporting view supports management reporting and exports
 
@@ -69,11 +71,11 @@ Explain:
 - Open an assigned issue
 - Identify its type
 - Find its current status
-- Locate the Sub-issues progress field
+- Locate the `Sub-issues progress` field
 
 ## Key takeaways
-- Most users primarily work from My projects and My datasets
-- Status indicates where work sits in the process
+- Most users primarily work from `My projects` and `My datasets`
+- Status indicates where projects and datasets sit in the workflow
 - Projects track progress across multiple datasets
 
 ---
@@ -185,9 +187,9 @@ Ensure attendees know where to find help and continue learning after onboarding.
 
 ## Demonstration
 Show:
-- The [documentation]
-- The [quick reference guide]()
-- The [Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7)
+- The documentation
+- The quick reference guide
+- The data management support GitHub Project
 - Where to find key information within project issues
 
 ## Activity
@@ -202,4 +204,4 @@ Quick knowledge check:
 - Follow checklist tasks before changing status
 - Keep metadata current
 - Use labels and reminders to stay on track
-- Raise support requests through the [Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7)
+- Raise support requests through the **[Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7)**
