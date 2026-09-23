@@ -168,7 +168,7 @@ The below reminders are already built in (using [GitHub Actions](https://docs.gi
 
 - Annual check-in due
 - 6-month check-in due
-- Actual end date passed
+- End date passed
 
 When a built-in reminder is triggered, a label (e.g. 'Annual check-in due') will be applied to the issue, which triggers an email to all issue assignees. Once you have completed the reminded task, remove the label via the issue's right-hand sidebar, or directly in the `Label` field in a table view.
 
