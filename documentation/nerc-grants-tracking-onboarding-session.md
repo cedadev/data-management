@@ -155,7 +155,7 @@ Show how to:
 ### Automated reminders
 - Annual check-in due
 - 6-month check-in due
-- Actual end date passed
+- End date passed
 
 ### Manual reminders
 - `/remind [who] [what] [when]`

@@ -115,35 +115,35 @@ Task checklists are broken down into chunks by status. Once you have completed a
 Both project and dataset issues have a set of metadata fields which record essential information. The majority of these fields are auto-populated. The fields which need to be updated manually are shown by the writing hand emoji (✍️) in the list below. Instructions for updating these fields are included in project and dataset task checklists.
 
 ### Grant essentials
-- NERC ID
-- UKRI ID
-- Data centre
-- Funder
-- ✍️ Funding stream
-- PI name
-- PI email
-- Will grant produce data
+- `NERC ID`
+- `UKRI ID`
+- `Data centre`
+- `Funder`
+- ✍️ `Funding stream`
+- `PI name`
+- `PI email`
+- `Will grant produce data`
 
 ### GitHub essentials
-- Type
-- ✍️ Status
-- Assignees (automated, but can also be added manually)
-- ✍️ Labels (automated and manual)
-- Sub-issues progress (explained in the next section)
+- `Type`
+- ✍️ `Status`
+- `Assignees` (automated, but can also be added manually)
+- ✍️ `Labels` (automated and manual)
+- `Sub-issues progress` (explained in the next section)
 
 ### Important dates
-- Date contacted PI
-- Actual start date
-- Actual end date
-- DMP due
-- ✍️ DMP agreed
-- ✍️ Data delivery expected
-- ✍️ Data delivered
+- `Date contacted PI`
+- `Actual start date`
+- `Actual end date`
+- `DMP due`
+- ✍️ `DMP agreed`
+- ✍️ `Data delivery expected`
+- ✍️ `Data delivered`
 
 ### Issue activity
-- Created
-- Updated
-- Closed
+- `Created`
+- `Updated`
+- `Closed`
 
 ## 📶 Viewing dataset completion at a glance
 The `Sub-issues progress` metadata field displays how many datasets have been created within a project, and whether they are open or closed. Datasets are automatically closed when they reach the `Archiving completed` status. This is displayed in the `Sub-issues progress` field as a progress bar and percentage, with each dark section of the bar representing one closed issue (or, archived dataset).
@@ -163,9 +163,9 @@ The level of contact and engagement needed to keep data management on track vari
 ### Built-in reminders
 The below reminders are already built in (using [GitHub Actions](https://docs.github.com/en/actions)), and do not need to be set manually:
 
-- Annual check-in due
-- 6-month check-in due
-- End date passed
+- `Annual check-in due`
+- `6-month check-in due`
+- `End date passed`
 
 When a built-in reminder is triggered, a label (e.g. 'Annual check-in due') will be applied to the issue, which triggers an email to all issue assignees. Once you have completed the reminded task, remove the label via the issue's right-hand sidebar, or directly in the `Label` field in a table view.
 
@@ -208,10 +208,10 @@ The data management workflow takes place across multiple tools (e.g. a grant in 
 
 Links to this essential information are collected in the `Links` section at the top of project issues. The `Links` section contains the following links:
 
-- Help Scout
-- DataMad
-- DSW
-- Catalogue records
+- `Help Scout`
+- `DataMad`
+- `DSW`
+- `Catalogue records`
 
 ## 📝 Editing links in project issues
 Only the DataMad link is auto-populated when the project issue is created. All other links need to be updated manually as their URLs become available. Add URLs to links by editing the raw markdown of an issue body.
