@@ -101,7 +101,7 @@ In Project issues, use the `Sub-issues progress` field to see:
 Project issues contain links to:
 - `DataMad`
 - `Help Scout`
-- `Data Stewardship Wizard`
+- `DSW` (Data Stewardship Wizard)
 - `Catalogue records`
 
 Keep these updated.
