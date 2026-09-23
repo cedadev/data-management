@@ -1,4 +1,4 @@
-# NERC grants tracking: Documentation
+# NERC grants data management tracking: Documentation
 
 ## ⚡️ Quickstart
 - Click on the `My projects` tab underneath the board title

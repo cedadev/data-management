@@ -1,4 +1,4 @@
-# NERC grants tracking: Onboarding
+# NERC grants data management tracking: Onboarding
 
 ## 🌱 Learning objectives
 
