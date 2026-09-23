@@ -1,18 +1,15 @@
-# NERC grants data management tracking documentation
+# NERC grants tracking: Documentation
 
 ## ⚡️ Quickstart
-
 - Click on the `My projects` tab underneath the board title
 - Click on a project's title to open it
 - See what's next to do using the task checklist
 - If you are opening a migrated issue for the first time, check off any tasks on the checklist that you've already completed
 
 ## 📚 Documentation contents
-
 Access the table of contents for this documentation by clicking the 'Outline' menu icon in the top right corner of this file's header. Click any title to navigate to the selected section.
 
 ## ℹ️ Help and support
-
 If you need help with any bugs, usability issues, or would like to request an improvement, add an issue to the [Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7).
 
 ---
@@ -214,10 +211,7 @@ Links to this essential information are collected in the `Links` section at the 
 - Help Scout
 - DataMad
 - DSW
-- Dataset record
-- Instrument/Computation/Platform record
-- Project record
-- Collection record
+- Catalogue records
 
 ## 📝 Editing links in project issues
 Only the DataMad link is auto-populated when the project issue is created. All other links need to be updated manually as their URLs become available. Add URLs to links by editing the raw markdown of an issue body.
