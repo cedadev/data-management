@@ -1,4 +1,4 @@
-# NERC grants tracking: Quick reference guide
+# NERC grants data management tracking: Quick reference guide
 
 ## ⚠️ Essential set-up
 
