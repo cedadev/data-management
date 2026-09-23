@@ -135,8 +135,10 @@ jobs:
                 (1000 * 60 * 60 * 24)
               );
 
-              // End date passed
-              const isDue = endDate <= today;
+              // End date passed with 3-day grace period
+              const isDue =
+                diffDays >= 0 &&
+                diffDays <= 3;
 
               const hasLabel = issue.labels.nodes.some(
                 label => label.name === LABEL_NAME
