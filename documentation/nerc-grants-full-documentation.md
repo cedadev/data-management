@@ -33,13 +33,13 @@ Both issue types have the same overall structure. You can check whether an issue
 ## 👀 Viewing active projects and datasets
 Project and dataset issue types are used to filter all active issues into five views. Each view displays projects, datasets, and their metadata differently depending on use case. You can switch between views by clicking on the view tabs (underneath the board title).
 
-#### All projects & All datasets views
+#### `All projects` & `All datasets` views
 These views are two kanban boards which show all active projects and datasets split into columns by status. These views are best for users who need an overview of things like activity, progress, and workload across multiple team members.
 
-#### My projects & My datasets views
+#### `My projects` & `My datasets` views
 These views are two kanban boards which show only the projects and datasets assigned to the viewing user, split into columns by status. These views are best for users who need to focus on progressing their assigned projects and datasets. Multiple users can access these views at any one time, and will still only be shown the issues assigned to them.
 
-#### Reporting view
+#### `Reporting` view
 This view is a table which displays all available metadata fields and their values. This view is best for users who need to query specific fields across many issues for management and reporting purposes.
 
 Basic charts for reporting can be generated using the `Insights` feature (to the top right of the board). Charts can either be generated using the `Insights` interface, or directly from a specific view. To generate a chart from a specific view, click on the drop-down arrow on the view tab, and click `Generate chart`. Alternatively, to export the data behind a specific view, click on the drop-down arrow on the view tab, and click `Export view data`.
@@ -58,7 +58,7 @@ Projects are not created in GitHub directly. Project creation is triggered as pa
 
 ⚠️ **Before creating a project for the first time, add your GitHub username to your account details in DataMad.**
 
-Create a project by claiming a grant in DataMad and clicking `Create GitHub issue`. This will create a project issue in GitHub which is auto-populated with the grant metadata stored in DataMad. This will take a few moments to complete.
+Create a project by claiming a grant in DataMad and clicking `Create GitHub issue`. This will create a project issue in GitHub which is auto-populated with the grant metadata stored in DataMad. **This will take a few moments to complete.**
 
 The project is now ready for tracking!
 
@@ -174,11 +174,10 @@ Follow these steps to set a reminder:
 
 1. Set a reminder by adding a comment to the relevant issue using this syntax:  `/remind [who] [what] [when]`, e.g.:
 
-```
-/remind me to send the first DMP chase in 6 weeks
+`/remind me to send the first DMP chase in 6 weeks`, or
 
-/remind me to discuss this project with @username next Thursday
-```
+`/remind me to discuss this project with @username next Thursday`
+
 
 2. Setting a reminder adds a `Reminder` label to the issue. Don't remove this label, as this is how reminders are identified and posted when they are due (it also reminds you that you've set the reminder!) 
 
