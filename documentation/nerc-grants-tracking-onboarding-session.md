@@ -10,7 +10,7 @@ By the end of this session, attendees will be able to:
 - Use checklists, metadata fields, labels, and reminders effectively
 - Know where to find support and additional documentation
 
-## 📚 Session materials
+## 📚 Resources
 - [Full documentation](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-full-documentation.md)
 - [Onboarding session](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-onboarding-session.md)
 - [Quick reference guide](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-quickref.md)
@@ -37,13 +37,14 @@ Explain:
 
 ## Activity
 - Open the board
-- Locate the My projects view
-- Open an example issue
+- Locate the `My projects` view
+- Open a few issues
+- Look at how information is structured inside issues
 
 ## Key takeaways
-- Projects are parent issues
-- Datasets are sub-issues
-- Most day-to-day work happens within issues
+- Projects are **parent issues**
+- Datasets are **sub-issues**
+- Most day-to-day work happens inside issues
 
 ---
 
@@ -62,10 +63,10 @@ Show:
 
 Explain:
 - Personal views focus on assigned work
-- Views can be filtered, but please **do not save changes**
-- `Sub-issues progress` shows dataset progress at a glance
 - Team views provide operational oversight
 - Reporting view supports management reporting and exports
+- Views can be filtered, but please **do not save changes**
+- `Sub-issues progress` shows dataset progress at a glance
 
 ## Activity
 - Open an assigned issue
@@ -91,7 +92,7 @@ Show how to:
 - Move an issue between statuses
 - Update status from both board and issue views
 
-Walk through:
+Explain:
 1. `No Status`
 2. `DMP in progress`
 3. `Pre-delivery comms`
@@ -103,7 +104,7 @@ Walk through:
 
 ## Activity
 - Move an issue to a new status and back again
-- Identify what work must be completed before progressing further
+- Identify what work must be completed with the issue before it progresses
 
 ## Key takeaways
 - Statuses represent stages of the data management lifecycle
@@ -134,7 +135,7 @@ Demonstrate how to update:
 ## Activity
 - Check off a completed task
 - Update a metadata field
-- Review which fields are populated automatically
+- Review the [list of fields in the full documentation](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-full-documentation.md#-recording-information-in-metadata-fields)
 
 ## Key takeaways
 - Checklists act as the primary task-management tool
@@ -157,12 +158,12 @@ Show how to:
 - Add an explanatory comment
 
 ### Automated reminders
-- `Annual check-in due`
-- `6-month check-in due`
-- `End date passed`
+- `Annual check-in due`: Triggers on the 1, 2, and 3-year anniversaries of the issue's `Actual start date` (within a 3-day buffer)
+- `6-month check-in due`: Triggers when `Actual end date` is 6 months away (within a 3-day buffer)
+- `End date passed`: Triggers when `Actual end date` is today or earlier
 
 ### Manual reminders
-- `/remind [who] [what] [when]`
+- Add a comment using `/remind [who] [what] [when]`
 - e.g.: `/remind me to send the first DMP chase in 6 weeks`
 
 ### Notifications
@@ -171,12 +172,15 @@ Show where reminder notifications are received.
 ## Activity
 - Add and remove a blocker label to an issue
 - Create a test reminder
-- Identify where reminder emails will appear
+- Turn on both `On Github` and `Email` notifications in [your notification settings](https://github.com/settings/notifications)
+- To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder, e.g.:
+    - 'For messages which contain '[organisation-name/repo-name]' in the subject line'
+    - 'For all messages from notifications@github.com'.
 
 ## Key takeaways
 - Labels communicate blockers and trigger workflows
 - Automated reminders help keep projects on track
-- Custom reminders can be created whenever required
+- Custom reminders can be created as needed
 
 ---
 
@@ -187,9 +191,10 @@ Ensure attendees know where to find help and continue learning after onboarding.
 
 ## Demonstration
 Show:
-- The documentation
-- The quick reference guide
-- The data management support GitHub Project
+- [Full documentation](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-full-documentation.md)
+- [Onboarding session](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-onboarding-session.md)
+- [Quick reference guide](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-quickref.md)
+- [Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7)
 - Where to find key information within project issues
 
 ## Activity
