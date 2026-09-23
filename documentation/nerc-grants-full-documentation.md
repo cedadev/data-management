@@ -210,7 +210,7 @@ Links to this essential information are collected in the `Links` section at the 
 
 - `Help Scout`
 - `DataMad`
-- `DSW`
+- `DSW` (Data Stewardship Wizard)
 - `Catalogue records`
 
 ## 📝 Editing links in project issues
