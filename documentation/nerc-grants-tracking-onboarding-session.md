@@ -100,7 +100,7 @@ Walk through:
 8. `Escalate to NERC`
 
 ## Activity
-- Move a training issue to a new status
+- Move an issue to a new status and back again
 - Identify what work must be completed before progressing further
 
 ## Key takeaways
@@ -167,7 +167,7 @@ Show how to:
 Show where reminder notifications are received.
 
 ## Activity
-- Add a blocker label to a training issue
+- Add and remove a blocker label to an issue
 - Create a test reminder
 - Identify where reminder emails will appear
 
