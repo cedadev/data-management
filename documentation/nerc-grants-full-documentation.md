@@ -188,7 +188,7 @@ In task checklists, tasks with the alarm clock emoji (⏰) represent core workfl
 ### Receiving reminders
 Reminders come through as emails. In task checklists, tasks with the waving hand emoji (👋) represent tasks which are prompted by an automated email.
 
-⚠️ **For reminders to work, make sure that you have both `On Github` and `Email` notifications set up at https://github.com/settings/notifications.**
+⚠️ **For reminders to work, in your [your GitHub notification settings](https://github.com/settings/notifications), (1) set your default notifications email, and (2) turn on both `On Github` and `Email` notifications for Subscriptions.**
 
 To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
 

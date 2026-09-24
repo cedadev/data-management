@@ -178,7 +178,7 @@ Show where reminder notifications are received.
 ## Activity
 - Add and remove a blocker label to an issue
 - Create a test reminder
-- Turn on both `On Github` and `Email` notifications in [your notification settings](https://github.com/settings/notifications)
+- Turn on both `On Github` and `Email` notifications for Subscriptions in [your notification settings](https://github.com/settings/notifications)
 - To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder, e.g.:
     - 'For messages which contain '[organisation-name/repo-name]' in the subject line'
     - 'For all messages from notifications@github.com'.

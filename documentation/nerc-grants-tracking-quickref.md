@@ -3,7 +3,9 @@
 ## ⚠️ Essential set-up
 
 - Add your GitHub username to your DataMad account details
-- Turn on both `On Github` and `Email` notifications in [your notification settings](https://github.com/settings/notifications)
+- On GitHub:
+    - Set your default notifications email
+    - Turn on both `On Github` and `Email` notifications for Subscriptions in [your notification settings](https://github.com/settings/notifications)
 - To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder, e.g.:
     - 'For messages which contain '[organisation-name/repo-name]' in the subject line'
     - 'For all messages from notifications@github.com'.
