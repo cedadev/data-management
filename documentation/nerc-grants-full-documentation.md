@@ -1,5 +1,31 @@
 # NERC grants data management tracking: Documentation
 
+## ⚠️ Essential set-up
+
+### GitHub
+In your [GitHub notification settings](https://github.com/settings/notifications):
+1. Set your default notifications email
+2. Turn on both 'On Github' and 'Email' notifications for Subscriptions
+3. Select all events in 'Customize email updates'
+
+### Outlook
+1. Set up a new folder for your GitHub notifications
+2. In the menu, click 'Tools', then 'Rules', then 'Add rule'
+3. For a rule to catch **NERC grants notifications only**:
+  - Title: For all messages whose subject contains "[NERC-EDS/data-management]"
+  - Subject includes: [NERC-EDS/data-management]
+  - Move to: `<YOUR-FOLDER-NAME>`
+4. For a rule which will catch **all GitHub notifications** (if you use GitHub for other things, you may prefer the rule above)
+  - Title: For all messages from notifications@github.com
+  - From: notifications@github.com
+  - Move to: `<YOUR-FOLDER-NAME>`
+
+## 🔀 The core workflow
+- Use `My projects` and `My datasets` as your workspaces
+- Follow the task checklists
+- Keep statuses up to date  
+- Record blockers with labels and comments  
+- Use reminders to stay on track
 ## ⚡️ Quickstart
 - Click on the `My projects` tab underneath the board title
 - Click on a project's title to open it
