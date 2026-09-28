@@ -117,14 +117,15 @@ The dataset is now ready for tracking!
 ## 🎯 Tracking progress using statuses
 Projects and datasets move through eight statuses. These statuses represent the main stages of the data management lifecycle:
 
-- `No Status`: Waiting to be actioned
+- `No status`: Waiting to be actioned
 - `DMP in progress`: DMP not yet agreed
 - `Pre-delivery comms`: DMP agreed and project ongoing, data delivery not yet due
 - `Data due`: Project end date passed, data delivery now due
 - `Archiving in progress`: Data being archived
 - `Archiving completed`: Data fully archived
-- `No archival data`: No archival data will be generated
 - `Escalate to NERC`: For support with unresponsive PIs where necessary
+- `No data deposited`: Data of long-term value generated but not deposited
+- `No data generated`: No data of long-term value generated
 
 Update an issue's status by doing any of the following:
 
