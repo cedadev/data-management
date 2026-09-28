@@ -1,3 +1,15 @@
+# Adds the 'End date passed' label to parent issues whose
+# Actual end date is today or earlier
+# then comments on the issue to notify assignees
+
+# Adds the '6-month check-in due' label to parent issues whose
+# Actual end date is six months away (with a 3-day buffer)
+# then comments on the issue to notify assignees
+
+# Adds the 'Annual check-in due' label to parent issues whose
+# Actual start date is 1, 2, or 3 years ago (with a 3-day buffer)
+# then comments on the issue to notify assignees
+
 name: Check-in milestone labels
 
 on:
@@ -188,8 +200,8 @@ jobs:
               /*
                * ==========================================================
                * Annual check-in due
-               * 1, 2 and 3 year anniversaries
-               * 7-day grace period
+               * 1, 2, and 3 year anniversaries
+               * 3-day buffer
                * ==========================================================
                */
               if (startDateField && !hasAnnualLabel) {
@@ -213,7 +225,7 @@ jobs:
 
                     return (
                       diffDays >= 0 &&
-                      diffDays <= 7
+                      diffDays <= 3
                     );
                   }
                 );
@@ -233,6 +245,7 @@ jobs:
               /*
                * ==========================================================
                * 6-month check-in due
+               * 3-day buffer
                * ==========================================================
                */
               if (endDateField && !hasSixMonthLabel) {
@@ -254,7 +267,7 @@ jobs:
 
                 if (
                   diffDays >= 0 &&
-                  diffDays <= 7
+                  diffDays <= 3
                 ) {
                   candidateLabels.push({
                     label: SIX_MONTH_LABEL,
