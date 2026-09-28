@@ -59,7 +59,7 @@ jobs:
             const END_DATE_MESSAGE = (mentions) => `👋 ${mentions}, **check if this project is due its project end check-in**:
             1. Check that _Actual end date_ matches in GitHub and DataMad.
             2. If the dates match, email the PI using the saved reply template. Otherwise, update the date in GitHub.
-            3. Remove the "${END_DATE_LABEL}" label from this issue.`;
+            3. Leave the "${END_DATE_LABEL}" label on this issue as a reminder that this project is now outside its funded period.`;
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
