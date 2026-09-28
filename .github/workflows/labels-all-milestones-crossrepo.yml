@@ -37,7 +37,7 @@ jobs:
              * ==========================================================
              */
             const PROJECT_NUMBER = 139;
-            const ORG_LOGIN = "cedadev";
+            const ORG_LOGIN = "ceda-dev";
 
             const END_DATE_LABEL = "End date passed";
             const ANNUAL_LABEL = "Annual check-in due";
@@ -320,45 +320,43 @@ jobs:
               const recentlyRemovedLabels =
                 new Set();
 
+              // Fetch ALL events regardless of date
               let page = 1;
+              const allEvents = [];
 
               while (true) {
-                const response =
-                  await github.rest.issues.listEventsForTimeline(
-                    {
-                      owner: issueOwner,
-                      repo: issueRepo,
-                      issue_number: issue.number,
-                      per_page: 100,
-                      page
-                    }
-                  );
-
-                const events = response.data;
-
-                if (events.length === 0) {
+                const response = await github.rest.issues.listEventsForTimeline({
+                  owner: issueOwner,
+                  repo: issueRepo,
+                  issue_number: issue.number,
+                  per_page: 100,
+                  page
+                });
+                
+                if (response.data.length === 0) break;
+                
+                allEvents.push(...response.data);
+                page++;
+                
+                if (page > 50) {  // Increase safety limit
+                  console.log(`Timeline pagination safety limit reached for issue #${issue.number}`);
                   break;
                 }
-
-                for (const event of events) {
-                  if (
-                    event.event === "unlabeled" &&
-                    event.label?.name
-                  ) {
-                    const eventDate =
-                      new Date(
-                        event.created_at
-                      );
-
-                    if (
-                      eventDate >= cutoff
-                    ) {
-                      recentlyRemovedLabels.add(
-                        event.label.name
-                      );
-                    }
-                  }
+              }
+              
+              // Then filter to the cutoff window
+              const cutoff = new Date();
+              cutoff.setDate(cutoff.getDate() - 3);
+              
+              const recentlyRemovedLabels = new Set();
+              for (const event of allEvents) {
+                if (event.event === "unlabeled" && event.label?.name) {
+                const eventDate = new Date(event.created_at);
+                if (eventDate >= cutoff) {
+                  recentlyRemovedLabels.add(event.label.name);
                 }
+              }
+            }
 
                 const oldestEventDate =
                   new Date(
@@ -440,3 +438,5 @@ jobs:
                 `Added labels [${labelsToAdd.join(", ")}] to issue #${issue.number}`
               );
             }
+
+
