@@ -8,6 +8,6 @@ No live data management tracking boards are currently hosted by this repo.
 
 ## ⚙️ In development
 
-This repo hosts the following in-development data management GitHub Projects:
+This repo hosts the following in-development data management boards:
 
 - [CCI dataset tracking](https://github.com/orgs/cedadev/projects/157)
