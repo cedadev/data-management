@@ -37,7 +37,7 @@ jobs:
              * ==========================================================
              */
             const PROJECT_NUMBER = 139;
-            const ORG_LOGIN = "ceda-dev";
+            const ORG_LOGIN = "cedadev";
 
             const END_DATE_LABEL = "End date passed";
             const ANNUAL_LABEL = "Annual check-in due";
