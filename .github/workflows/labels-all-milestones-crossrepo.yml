@@ -311,19 +311,13 @@ jobs:
                 continue;
               }
 
-              const cutoff = new Date();
-
-              cutoff.setDate(
-                cutoff.getDate() - 3
-              );
-
-              const recentlyRemovedLabels =
-                new Set();
-
               // Fetch ALL events regardless of date
+              const cutoff = new Date();
+              cutoff.setDate(cutoff.getDate() - 3);
+              
               let page = 1;
               const allEvents = [];
-
+              
               while (true) {
                 const response = await github.rest.issues.listEventsForTimeline({
                   owner: issueOwner,
@@ -344,43 +338,17 @@ jobs:
                 }
               }
               
-              // Then filter to the cutoff window
-              const cutoff = new Date();
-              cutoff.setDate(cutoff.getDate() - 3);
-              
+              // Filter to the cutoff window
               const recentlyRemovedLabels = new Set();
               for (const event of allEvents) {
                 if (event.event === "unlabeled" && event.label?.name) {
-                const eventDate = new Date(event.created_at);
-                if (eventDate >= cutoff) {
-                  recentlyRemovedLabels.add(event.label.name);
+                  const eventDate = new Date(event.created_at);
+                  if (eventDate >= cutoff) {
+                    recentlyRemovedLabels.add(event.label.name);
+                  }
                 }
               }
-            }
-
-                const oldestEventDate =
-                  new Date(
-                    events[
-                      events.length - 1
-                    ].created_at
-                  );
-
-                if (
-                  oldestEventDate < cutoff
-                ) {
-                  break;
-                }
-
-                page++;
-
-                if (page > 10) {
-                  console.log(
-                    `Timeline pagination safety limit reached for issue #${issue.number}`
-                  );
-                  break;
-                }
-              }
-
+              
               const labelsToAdd = [];
               const messagesToPost = [];
 
