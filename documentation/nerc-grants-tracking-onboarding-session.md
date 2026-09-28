@@ -14,7 +14,7 @@ By the end of this session, attendees will be able to:
 - [Full documentation](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-full-documentation.md)
 - [Onboarding session](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-onboarding-session.md)
 - [Quick reference guide](https://github.com/cedadev/data-management/blob/main/documentation/nerc-grants-tracking-quickref.md)
-- [Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7)
+- [Data management support](https://github.com/NERC-EDS/data-management-support/)
 
 ---
 
