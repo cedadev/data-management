@@ -97,14 +97,16 @@ Show how to:
 - Locate the `Sub-issues progress` field
 
 Explain:
-1. `No Status`
-2. `DMP in progress`
-3. `Pre-delivery comms`
-4. `Data due`
-5. `Archiving in progress`
-6. `Archiving completed`
-7. `No archival data`
-8. `Escalate to NERC`
+1. `No status`: Waiting to be actioned
+2. `DMP in progress`: DMP not yet agreed
+3. `Pre-delivery comms`: DMP agreed and project ongoing, data delivery not yet due
+4. `Data due`: Project end date passed, data delivery now due
+5. `Archiving in progress`: Data being archived
+6. `Archiving completed`: Data fully archived
+7. `Escalate to NERC`: For support with unresponsive PIs where necessary
+8. `No data deposited`: Data of long-term value generated but not deposited
+9. `No data generated`: No data of long-term value generated
+
 
 ## Activity
 - Move an issue to a new status and back again
