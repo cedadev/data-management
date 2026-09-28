@@ -1,13 +1,13 @@
-# 🔀 Data management tracking
+# 🔀 Data management tracking 
 
 ## Live projects
 
-This repo hosts these live data management GitHub Projects:
+No live data management GitHub Projects are currently hosted by this repo.
 
-- [NERC grants data management tracking](https://github.com/orgs/cedadev/projects/139) ➡️ **[Read the docs](documentation/nerc-grants-project-full-documentation.md)**
+The NERC grants data management tracking project can be found on the NERC-EDS repo: **[NERC grants data management tracking](https://github.com/orgs/NERC-EDS/projects/6/)**
 
 ## Projects in development
 
-This repo also hosts these in-development data management GitHub Projects:
+This repo hosts the following in-development data management GitHub Projects:
 
 - [CCI dataset tracking](https://github.com/orgs/cedadev/projects/157)
