@@ -27,6 +27,9 @@ In your [GitHub notification settings](https://github.com/settings/notifications
 - Record blockers with labels and comments  
 - Use reminders to stay on track
 
+## ℹ️ Help and support
+Ask questions, report issues, or request improvements using the **[Data management support board](https://github.com/NERC-EDS/data-management-support)**.
+
 ## 🪆 The two issue types
 
 ### Project
@@ -121,7 +124,3 @@ Project issues contain links to:
 - `Catalogue records`
 
 Keep these updated.
-
-## ℹ️ Help and support
-
-Report bugs, usability issues, or improvement requests through the **[Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7)**.
