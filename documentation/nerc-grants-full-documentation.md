@@ -36,7 +36,7 @@ In your [GitHub notification settings](https://github.com/settings/notifications
 Access the table of contents for this documentation by clicking the 'Outline' menu icon in the top right corner of this file's header. Click any title to navigate to the selected section.
 
 ## ℹ️ Help and support
-If you need help with any bugs, usability issues, or would like to request an improvement, add an issue to the [Data management support GitHub Project](https://github.com/orgs/NERC-EDS/projects/7).
+Ask questions, report issues, or request improvements using the **[Data management support board](https://github.com/NERC-EDS/data-management-support)**.
 
 ---
 
