@@ -1,4 +1,4 @@
-# <img width="40" height="40" align="top" alt="CEDA logo emoji" src="https://github.com/user-attachments/assets/9aabf3b9-bb28-438f-84a9-3ad0456343cc" /> CEDA data management tracking boards
+# <img width="40" height="40" align="top" alt="CEDA logo emoji" src="https://github.com/user-attachments/assets/9aabf3b9-bb28-438f-84a9-3ad0456343cc" /> CEDA data management tracking
 
 ## ⚡️ Live
 
