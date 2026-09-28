@@ -36,8 +36,8 @@ jobs:
              * Set constants
              * ==========================================================
              */
-            const PROJECT_NUMBER = 139;
-            const ORG_LOGIN = "cedadev";
+            const PROJECT_NUMBER = 139; // UPDATE IF PROJECT CHANGES
+            const ORG_LOGIN = "cedadev"; // UPDATE IF ORG CHANGES
 
             const END_DATE_LABEL = "End date passed";
             const ANNUAL_LABEL = "Annual check-in due";
