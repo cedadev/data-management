@@ -73,7 +73,7 @@ Progress issues through eight statuses:
 
 ## ✅ Checklists
 - Every issue contains a task checklist
-- Tasks are grouped by workflow stage
+- Tasks are grouped by status
 - Complete all tasks before moving to the next status
 - For migrated issues, check off tasks already completed
 
