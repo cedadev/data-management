@@ -80,7 +80,9 @@ Feel free to apply new filters if you need to find something specific, but **ple
 # 2. Creating new projects and datasets
 
 ## 📂 Creating a project
-> ⚠️ **Before creating a project for the first time, add your GitHub username to your account details in DataMad.**
+
+> [!IMPORTANT]
+> _Before creating a project for the first time, add your GitHub username to your account details in DataMad._
 
 Projects are not created in GitHub directly. Project creation is triggered as part of the grant claiming process in DataMad. 
 
@@ -200,7 +202,8 @@ The automation script performs the following steps:
 2. Applies the relevant label to the issue (e.g. 'Annual check-in due')
 3. Sends out an email to all assignees containing the tasks to be completed
 
-> ⚠️ **Do not manually apply any of the corresponding labels for these milestones. If you add them manually, you will deactivate the email notification.**
+> [!CAUTION]
+> _Do not manually apply any of the corresponding labels for these milestones. If you add them manually, you will deactivate the email notification._
 
 ### Setting reminders
 Follow these steps to set a reminder:
@@ -219,7 +222,9 @@ Follow these steps to set a reminder:
 In task checklists, tasks with the alarm clock emoji (⏰) represent core workflow reminders which need to be set manually. You can also set custom reminders as needed.
 
 ### Receiving reminders
-> ⚠️ **For reminders to work, in your [your GitHub notification settings](https://github.com/settings/notifications), (1) set your default notifications email, and (2) turn on both `On Github` and `Email` notifications for Subscriptions.**
+
+> [!IMPORTANT]
+> _For reminders to work, update your [your GitHub notification settings](https://github.com/settings/notifications). Set your default notifications email, and turn on both `On Github` and `Email` notifications for Subscriptions._
 
 Reminders come through as emails. In task checklists, tasks with the waving hand emoji (👋) represent tasks which are prompted by an automated email.
 
