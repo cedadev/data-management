@@ -80,9 +80,9 @@ Feel free to apply new filters if you need to find something specific, but **ple
 # 2. Creating new projects and datasets
 
 ## 📂 Creating a project
-Projects are not created in GitHub directly. Project creation is triggered as part of the grant claiming process in DataMad. 
+> ⚠️ **Before creating a project for the first time, add your GitHub username to your account details in DataMad.**
 
-⚠️ **Before creating a project for the first time, add your GitHub username to your account details in DataMad.**
+Projects are not created in GitHub directly. Project creation is triggered as part of the grant claiming process in DataMad. 
 
 Create a project by claiming a grant in DataMad and clicking `Create GitHub issue`. This will create a project issue in GitHub which is auto-populated with the grant metadata stored in DataMad. **This will take a few moments to complete.**
 
@@ -187,14 +187,20 @@ Add a comment explaining the reason whenever a blocker label is applied.
 ## ⏰ Setting and receiving reminders
 The level of contact and engagement needed to keep data management on track varies widely depending on what stage a project is in. Set custom reminders when there's something to come back to later, and receive automated reminders for important milestones.
 
-### Built-in reminders
-The below reminders are already built in (using [GitHub Actions](https://docs.github.com/en/actions)), and do not need to be set manually:
+### Automated reminders
+You will receive automated reminders for the following project milestones:
 
 - `Annual check-in due`
 - `6-month check-in due`
 - `End date passed`
 
-When a built-in reminder is triggered, a label (e.g. 'Annual check-in due') will be applied to the issue, which triggers an email to all issue assignees. Once you have completed the reminded task, remove the label via the issue's right-hand sidebar, or directly in the `Label` field in a table view.
+The automation script performs the following steps:
+
+1. Checks the start and end dates in the project metadata fields
+2. Applies the relevant label to the issue (e.g. 'Annual check-in due')
+3. Sends out an email to all assignees containing the tasks to be completed
+
+> ⚠️ **Do not manually apply any of the corresponding labels for these milestones. If you add them manually, you will deactivate the email notification.**
 
 ### Setting reminders
 Follow these steps to set a reminder:
@@ -213,9 +219,9 @@ Follow these steps to set a reminder:
 In task checklists, tasks with the alarm clock emoji (⏰) represent core workflow reminders which need to be set manually. You can also set custom reminders as needed.
 
 ### Receiving reminders
-Reminders come through as emails. In task checklists, tasks with the waving hand emoji (👋) represent tasks which are prompted by an automated email.
+> ⚠️ **For reminders to work, in your [your GitHub notification settings](https://github.com/settings/notifications), (1) set your default notifications email, and (2) turn on both `On Github` and `Email` notifications for Subscriptions.**
 
-⚠️ **For reminders to work, in your [your GitHub notification settings](https://github.com/settings/notifications), (1) set your default notifications email, and (2) turn on both `On Github` and `Email` notifications for Subscriptions.**
+Reminders come through as emails. In task checklists, tasks with the waving hand emoji (👋) represent tasks which are prompted by an automated email.
 
 To keep your inbox tidy, set up a rule which routes your reminders to a dedicated folder; e.g. 'For messages which contain '[organisation-name/repo-name]' in the subject line', or 'For all messages from notifications@github.com'.
 
