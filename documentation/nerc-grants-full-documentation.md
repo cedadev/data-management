@@ -136,7 +136,7 @@ Update an issue's status by doing any of the following:
 ## ✅ Managing tasks with checklists
 Both project and dataset issues come with ready-made task checklists, providing one central place to keep on top of everything.
 
-Task checklists are broken down into chunks by status. Once you have completed all tasks for a given status, progress the issue to the next status. 
+Tasks are grouped by status. Once you have completed all tasks for a given status, progress the issue to the next status. 
 
 ## 📑 Recording information in metadata fields
 Both project and dataset issues have a set of metadata fields which record essential information. The majority of these fields are auto-populated. The fields which need to be updated manually are shown by the writing hand emoji (✍️) in the list below. Instructions for updating these fields are included in project and dataset task checklists.
