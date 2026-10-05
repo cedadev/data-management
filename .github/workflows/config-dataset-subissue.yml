@@ -17,7 +17,6 @@ permissions:
 
 jobs:
   configure-subissue:
-    if: ${{ github.event.issue.parent_issue_url != null }}
     runs-on: ubuntu-latest
 
     env:
@@ -39,92 +38,95 @@ jobs:
           echo "Configuring dataset sub-issue #$ISSUE_NUMBER"
 
           ####################################################################
-          # Get sub-issue and parent issue
+          # Wait for parent relationship and project item
           ####################################################################
-
-          ISSUE_DATA=$(gh api graphql -f query='
-          query($owner:String!, $repo:String!, $number:Int!) {
-            repository(owner:$owner, name:$repo) {
-              issue(number:$number) {
-                id
-                parent {
-                  number
+          
+          PARENT_NUMBER="null"
+          PARENT_ITEM=""
+          
+          for i in {1..6}; do
+          
+            echo "Looking for parent issue and project item (attempt $i/6)..."
+            
+            ISSUE_DATA=$(gh api graphql -f query='
+            query($owner:String!, $repo:String!, $number:Int!) {
+              repository(owner:$owner, name:$repo) {
+                issue(number:$number) {
+                  id
+                  parent {
+                    number
+                  }
                 }
               }
-            }
-          }' \
-          -f owner="$OWNER" \
-          -f repo="$REPO_NAME" \
-          -F number="$ISSUE_NUMBER")
+            }' \
+            -f owner="$OWNER" \
+            -f repo="$REPO_NAME" \
+            -F number="$ISSUE_NUMBER")
+            
+            CHILD_NODE_ID=$(echo "$ISSUE_DATA" | jq -r '
+              .data.repository.issue.id
+            ')
+            
+            PARENT_NUMBER=$(echo "$ISSUE_DATA" | jq -r '
+              .data.repository.issue.parent.number
+            ')
 
-          CHILD_NODE_ID=$(echo "$ISSUE_DATA" | jq -r '
-            .data.repository.issue.id
-          ')
+            if [ "$PARENT_NUMBER" = "null" ] || [ -z "$PARENT_NUMBER" ]; then
+              echo "Parent relationship not available yet."
+              sleep 5
+              continue
+            fi
 
-          PARENT_NUMBER=$(echo "$ISSUE_DATA" | jq -r '
-            .data.repository.issue.parent.number
-          ')
+            echo "Parent issue found: #$PARENT_NUMBER"
 
-          if [ "$PARENT_NUMBER" = "null" ]; then
-            echo "Issue is not a sub-issue."
-            exit 0
-          fi
-
-          ####################################################################
-          # Get parent project item and field values
-          ####################################################################
-
-          PARENT_DATA=$(gh api graphql -f query='
-          query($owner:String!, $repo:String!, $number:Int!) {
-            repository(owner:$owner, name:$repo) {
-              issue(number:$number) {
-                projectItems(first:20) {
-                  nodes {
-                    id
-                    project {
+            PARENT_DATA=$(gh api graphql -f query='
+            query($owner:String!, $repo:String!, $number:Int!) {
+              repository(owner:$owner, name:$repo) {
+                issue(number:$number) {
+                  projectItems(first:20) {
+                    nodes {
                       id
-                    }
-                    fieldValues(first:100) {
-                      nodes {
-                        __typename
-
-                        ... on ProjectV2ItemFieldTextValue {
-                          text
-                          field {
-                            ... on ProjectV2FieldCommon {
-                              id
-                              name
+                      project {
+                        id
+                      }
+                      fieldValues(first:100) {
+                        nodes {
+                          __typename
+                          ... on ProjectV2ItemFieldTextValue {
+                            text
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                id
+                                name
+                              }
                             }
                           }
-                        }
-
-                        ... on ProjectV2ItemFieldDateValue {
-                          date
-                          field {
-                            ... on ProjectV2FieldCommon {
-                              id
-                              name
+                          ... on ProjectV2ItemFieldDateValue {
+                            date
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                id
+                                name
+                              }
                             }
                           }
-                        }
-
-                        ... on ProjectV2ItemFieldNumberValue {
-                          number
-                          field {
-                            ... on ProjectV2FieldCommon {
-                              id
-                              name
+                          ... on ProjectV2ItemFieldNumberValue {
+                            number
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                id
+                                name
+                              }
                             }
                           }
-                        }
-
-                        ... on ProjectV2ItemFieldSingleSelectValue {
-                          optionId
-                          name
-                          field {
-                            ... on ProjectV2FieldCommon {
-                              id
-                              name
+                          ... on ProjectV2ItemFieldSingleSelectValue {
+                            optionId
+                            name
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                id
+                                name
+                              }
                             }
                           }
                         }
@@ -133,23 +135,36 @@ jobs:
                   }
                 }
               }
-            }
-          }' \
-          -f owner="$OWNER" \
-          -f repo="$REPO_NAME" \
-          -F number="$PARENT_NUMBER")
-
-          PARENT_ITEM=$(echo "$PARENT_DATA" | jq -c '
-            .data.repository.issue.projectItems.nodes
-            | map(select(.project.id != null))
-            | .[0] // empty
-          ')
-
-          if [ -z "$PARENT_ITEM" ]; then
-            echo "Parent issue is not in a project."
-            exit 1
+            }' \
+            -f owner="$OWNER" \
+            -f repo="$REPO_NAME" \
+            -F number="$PARENT_NUMBER")
+            
+            PARENT_ITEM=$(echo "$PARENT_DATA" | jq -c '
+              .data.repository.issue.projectItems.nodes
+              | map(select(.project.id != null))
+              | .[0] // empty
+            ')
+            
+            if [ -n "$PARENT_ITEM" ] && [ "$PARENT_ITEM" != "null" ]; then
+              echo "Parent project item found."
+              break
+            fi
+            
+            echo "Parent project item not available yet."
+            sleep 5
+          done
+          
+          if [ "$PARENT_NUMBER" = "null" ] || [ -z "$PARENT_NUMBER" ]; then
+            echo "Issue is not a sub-issue."
+            exit 0
           fi
-
+          
+          if [ -z "$PARENT_ITEM" ] || [ "$PARENT_ITEM" = "null" ]; then
+            echo "Parent issue is not in a project after waiting."
+            exit 0
+          fi
+          
           PROJECT_ID=$(echo "$PARENT_ITEM" | jq -r '.project.id')
 
           ####################################################################
